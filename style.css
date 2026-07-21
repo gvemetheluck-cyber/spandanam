@@ -1396,6 +1396,87 @@ button, input, select, textarea {
   height: 14px;
 }
 
+/* Preloader screen styles */
+.preloader-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--color-dark);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.6s;
+}
+
+.preloader-content {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+}
+
+.preloader-logo {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  border: 3px solid var(--color-accent);
+  box-shadow: 0 0 30px rgba(217, 119, 6, 0.3);
+  animation: preloader-pulse 2s infinite ease-in-out;
+}
+
+.preloader-bar {
+  width: 180px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+}
+
+.preloader-progress {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, var(--color-accent), var(--color-secondary));
+  animation: preloader-charge 1.8s cubic-bezier(0.65, 0.05, 0.36, 1) infinite;
+  transform-origin: left center;
+}
+
+.preloader-title {
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  color: var(--color-light);
+  letter-spacing: 0.02em;
+}
+
+.preloader-subtitle {
+  font-size: 0.8rem;
+  color: var(--color-accent);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+@keyframes preloader-pulse {
+  0% { transform: scale(1); opacity: 0.8; }
+  50% { transform: scale(1.08); opacity: 1; box-shadow: 0 0 45px rgba(217, 119, 6, 0.5); }
+  100% { transform: scale(1); opacity: 0.8; }
+}
+
+@keyframes preloader-charge {
+  0% { transform: scaleX(0); }
+  50% { transform: scaleX(1); }
+  100% { transform: scaleX(0); transform-origin: right center; }
+}
+
+.preloader-overlay.fade-out {
+  opacity: 0;
+  visibility: hidden;
+}
+
 /* Responsive Adjustments */
 
 @media (max-width: 1024px) {
@@ -1475,13 +1556,14 @@ button, input, select, textarea {
   .book-viewport {
     overflow: visible;
   }
-  
-  .book-container {
-    width: 100%;
-    max-width: 380px;
-    height: 500px;
-    perspective: 1000px; /* Perspective enabled for mobile 3D */
-  }
+    .book-container {
+      width: 90vw;
+      height: calc(90vw * 1.33); /* Perfect 3:4 aspect ratio scale */
+      max-width: 380px;
+      max-height: 506px;
+      margin: 0 auto;
+      perspective: 1000px; /* Perspective enabled for mobile 3D */
+    }
   
   .book {
     transform-style: preserve-3d; /* Support 3D Y-axis flips */
@@ -1573,15 +1655,24 @@ button, input, select, textarea {
     justify-content: center;
     gap: 8px;
   }
-  
-  .viewer-controls-bar {
-    padding: 16px;
-  }
-  
-  .control-actions {
-    width: 100%;
-    justify-content: space-between;
-  }
+    .viewer-controls-bar {
+      flex-direction: column;
+      gap: 16px;
+      padding: 20px;
+      align-items: center;
+    }
+    
+    .control-group {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .control-actions {
+      width: 100%;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
 
   .magazine-info-card {
     grid-template-columns: 1fr;

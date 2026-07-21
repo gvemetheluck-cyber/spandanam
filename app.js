@@ -76,6 +76,15 @@ const STATIC_MAGAZINES = [
 
 // Initialize the Application
 document.addEventListener('DOMContentLoaded', () => {
+  // Preloader welcome fade-out
+  const preloader = document.getElementById('preloader');
+  if (preloader) {
+    setTimeout(() => {
+      preloader.classList.add('fade-out');
+      document.body.classList.add('loaded');
+    }, 1500);
+  }
+
   initIcons();
   initHeader();
   initIndexedDB()

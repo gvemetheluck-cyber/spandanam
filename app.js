@@ -85,6 +85,38 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 1500);
   }
 
+  // Side navigation dots scroll & click handlers
+  const dots = document.querySelectorAll('.dot-nav');
+  const sections = document.querySelectorAll('section');
+
+  dots.forEach(dot => {
+    dot.addEventListener('click', (e) => {
+      e.preventDefault();
+      const targetId = dot.getAttribute('data-section');
+      const targetSection = document.getElementById(targetId);
+      if (targetSection) {
+        targetSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+  });
+
+  window.addEventListener('scroll', () => {
+    let currentSectionId = 'home';
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      if (window.scrollY >= sectionTop - window.innerHeight / 2) {
+        currentSectionId = section.getAttribute('id');
+      }
+    });
+
+    dots.forEach(dot => {
+      dot.classList.remove('active');
+      if (dot.getAttribute('data-section') === currentSectionId) {
+        dot.classList.add('active');
+      }
+    });
+  });
+
   initIcons();
   initHeader();
   initIndexedDB()

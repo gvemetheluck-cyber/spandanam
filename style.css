@@ -466,6 +466,7 @@ button, input, select, textarea {
   padding: 100px 0;
   background-color: rgba(15, 23, 42, 0.95);
   position: relative;
+  overflow-x: hidden;
 }
 
 .section-container {
@@ -546,6 +547,7 @@ button, input, select, textarea {
   background: radial-gradient(circle at 50% 50%, rgba(6, 78, 59, 0.15) 0%, rgba(15, 23, 42, 1) 100%);
   border-top: 1px solid rgba(255, 255, 255, 0.02);
   border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+  overflow-x: hidden;
 }
 
 /* Controls Bar */
@@ -557,6 +559,8 @@ button, input, select, textarea {
   flex-wrap: wrap;
   gap: 20px;
   margin-bottom: 40px;
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .control-group {
@@ -594,6 +598,8 @@ button, input, select, textarea {
   display: flex;
   align-items: center;
   gap: 12px;
+  flex-wrap: wrap;
+  box-sizing: border-box;
 }
 
 .control-btn {
@@ -1263,6 +1269,7 @@ button, input, select, textarea {
   border-top: 1px solid rgba(217, 119, 6, 0.15);
   padding: 80px 0 24px;
   color: var(--color-muted);
+  overflow-x: hidden;
 }
 
 .footer-container {
@@ -1475,6 +1482,75 @@ button, input, select, textarea {
 .preloader-overlay.fade-out {
   opacity: 0;
   visibility: hidden;
+}
+
+/* Side Navigation Dots */
+.side-nav-dots {
+  position: fixed;
+  right: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2000; /* High z-index to stay on top and stable */
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: rgba(15, 23, 42, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 16px 10px;
+  border-radius: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: var(--shadow-lg);
+  transition: opacity var(--transition-normal);
+}
+
+.dot-nav {
+  position: relative;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  background: transparent;
+  cursor: pointer;
+  transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.25s, background-color 0.25s;
+}
+
+.dot-nav:hover, .dot-nav.active {
+  border-color: var(--color-accent);
+  background-color: var(--color-accent);
+  transform: scale(1.3);
+  box-shadow: 0 0 10px rgba(217, 119, 6, 0.6);
+}
+
+/* Tooltip labels on hover */
+.dot-label {
+  position: absolute;
+  right: 25px;
+  top: 50%;
+  transform: translateY(-50%) translateX(10px);
+  background: rgba(15, 23, 42, 0.95);
+  color: var(--color-accent);
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.25s ease, opacity 0.25s ease;
+  white-space: nowrap;
+  border: 1px solid rgba(217, 119, 6, 0.2);
+}
+
+.dot-nav:hover .dot-label {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+
+/* Hide side dots on small screens */
+@media (max-width: 1024px) {
+  .side-nav-dots {
+    display: none;
+  }
 }
 
 /* Responsive Adjustments */

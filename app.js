@@ -6,7 +6,7 @@ let currentSheetIndex = 0; // For desktop (3D flip)
 let currentMobilePageIndex = 0; // For mobile (single page slide)
 let loadedMagazines = [];
 let db = null;
-let uploadFiles = []; // Array of selected File objects for uploading
+let prevMobilePageIndex = 0; // Track previous page for mobile transitions
 
 // Static default magazine registration
 const STATIC_MAGAZINES = [
@@ -368,13 +368,27 @@ function updateBookLayout() {
   const numSheets = sheets.length;
 
   if (isMobile) {
-    // Mobile slide display
+    // Mobile slide display with page-turning animations
     sheets.forEach((sheet, idx) => {
-      sheet.classList.remove('active-sheet');
+      sheet.classList.remove('active-sheet', 'turn-enter-next', 'turn-exit-next', 'turn-enter-prev', 'turn-exit-prev');
+      
       if (idx === currentMobilePageIndex) {
         sheet.classList.add('active-sheet');
+        if (currentMobilePageIndex > prevMobilePageIndex) {
+          sheet.classList.add('turn-enter-next');
+        } else if (currentMobilePageIndex < prevMobilePageIndex) {
+          sheet.classList.add('turn-enter-prev');
+        }
+      } else if (idx === prevMobilePageIndex) {
+        if (currentMobilePageIndex > prevMobilePageIndex) {
+          sheet.classList.add('turn-exit-next');
+        } else if (currentMobilePageIndex < prevMobilePageIndex) {
+          sheet.classList.add('turn-exit-prev');
+        }
       }
     });
+    
+    prevMobilePageIndex = currentMobilePageIndex;
   } else {
     // Desktop 3D Page flip layout
     sheets.forEach((sheet, idx) => {
@@ -481,6 +495,15 @@ function flipPrev() {
 // Event Listeners Configuration
 // ----------------------------------------------------
 function setupEventListeners() {
+  // Click Featured Issue to scroll to reader
+  const heroCard = document.querySelector('.hero-preview-card');
+  if (heroCard) {
+    heroCard.style.cursor = 'pointer';
+    heroCard.addEventListener('click', () => {
+      document.getElementById('viewer').scrollIntoView({ behavior: 'smooth' });
+    });
+  }
+
   // Dropdown selector
   const select = document.getElementById('magazineSelect');
   select.addEventListener('change', (e) => {
@@ -578,173 +601,7 @@ function setupEventListeners() {
     }, 250);
   });
 
-  // ----------------------------------------------------
-  // Admin & Uploader Event Handlers
-  // ----------------------------------------------------
-  const dragDropZone = document.getElementById('dragDropZone');
-  const fileInput = document.getElementById('fileInput');
-  const uploadForm = document.getElementById('uploadForm');
 
-  // Drag Drop Animations
-  ['dragenter', 'dragover'].forEach(eventName => {
-    dragDropZone.addEventListener(eventName, (e) => {
-      e.preventDefault();
-      dragDropZone.classList.add('dragover');
-    }, false);
-  });
-
-  ['dragleave', 'drop'].forEach(eventName => {
-    dragDropZone.addEventListener(eventName, (e) => {
-      e.preventDefault();
-      dragDropZone.classList.remove('dragover');
-    }, false);
-  });
-
-  // File Drop
-  dragDropZone.addEventListener('drop', (e) => {
-    const dt = e.dataTransfer;
-    const files = Array.from(dt.files);
-    handleSelectedFiles(files);
-  });
-
-  // File Browse Click
-  fileInput.addEventListener('change', (e) => {
-    const files = Array.from(e.target.files);
-    handleSelectedFiles(files);
-  });
-
-  // Handle files selection
-  function handleSelectedFiles(files) {
-    // Filter to images only
-    const imageFiles = files.filter(file => file.type.startsWith('image/'));
-    
-    if (imageFiles.length === 0) {
-      showToast("Please select image files (PNG, JPG) only.", "error");
-      return;
-    }
-
-    // Add to our global files list
-    uploadFiles = [...uploadFiles, ...imageFiles];
-    renderUploadPreviews();
-  }
-
-  // Render file previews in upload panel
-  function renderUploadPreviews() {
-    const previewList = document.getElementById('filePreviewList');
-    previewList.innerHTML = '';
-
-    uploadFiles.forEach((file, index) => {
-      const containerDiv = document.createElement('div');
-      containerDiv.className = 'preview-thumbnail';
-
-      const img = document.createElement('img');
-      img.src = URL.createObjectURL(file);
-      
-      const removeBtn = document.createElement('button');
-      removeBtn.className = 'remove-badge';
-      removeBtn.innerHTML = '&times;';
-      removeBtn.type = 'button';
-      removeBtn.addEventListener('click', () => {
-        uploadFiles.splice(index, 1);
-        renderUploadPreviews();
-      });
-
-      const pageBadge = document.createElement('span');
-      pageBadge.className = 'page-num-badge';
-      pageBadge.textContent = `Page ${index + 1}`;
-
-      containerDiv.appendChild(img);
-      containerDiv.appendChild(removeBtn);
-      containerDiv.appendChild(pageBadge);
-      previewList.appendChild(containerDiv);
-    });
-
-    // Update form required states
-    if (uploadFiles.length > 0) {
-      fileInput.removeAttribute('required');
-    } else {
-      fileInput.setAttribute('required', '');
-    }
-  }
-
-  // Handle Form Submit (Magazine Upload)
-  uploadForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    const desc = document.getElementById('magDesc').value.trim();
-    const writersVal = document.getElementById('magWriters').value.trim();
-
-    if (!desc) {
-      showToast("Please enter the volume / description info.", "error");
-      return;
-    }
-
-    if (uploadFiles.length === 0) {
-      showToast("Please upload at least one page image.", "error");
-      return;
-    }
-
-    const submitBtn = document.getElementById('submitBtn');
-    submitBtn.disabled = true;
-    submitBtn.innerHTML = `<i data-lucide="loader"></i> Saving to Database...`;
-    initIcons();
-
-    // Read and convert all images to Base64 data strings sequentially
-    const readPromises = uploadFiles.map(file => {
-      return new Promise((resolve) => {
-        const reader = new FileReader();
-        reader.onloadend = () => resolve(reader.result);
-        reader.readAsDataURL(file);
-      });
-    });
-
-    Promise.all(readPromises)
-      .then(base64Images => {
-        // Parse writers list
-        const writersArray = writersVal ? writersVal.split(',').map(s => s.trim()).filter(Boolean) : [];
-        
-        // Use description as title, write a generic date description
-        const formattedDate = new Date().toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
-        
-        const newMagazine = {
-          id: 'mag_' + Date.now(),
-          title: desc,
-          description: `Uploaded on ${formattedDate}`,
-          writers: writersArray,
-          pages: base64Images
-        };
-
-        return saveMagazineToDB(newMagazine);
-      })
-      .then(() => {
-        showToast("Magazine published successfully!", "success");
-        uploadForm.reset();
-        uploadFiles = [];
-        renderUploadPreviews();
-        
-        // Reload list and select the new magazine
-        return loadAllMagazines();
-      })
-      .then(() => {
-        populateMagazineDropdown();
-        // Select the newest magazine
-        const newestId = loadedMagazines[loadedMagazines.length - 1].id;
-        document.getElementById('magazineSelect').value = newestId;
-        selectMagazine(newestId);
-        
-        // Scroll to reader viewport
-        document.getElementById('viewer').scrollIntoView({ behavior: 'smooth' });
-      })
-      .catch(err => {
-        console.error("Save error:", err);
-        showToast("Failed to save magazine: " + err.message, "error");
-      })
-      .finally(() => {
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = `<i data-lucide="save"></i> Publish to Library`;
-        initIcons();
-      });
-  });
 }
 
 // Update Magazine Details and Writers List in UI

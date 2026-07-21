@@ -386,6 +386,19 @@ button, input, select, textarea {
   box-shadow: var(--shadow-xl);
   max-width: 380px;
   margin-left: auto;
+  animation: float 4s ease-in-out infinite;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hero-preview-card:hover {
+  transform: scale(1.05) rotate(3deg);
+  box-shadow: 0 15px 30px rgba(217, 119, 6, 0.25);
+}
+
+@keyframes float {
+  0% { transform: translateY(0px) rotate(3deg); }
+  50% { transform: translateY(-12px) rotate(3deg); }
+  100% { transform: translateY(0px) rotate(3deg); }
 }
 
 .hero-preview-card::before {
@@ -595,12 +608,17 @@ button, input, select, textarea {
   gap: 6px;
   font-weight: 500;
   font-size: 0.9rem;
-  transition: var(--transition-fast);
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.2s, border-color 0.2s;
 }
 
 .control-btn:hover {
   background: var(--color-primary);
   border-color: var(--color-accent);
+  transform: translateY(-2px) scale(1.05);
+}
+
+.control-btn:active {
+  transform: translateY(0) scale(0.96);
 }
 
 .page-indicator {
@@ -630,13 +648,18 @@ button, input, select, textarea {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: var(--transition-fast);
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.2s, color 0.2s, border-color 0.2s;
 }
 
 .icon-btn:hover {
   background: var(--color-accent);
   color: var(--color-dark);
   border-color: var(--color-accent);
+  transform: translateY(-2px) scale(1.08);
+}
+
+.icon-btn:active {
+  transform: translateY(0) scale(0.95);
 }
 
 /* 3D Book Viewport and Animation Engine */
@@ -1422,7 +1445,8 @@ button, input, select, textarea {
   .nav-menu {
     position: fixed;
     top: var(--header-height);
-    left: -100%;
+    left: 0;
+    transform: translateX(-100%);
     width: 100%;
     height: calc(100vh - var(--header-height));
     background: rgba(15, 23, 42, 0.98);
@@ -1430,20 +1454,16 @@ button, input, select, textarea {
     flex-direction: column;
     padding: 60px 40px;
     gap: 40px;
-    transition: var(--transition-normal);
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 999;
   }
   
   .nav-menu.active {
-    left: 0;
+    transform: translateX(0);
   }
   
   .nav-link {
     font-size: 1.2rem;
-  }
-  
-  .upload-btn-nav {
-    margin-top: 20px;
   }
   
   .footer-container {
@@ -1451,20 +1471,20 @@ button, input, select, textarea {
     gap: 32px;
   }
   
-  /* FLATTEN BOOK FOR MOBILE: Change from 3D turn to simple horizontal slider */
+  /* 3D Page Turn animations for mobile */
   .book-viewport {
-    overflow: hidden;
+    overflow: visible;
   }
   
   .book-container {
     width: 100%;
     max-width: 380px;
     height: 500px;
-    perspective: none; /* Turn off 3D perspective */
+    perspective: 1000px; /* Perspective enabled for mobile 3D */
   }
   
   .book {
-    transform-style: flat; /* Simplify render */
+    transform-style: preserve-3d; /* Support 3D Y-axis flips */
     width: 100%;
     height: 100%;
   }
@@ -1474,19 +1494,58 @@ button, input, select, textarea {
   }
   
   .sheet {
-    width: 100% !important; /* Full width for single pages */
+    width: 100% !important;
     left: 0 !important;
     right: 0 !important;
-    transform-origin: center center !important;
-    transform-style: flat !important;
-    display: none; /* Control display via JS state classes on mobile */
+    transform-origin: left center !important; /* Rotate around left edge */
+    transform-style: preserve-3d !important;
+    display: none;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
   }
   
-  /* Simple Swipe States on Mobile */
   .sheet.active-sheet {
     display: block;
     z-index: 10;
-    transform: none !important;
+  }
+  
+  /* Mobile 3D Page Turn Keyframes & Animations */
+  @keyframes turnEnterNext {
+    from { transform: rotateY(90deg); opacity: 0; }
+    to { transform: rotateY(0deg); opacity: 1; }
+  }
+  @keyframes turnExitNext {
+    from { transform: rotateY(0deg); opacity: 1; }
+    to { transform: rotateY(-90deg); opacity: 0; }
+  }
+  @keyframes turnEnterPrev {
+    from { transform: rotateY(-90deg); opacity: 0; }
+    to { transform: rotateY(0deg); opacity: 1; }
+  }
+  @keyframes turnExitPrev {
+    from { transform: rotateY(0deg); opacity: 1; }
+    to { transform: rotateY(90deg); opacity: 0; }
+  }
+
+  .sheet.turn-enter-next {
+    animation: turnEnterNext 0.7s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    display: block !important;
+    z-index: 20;
+  }
+  .sheet.turn-exit-next {
+    animation: turnExitNext 0.7s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    display: block !important;
+    z-index: 10;
+  }
+  .sheet.turn-enter-prev {
+    animation: turnEnterPrev 0.7s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    display: block !important;
+    z-index: 20;
+  }
+  .sheet.turn-exit-prev {
+    animation: turnExitPrev 0.7s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    display: block !important;
+    z-index: 10;
   }
   
   .sheet.active-sheet .page.front {

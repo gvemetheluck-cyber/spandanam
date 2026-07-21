@@ -138,6 +138,25 @@ button, input, select, textarea {
   box-shadow: var(--shadow-md);
 }
 
+.logo-image {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--color-accent);
+  box-shadow: var(--shadow-md);
+}
+
+.logo-image-footer {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--color-accent);
+  margin-bottom: 12px;
+  box-shadow: var(--shadow-md);
+}
+
 .logo-text {
   display: flex;
   flex-direction: column;

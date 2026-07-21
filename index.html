@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Madarasathul Hasaniya - Digital Handwritten Magazine Portal</title>
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Explore the digital handwritten magazine portal of Madarasathul Hasaniya. A premium, interactive 3D page-flipping magazine viewer celebrating student literature, calligraphy, and creative arts.">
+  <meta name="keywords" content="Madarasathul Hasaniya, Digital Magazine, Handwritten Magazine, Book Flip Viewer, Arabic Calligraphy, Student Creativity">
+  <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📖</text></svg>">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- Lucide Icons for Modern UI Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <!-- Premium Floating Navigation Header -->
+  <header class="main-header" id="mainHeader">
+    <div class="header-container">
+      <a href="#" class="logo-area">
+        <div class="logo-icon">MH</div>
+        <div class="logo-text">
+          <span class="title-primary">MADARASATHUL HASANIYA</span>
+          <span class="title-secondary">Digital Magazine Portal</span>
+        </div>
+      </a>
+      
+      <nav class="nav-menu" id="navMenu">
+        <a href="#home" class="nav-link active">Home</a>
+        <a href="#about" class="nav-link">About</a>
+        <a href="#viewer" class="nav-link">Magazine Reader</a>
+        <a href="#upload" class="nav-link upload-btn-nav"><i data-lucide="upload-cloud"></i> Upload Center</a>
+      </nav>
+      
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle Navigation">
+        <i data-lucide="menu"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section" id="home">
+    <div class="hero-bg-overlay"></div>
+    <div class="hero-container">
+      <div class="hero-content">
+        <div class="tagline"><i data-lucide="sparkles"></i> Preserving Creative Heritage</div>
+        <h1>Where Handwritten Art Meets <span class="gradient-text">Digital Innovation</span></h1>
+        <p>Step into the rich archive of student literature, detailed illustrations, and beautiful Arabic calligraphy from Madarasathul Hasaniya. Experience them through our realistic 3D flipping magazine reader.</p>
+        <div class="hero-actions">
+          <a href="#viewer" class="btn btn-primary"><i data-lucide="book-open"></i> Read Latest Issue</a>
+          <a href="#upload" class="btn btn-secondary"><i data-lucide="plus-circle"></i> Contribute Magazine</a>
+        </div>
+      </div>
+      <div class="hero-image-container">
+        <div class="glass-card hero-preview-card">
+          <div class="preview-badge">Featured Issue</div>
+          <div class="preview-img-wrapper">
+            <img src="assets/default_magazine/spandanam_1.jpg" alt="Magazine Cover Preview" id="heroPreviewImg">
+          </div>
+          <div class="preview-details">
+            <h3>Spandanam</h3>
+            <p>Student Handwritten Magazine</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About / School Intro Section -->
+  <section class="about-section" id="about">
+    <div class="section-container">
+      <div class="section-header">
+        <span class="section-subtitle">Heritage & Creativity</span>
+        <h2>About Our Magazine</h2>
+        <div class="header-divider"></div>
+      </div>
+      
+      <div class="about-grid">
+        <div class="about-card glass-card">
+          <div class="card-icon"><i data-lucide="edit-3"></i></div>
+          <h3>Handwritten Masterpieces</h3>
+          <p>Every page is crafted by hand by the talented students of Madarasathul Hasaniya. From calligraphy to hand-drawn sketches, it represents raw literary and artistic skill.</p>
+        </div>
+        <div class="about-card glass-card">
+          <div class="card-icon"><i data-lucide="book-open"></i></div>
+          <h3>Realistic 3D Turn</h3>
+          <p>Read the magazine just like a physical book. Flip pages, feel the paper physics, and zoom in to inspect details. Responsively optimized for both desktops and mobile touchscreens.</p>
+        </div>
+        <div class="about-card glass-card">
+          <div class="card-icon"><i data-lucide="archive"></i></div>
+          <h3>Permanent Digital Library</h3>
+          <p>Our online portal ensures that every volume published remains accessible. Upload and preserve your works so that generations can experience your creative expression.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Magazine Viewer Section -->
+  <section class="viewer-section" id="viewer">
+    <div class="section-container">
+      <div class="section-header">
+        <span class="section-subtitle">Interactive Experience</span>
+        <h2>Digital Magazine Library</h2>
+        <div class="header-divider"></div>
+      </div>
+      
+      <!-- Selection & Controls Bar -->
+      <div class="viewer-controls-bar glass-card">
+        <div class="control-group">
+          <label for="magazineSelect"><i data-lucide="layers"></i> Choose Issue:</label>
+          <select id="magazineSelect" class="custom-select">
+            <!-- Dynamically populated options -->
+          </select>
+        </div>
+        
+        <div class="control-actions">
+          <button id="prevBtn" class="control-btn" title="Previous Page"><i data-lucide="chevron-left"></i> Prev</button>
+          <span id="pageIndicator" class="page-indicator">Page 1 / 4</span>
+          <button id="nextBtn" class="control-btn" title="Next Page">Next <i data-lucide="chevron-right"></i></button>
+          
+          <div class="divider"></div>
+          
+          <button id="zoomBtn" class="icon-btn" title="Zoom/Fullscreen"><i data-lucide="maximize-2"></i></button>
+          <button id="resetBtn" class="icon-btn" title="Reset View"><i data-lucide="refresh-cw"></i></button>
+        </div>
+      </div>
+      
+      <!-- Interactive Book Container -->
+      <div class="book-viewport" id="bookViewport">
+        <div class="book-container" id="bookContainer">
+          <div class="book" id="magazineBook">
+            <!-- Dynamic pages populated by JavaScript -->
+          </div>
+        </div>
+        
+        <!-- Navigation Areas for clicking margins -->
+        <div class="nav-zone left-nav-zone" id="leftNavZone" title="Click to flip back"></div>
+        <div class="nav-zone right-nav-zone" id="rightNavZone" title="Click to flip forward"></div>
+      </div>
+      
+      <!-- Mobile Swipe/Tap Indicator -->
+      <div class="mobile-tip">
+        <i data-lucide="hand"></i> Swipe or tap the edges to turn pages
+      </div>
+
+      <!-- Magazine Details & Writers Box -->
+      <div class="magazine-info-card glass-card" id="magazineInfoCard">
+        <div class="info-meta">
+          <h3 id="infoTitle">Spandanam</h3>
+          <p id="infoDesc">Student Handwritten Magazine</p>
+        </div>
+        <div class="info-writers">
+          <h4><i data-lucide="feather"></i> Magazine Writers</h4>
+          <div class="writers-list" id="writersList">
+            <!-- Populated dynamically by JavaScript -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Upload Center / Admin Panel -->
+  <section class="upload-section" id="upload">
+    <div class="section-container">
+      <div class="upload-grid">
+        <div class="upload-info">
+          <span class="section-subtitle">Contribute</span>
+          <h2>Upload a Scanned Magazine</h2>
+          <div class="header-divider left-align"></div>
+          <p>Are you an editor or admin of Madarasathul Hasaniya? Upload the scanned images of a newly created handwritten or digital magazine to expand our library.</p>
+          
+          <div class="info-bullets">
+            <div class="bullet-item">
+              <i data-lucide="check-circle-2"></i>
+              <span><strong>Supported Formats:</strong> PNG, JPG, or JPEG scanned pages.</span>
+            </div>
+            <div class="bullet-item">
+              <i data-lucide="check-circle-2"></i>
+              <span><strong>Permanent Retention:</strong> Uploaded magazines persist in your local browser storage permanently.</span>
+            </div>
+            <div class="bullet-item">
+              <i data-lucide="check-circle-2"></i>
+              <span><strong>Order of Upload:</strong> Upload files in order (Page 1 cover, Page 2, Page 3, etc.).</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="upload-form-container glass-card">
+          <form id="uploadForm" class="upload-form">
+            <div class="form-group">
+              <label for="magDesc">Description / Volume Info <span class="required">*</span></label>
+              <input type="text" id="magDesc" placeholder="e.g. Spandanam - Vol 3 (Milad-un-Nabi Festival 2026)" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="magWriters">Writers / Contributors (comma-separated)</label>
+              <input type="text" id="magWriters" placeholder="e.g. Rashid KB, Fathima Nuha, Muhammed Anas">
+            </div>
+            
+            <div class="form-group">
+              <label>Select Page Images (in order) <span class="required">*</span></label>
+              <div class="drag-drop-zone" id="dragDropZone">
+                <i data-lucide="image" class="upload-icon"></i>
+                <p>Drag & drop scanned page images here or <span>browse files</span></p>
+                <span class="file-limits">Select multiple files (JPG, PNG)</span>
+                <input type="file" id="fileInput" accept="image/png, image/jpeg" multiple required class="file-input-hidden">
+              </div>
+            </div>
+            
+            <!-- File preview list -->
+            <div class="file-preview-list" id="filePreviewList">
+              <!-- Dynamically populated files -->
+            </div>
+            
+            <button type="submit" class="btn btn-primary btn-block" id="submitBtn">
+              <i data-lucide="save"></i> Publish to Library
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- Notification Banner -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="footer-container">
+      <div class="footer-info">
+        <div class="logo-icon">MH</div>
+        <h3>Madarasathul Hasaniya</h3>
+        <p>A leading light in holistic religious and modern education, nurturing literary and creative skills in our students.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Navigation</h4>
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#viewer">Reader</a>
+        <a href="#upload">Upload</a>
+      </div>
+      <div class="footer-contact">
+        <h4>Contact Info</h4>
+        <p><i data-lucide="map-pin"></i> Hasaniya Campus, Kerala, India</p>
+        <p><i data-lucide="mail"></i> info@hasaniyya.edu.in</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Madarasathul Hasaniya. All rights reserved. Designed for handwritten magazine preservation.</p>
+    </div>
+  </footer>
+
+  <!-- App Script -->
+  <script src="app.js"></script>
+</body>
+</html>

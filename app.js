@@ -751,7 +751,7 @@ function showToast(message, type = 'success') {
 }
 
 // ----------------------------------------------------
-// Sweet Of Mahabba - Meelad Fest Program Management & Result Generator
+// Sweet Of Mahabba - Meelad Fest Result Generator & Published Portal
 // ----------------------------------------------------
 
 let meeladResults = [
@@ -794,12 +794,146 @@ let meeladResults = [
       { place: 2, name: 'Team Uhud Group', chestNo: '200', team: 'Uhud', grade: 'A+', points: 7 },
       { place: 3, name: 'Team Thabuk Group', chestNo: '300', team: 'Thabuk', grade: 'A', points: 5 }
     ]
+  },
+  {
+    id: 'res_5',
+    category: 'Senior',
+    item: 'Arabic Elocution & Speech',
+    winners: [
+      { place: 1, name: 'Zubair Al-Hasani', chestNo: '105', team: 'Badr', grade: 'A+', points: 10 },
+      { place: 2, name: 'Bilal Ahammed', chestNo: '208', team: 'Uhud', grade: 'A', points: 7 },
+      { place: 3, name: 'Rashid K.T.', chestNo: '410', team: 'Hudaibiyya', grade: 'A', points: 5 }
+    ]
+  },
+  {
+    id: 'res_6',
+    category: 'Junior',
+    item: 'Quran Memorization (Hifz)',
+    winners: [
+      { place: 1, name: 'Aisha Raihana', chestNo: '310', team: 'Thabuk', grade: 'A+', points: 10 },
+      { place: 2, name: 'Fathima Riza', chestNo: '112', team: 'Badr', grade: 'A+', points: 7 },
+      { place: 3, name: 'Mariyam Bilal', chestNo: '215', team: 'Uhud', grade: 'A', points: 5 }
+    ]
   }
 ];
 
 function initMeeladFestSystem() {
+  populateItemSelectOptions();
   renderMeeladResults();
+  renderMeeladLeaderboard();
   setupMeeladFilters();
+  initMeeladTabs();
+  setupResultGenerator();
+  setupModalEvents();
+}
+
+function populateItemSelectOptions() {
+  const itemSelect = document.getElementById('itemSelect');
+  if (!itemSelect) return;
+  itemSelect.innerHTML = '<option value="all">All Published Items</option>';
+  meeladResults.forEach(res => {
+    const opt = document.createElement('option');
+    opt.value = res.id;
+    opt.textContent = `${res.item} (${res.category})`;
+    itemSelect.appendChild(opt);
+  });
+}
+
+function setupResultGenerator() {
+  const genBtn = document.getElementById('generateResultBtn');
+  if (!genBtn) return;
+
+  genBtn.addEventListener('click', () => {
+    const chestInput = (document.getElementById('chestNoInput')?.value || '').trim();
+    const itemVal = document.getElementById('itemSelect')?.value || 'all';
+
+    let foundWinner = null;
+    let foundResult = null;
+
+    if (chestInput) {
+      for (const res of meeladResults) {
+        const w = res.winners.find(win => win.chestNo.toLowerCase() === chestInput.toLowerCase());
+        if (w) {
+          foundWinner = w;
+          foundResult = res;
+          break;
+        }
+      }
+    } else if (itemVal !== 'all') {
+      foundResult = meeladResults.find(res => res.id === itemVal);
+      if (foundResult && foundResult.winners.length > 0) {
+        foundWinner = foundResult.winners[0];
+      }
+    } else {
+      foundResult = meeladResults[0];
+      foundWinner = foundResult.winners[0];
+    }
+
+    if (foundWinner && foundResult) {
+      openResultModal(foundWinner, foundResult);
+      showToast(`Generated Official Result Certificate for #${foundWinner.chestNo} (${foundWinner.name})!`, 'success');
+    } else {
+      showToast(`No published result found for Chest No #${chestInput}. Please check the chest number.`, 'error');
+    }
+  });
+}
+
+function openResultModal(winner, result) {
+  const modal = document.getElementById('resultModal');
+  if (!modal) return;
+
+  document.getElementById('certStudentName').textContent = winner.name;
+  document.getElementById('certChestNo').textContent = `#${winner.chestNo}`;
+  
+  const teamBadge = document.getElementById('certTeamBadge');
+  teamBadge.textContent = winner.team;
+  teamBadge.className = `team-badge-pill team-${winner.team}`;
+
+  document.getElementById('certItemName').textContent = result.item;
+  document.getElementById('certCategory').textContent = result.category;
+  document.getElementById('certGrade').textContent = winner.grade;
+  document.getElementById('certPoints').textContent = `${winner.points} Points`;
+
+  let rankIcon = '🥇';
+  let rankTitle = 'FIRST PLACE';
+  if (winner.place === 2) { rankIcon = '🥈'; rankTitle = 'SECOND PLACE'; }
+  if (winner.place === 3) { rankIcon = '🥉'; rankTitle = 'THIRD PLACE'; }
+
+  document.getElementById('certRankIcon').textContent = rankIcon;
+  document.getElementById('certRankTitle').textContent = rankTitle;
+
+  modal.classList.add('active');
+  initIcons();
+}
+
+function setupModalEvents() {
+  const modal = document.getElementById('resultModal');
+  const closeBtn = document.getElementById('closeResultModal');
+  const printBtn = document.getElementById('printCertBtn');
+
+  if (closeBtn && modal) {
+    closeBtn.addEventListener('click', () => {
+      modal.classList.remove('active');
+    });
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.remove('active');
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('active')) {
+        modal.classList.remove('active');
+      }
+    });
+  }
+
+  if (printBtn) {
+    printBtn.addEventListener('click', () => {
+      window.print();
+    });
+  }
 }
 
 // Tab Switching
@@ -894,16 +1028,13 @@ function renderMeeladResults() {
   const searchVal = (document.getElementById('resultSearchInput')?.value || '').toLowerCase();
 
   const filtered = meeladResults.filter(res => {
-    // Category match
     if (categoryVal !== 'all' && res.category !== categoryVal) return false;
 
-    // Team match (if any winner in result matches teamVal)
     if (teamVal !== 'all') {
       const hasTeam = res.winners.some(w => w.team.toLowerCase() === teamVal.toLowerCase());
       if (!hasTeam) return false;
     }
 
-    // Search query match
     if (searchVal) {
       const matchItem = res.item.toLowerCase().includes(searchVal);
       const matchCategory = res.category.toLowerCase().includes(searchVal);
@@ -918,7 +1049,7 @@ function renderMeeladResults() {
 
   grid.innerHTML = '';
   if (filtered.length === 0) {
-    grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; color: var(--color-muted); padding: 40px;">No competition results found matching your search.</div>`;
+    grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; color: var(--color-muted); padding: 40px;">No published competition results found matching your search.</div>`;
     return;
   }
 
@@ -933,7 +1064,7 @@ function renderMeeladResults() {
       if (w.place === 3) placeIcon = '🥉';
 
       winnersHtml += `
-        <div class="winner-item-card place-${w.place}">
+        <div class="winner-item-card place-${w.place}" data-chest="${w.chestNo}" data-resid="${res.id}" title="Click to view official certificate">
           <div class="winner-student-info">
             <span class="place-icon">${placeIcon}</span>
             <div>
@@ -944,6 +1075,7 @@ function renderMeeladResults() {
           <div class="winner-meta-badges">
             <span class="team-badge-pill team-${w.team}">${w.team}</span>
             <span class="grade-badge-pill">${w.grade}</span>
+            <button class="cert-quick-btn" title="View Certificate"><i data-lucide="award"></i></button>
           </div>
         </div>
       `;
@@ -961,8 +1093,21 @@ function renderMeeladResults() {
       </div>
     `;
 
+    card.querySelectorAll('.winner-item-card').forEach(wCard => {
+      wCard.addEventListener('click', () => {
+        const chest = wCard.getAttribute('data-chest');
+        const resid = wCard.getAttribute('data-resid');
+        const r = meeladResults.find(item => item.id === resid);
+        if (r) {
+          const winner = r.winners.find(win => win.chestNo === chest);
+          if (winner) openResultModal(winner, r);
+        }
+      });
+    });
+
     grid.appendChild(card);
   });
+  initIcons();
 }
 
 // Setup Filters
@@ -976,56 +1121,4 @@ function setupMeeladFilters() {
   if (searchInput) searchInput.addEventListener('input', renderMeeladResults);
 }
 
-// Result Generator Form Submission
-function setupResultGeneratorForm() {
-  const form = document.getElementById('resultGeneratorForm');
-  if (!form) return;
-
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    const category = document.getElementById('itemCategory').value;
-    const item = document.getElementById('itemName').value.trim();
-
-    const w1Name = document.getElementById('w1Name').value.trim();
-    const w1Chest = document.getElementById('w1Chest').value.trim();
-    const w1Team = document.getElementById('w1Team').value;
-    const w1Grade = document.getElementById('w1Grade').value;
-
-    const w2Name = document.getElementById('w2Name').value.trim();
-    const w2Chest = document.getElementById('w2Chest').value.trim();
-    const w2Team = document.getElementById('w2Team').value;
-    const w2Grade = document.getElementById('w2Grade').value;
-
-    const w3Name = document.getElementById('w3Name').value.trim();
-    const w3Chest = document.getElementById('w3Chest').value.trim();
-    const w3Team = document.getElementById('w3Team').value;
-    const w3Grade = document.getElementById('w3Grade').value;
-
-    const newResult = {
-      id: 'res_' + Date.now(),
-      category: category,
-      item: item,
-      winners: [
-        { place: 1, name: w1Name, chestNo: w1Chest, team: w1Team, grade: w1Grade, points: 10 },
-        { place: 2, name: w2Name, chestNo: w2Chest, team: w2Team, grade: w2Grade, points: 7 },
-        { place: 3, name: w3Name, chestNo: w3Chest, team: w3Team, grade: w3Grade, points: 5 }
-      ]
-    };
-
-    meeladResults.unshift(newResult);
-
-    // Re-render
-    renderMeeladLeaderboard();
-    renderMeeladResults();
-
-    form.reset();
-
-    // Switch to results tab to show new result
-    const resultsTab = document.querySelector('.meelad-tab[data-tab="tab-results"]');
-    if (resultsTab) resultsTab.click();
-
-    showToast(`Result Published Successfully for "${item}"!`, 'success');
-  });
-}
 

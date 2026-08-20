@@ -1891,120 +1891,385 @@ button, input, select, textarea {
   color: #ffffff;
 }
 
-/* Generator & Form Styles */
-.generator-card {
-  padding: 36px;
+/* Quick Result Generator Box */
+.generator-box {
   background: #ffffff;
-}
-
-.card-header {
-  margin-bottom: 24px;
-}
-
-.card-header h3 {
-  font-size: 1.4rem;
-  color: #0f172a;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.card-header p {
-  color: var(--color-muted);
-  font-size: 0.9rem;
-  margin-top: 4px;
-}
-
-.generator-form {
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  padding: 28px;
+  margin-bottom: 36px;
+  box-shadow: var(--shadow-md);
   display: flex;
   flex-direction: column;
-  gap: 24px;
-}
-
-.form-row {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
   gap: 20px;
 }
 
-.generator-form input[type="text"] {
-  background: #f8fafc;
-  border: 1px solid var(--color-border-hover);
-  color: #0f172a;
-  padding: 10px 14px;
-  border-radius: 8px;
-  font-size: 0.9rem;
-}
-
-.generator-form input[type="text"]:focus {
-  border-color: #059669;
-  background: #ffffff;
-}
-
-.winners-entry-section {
+.generator-header {
   display: flex;
   flex-direction: column;
+  gap: 4px;
+}
+
+.gen-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #0f172a;
+}
+
+.gen-icon {
+  color: #059669;
+  width: 24px;
+  height: 24px;
+}
+
+.gen-title h3 {
+  font-size: 1.3rem;
+  font-weight: 800;
+}
+
+.gen-subtitle {
+  font-size: 0.9rem;
+  color: var(--color-muted);
+}
+
+.generator-inputs {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr auto;
+  gap: 16px;
+  align-items: end;
+}
+
+.gen-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.gen-input-group label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #059669;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.custom-input {
+  width: 100%;
+  padding: 11px 16px;
+  border-radius: 10px;
+  border: 1px solid var(--color-border-hover);
+  background: #f8fafc;
+  font-size: 0.95rem;
+  color: #0f172a;
+  transition: var(--transition-fast);
+}
+
+.custom-input:focus {
+  border-color: #059669;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.15);
+}
+
+.btn-gen {
+  padding: 12px 24px;
+  height: 46px;
+  white-space: nowrap;
+}
+
+.cert-quick-btn {
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  color: #047857;
+  border-radius: 6px;
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  margin-left: 4px;
+}
+
+.cert-quick-btn:hover {
+  background: #059669;
+  color: #ffffff;
+  border-color: #059669;
+}
+
+/* Modal & Result Certificate CSS */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-card {
+  position: relative;
+  width: 100%;
+  max-width: 620px;
+  background: #ffffff;
+  border: 1px solid var(--color-border);
+  border-radius: 20px;
+  padding: 32px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  transform: translateY(20px);
+  transition: transform 0.3s ease;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-overlay.active .modal-card {
+  transform: translateY(0);
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  background: #f1f5f9;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #475569;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  z-index: 10;
+}
+
+.modal-close-btn:hover {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+.certificate-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: #ffffff;
+  border: 2px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 24px;
+  position: relative;
+}
+
+.cert-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   gap: 16px;
 }
 
-.winners-entry-section h4 {
-  font-size: 1rem;
+.cert-logo {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid #059669;
+}
+
+.cert-institution h3 {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: 0.05em;
+}
+
+.cert-institution p {
+  font-size: 0.75rem;
   color: #059669;
   font-weight: 700;
 }
 
-.winner-row {
-  padding: 18px;
-  border-radius: 12px;
-  border: 1px solid var(--color-border);
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.winner-row.winner-first { background: #fffbeb; border-color: #fde68a; }
-.winner-row.winner-second { background: #f8fafc; border-color: #e2e8f0; }
-.winner-row.winner-third { background: #fff7ed; border-color: #ffedd5; }
-
-.place-badge {
-  font-size: 0.85rem;
+.cert-badge {
+  background: #ecfdf5;
+  color: #047857;
+  border: 1px solid #a7f3d0;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
   font-weight: 800;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  width: fit-content;
-  padding: 4px 12px;
-  border-radius: 20px;
+  gap: 4px;
 }
 
-.place-badge.gold { background: #fef3c7; color: #b45309; }
-.place-badge.silver { background: #e2e8f0; color: #334155; }
-.place-badge.bronze { background: #ffedd5; color: #c2410c; }
+.cert-divider {
+  height: 2px;
+  background: linear-gradient(90deg, #059669, #10b981, #059669);
+  border-radius: 2px;
+}
 
-.winner-inputs {
+.cert-body {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  text-align: center;
+}
+
+.cert-rank-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.cert-icon {
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.cert-rank-title {
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: 0.15em;
+  color: #d97706;
+}
+
+.cert-student-box {
+  background: #f8fafc;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cert-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  color: var(--color-muted);
+  font-weight: 700;
+}
+
+.cert-student-name {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.cert-meta-row {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  font-size: 0.85rem;
+  color: #334155;
+}
+
+.cert-details-grid {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: 12px;
 }
 
-.form-actions {
+.cert-detail-card {
+  background: #f8fafc;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  padding: 10px 14px;
   display: flex;
-  justify-content: flex-end;
-  margin-top: 12px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+
+.detail-label {
+  font-size: 0.75rem;
+  color: var(--color-muted);
+  font-weight: 600;
+}
+
+.detail-value {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.detail-value.grade-val {
+  color: #059669;
+}
+
+.detail-value.points-val {
+  color: #d97706;
+}
+
+.cert-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 12px;
+  border-top: 1px dashed var(--color-border);
+}
+
+.cert-seal {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #059669;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.print-btn {
+  padding: 8px 16px;
+  font-size: 0.85rem;
 }
 
 @media (max-width: 768px) {
-  .form-row {
-    grid-template-columns: 1fr;
-  }
-
-  .winner-inputs {
+  .generator-inputs {
     grid-template-columns: 1fr;
   }
   
   .results-filter-bar {
     flex-direction: column;
     align-items: stretch;
+  }
+
+  .cert-details-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #certificateCard, #certificateCard * {
+    visibility: visible;
+  }
+  #certificateCard {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    border: none;
+  }
+  .print-btn {
+    display: none !important;
   }
 }
 

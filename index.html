@@ -197,51 +197,160 @@
     </div>
   </section>
 
-  <!-- Sweet Of Mahabba - Meelad Fest Published Results Section -->
+  <!-- Sweet Of Mahabba - Meelad Fest Published Results & Generator Section -->
   <section class="meelad-section" id="sweet-mahabba">
     <div class="section-container">
       <div class="section-header">
         <span class="section-subtitle"><i data-lucide="award"></i> Madarasathul Hasaniya Meelad Fest</span>
         <h2>Sweet Of Mahabba</h2>
-        <p class="section-desc">Published Competition Results</p>
+        <p class="section-desc">Official Competition Results & Certificate Generator</p>
         <div class="header-divider"></div>
       </div>
 
-      <!-- Published Results Search & Filter -->
-      <div class="results-filter-bar glass-card">
-        <div class="filter-group">
-          <label for="categoryFilter"><i data-lucide="filter"></i> Category:</label>
-          <select id="categoryFilter" class="custom-select">
-            <option value="all">All Categories</option>
-            <option value="Sub-Junior">Sub-Junior</option>
-            <option value="Junior">Junior</option>
-            <option value="Senior">Senior</option>
-            <option value="General">General</option>
-          </select>
+      <!-- Quick Chest No Result Generator Card -->
+      <div class="generator-box glass-card">
+        <div class="generator-header">
+          <div class="gen-title">
+            <i data-lucide="sparkles" class="gen-icon"></i>
+            <h3>Sweet Of Mahabba Result Generator</h3>
+          </div>
+          <p class="gen-subtitle">Enter student chest number or select an item to generate an official published result certificate</p>
         </div>
-
-        <div class="filter-group">
-          <label for="teamFilter"><i data-lucide="shield"></i> Team:</label>
-          <select id="teamFilter" class="custom-select">
-            <option value="all">All Teams</option>
-            <option value="Badr">Team Badr</option>
-            <option value="Uhud">Team Uhud</option>
-            <option value="Thabuk">Team Thabuk</option>
-            <option value="Hudaibiyya">Team Hudaibiyya</option>
-          </select>
-        </div>
-
-        <div class="filter-group search-group">
-          <input type="text" id="resultSearchInput" placeholder="Search student name, chest no, or item..." class="search-input">
-          <i data-lucide="search" class="search-icon"></i>
+        <div class="generator-inputs">
+          <div class="gen-input-group">
+            <label for="chestNoInput"><i data-lucide="hash"></i> Chest No:</label>
+            <input type="text" id="chestNoInput" placeholder="e.g. 104, 202, 312..." class="custom-input">
+          </div>
+          <div class="gen-input-group">
+            <label for="itemSelect"><i data-lucide="award"></i> Select Item (Optional):</label>
+            <select id="itemSelect" class="custom-select">
+              <option value="all">All Published Items</option>
+            </select>
+          </div>
+          <button id="generateResultBtn" class="btn btn-sweet btn-gen">
+            <i data-lucide="sparkles"></i> Generate Result Card
+          </button>
         </div>
       </div>
 
-      <div class="results-grid" id="resultsGrid">
-        <!-- Dynamically populated published result cards -->
+      <!-- Navigation Tabs: Published Results vs Team Leaderboard -->
+      <div class="meelad-tabs-bar">
+        <button class="meelad-tab active" data-tab="tab-results">
+          <i data-lucide="award"></i> Published Results
+        </button>
+        <button class="meelad-tab" data-tab="tab-leaderboard">
+          <i data-lucide="trophy"></i> Team Leaderboard
+        </button>
+      </div>
+
+      <!-- Tab Content 1: Published Results -->
+      <div class="meelad-tab-content active" id="tab-results">
+        <!-- Published Results Search & Filter -->
+        <div class="results-filter-bar glass-card">
+          <div class="filter-group">
+            <label for="categoryFilter"><i data-lucide="filter"></i> Category:</label>
+            <select id="categoryFilter" class="custom-select">
+              <option value="all">All Categories</option>
+              <option value="Sub-Junior">Sub-Junior</option>
+              <option value="Junior">Junior</option>
+              <option value="Senior">Senior</option>
+              <option value="General">General</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label for="teamFilter"><i data-lucide="shield"></i> Team:</label>
+            <select id="teamFilter" class="custom-select">
+              <option value="all">All Teams</option>
+              <option value="Badr">Team Badr</option>
+              <option value="Uhud">Team Uhud</option>
+              <option value="Thabuk">Team Thabuk</option>
+              <option value="Hudaibiyya">Team Hudaibiyya</option>
+            </select>
+          </div>
+
+          <div class="filter-group search-group">
+            <input type="text" id="resultSearchInput" placeholder="Search student name, chest no, or item..." class="search-input">
+            <i data-lucide="search" class="search-icon"></i>
+          </div>
+        </div>
+
+        <div class="results-grid" id="resultsGrid">
+          <!-- Dynamically populated published result cards -->
+        </div>
+      </div>
+
+      <!-- Tab Content 2: Team Leaderboard -->
+      <div class="meelad-tab-content" id="tab-leaderboard">
+        <div class="leaderboard-grid" id="leaderboardGrid">
+          <!-- Dynamically populated team leaderboard cards -->
+        </div>
       </div>
     </div>
   </section>
+
+  <!-- Result Certificate Modal -->
+  <div class="modal-overlay" id="resultModal">
+    <div class="modal-card glass-card">
+      <button class="modal-close-btn" id="closeResultModal" aria-label="Close modal"><i data-lucide="x"></i></button>
+      <div class="certificate-container" id="certificateCard">
+        <div class="cert-header">
+          <img src="assets/logo.jpg" alt="Madarasathul Hasaniya Logo" class="cert-logo">
+          <div class="cert-institution">
+            <h3>MADARASATHUL HASANIYA</h3>
+            <p>MEELAD FEST 2026 • SWEET OF MAHABBA</p>
+          </div>
+          <span class="cert-badge"><i data-lucide="check-circle"></i> VERIFIED RESULT</span>
+        </div>
+
+        <div class="cert-divider"></div>
+
+        <div class="cert-body">
+          <div class="cert-rank-display" id="certRankDisplay">
+            <span class="cert-icon" id="certRankIcon">🥇</span>
+            <div class="cert-rank-title" id="certRankTitle">FIRST PLACE</div>
+          </div>
+
+          <div class="cert-student-box">
+            <span class="cert-label">PROUDLY PRESENTED TO</span>
+            <h2 class="cert-student-name" id="certStudentName">Student Name</h2>
+            <div class="cert-meta-row">
+              <span class="cert-meta-item"><strong>Chest No:</strong> <span id="certChestNo">#104</span></span>
+              <span class="cert-meta-item"><strong>Team:</strong> <span id="certTeamBadge" class="team-badge-pill team-Badr">Badr</span></span>
+            </div>
+          </div>
+
+          <div class="cert-details-grid">
+            <div class="cert-detail-card">
+              <span class="detail-label">Competition Item</span>
+              <span class="detail-value" id="certItemName">Qirat Recitation</span>
+            </div>
+            <div class="cert-detail-card">
+              <span class="detail-label">Category</span>
+              <span class="detail-value" id="certCategory">Senior</span>
+            </div>
+            <div class="cert-detail-card">
+              <span class="detail-label">Grade Awarded</span>
+              <span class="detail-value grade-val" id="certGrade">A+</span>
+            </div>
+            <div class="cert-detail-card">
+              <span class="detail-label">Points Earned</span>
+              <span class="detail-value points-val" id="certPoints">10 Points</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="cert-footer">
+          <div class="cert-seal">
+            <i data-lucide="award"></i> Official Result Sheet
+          </div>
+          <button class="btn btn-secondary print-btn" id="printCertBtn">
+            <i data-lucide="printer"></i> Print / Save Certificate
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
 

@@ -83,103 +83,99 @@
 
       <!-- Result Publishing Form Card -->
       <div class="generator-card glass-card">
-        <div class="card-header">
-          <h3><i data-lucide="plus-circle" class="gradient-text"></i> Publish New Competition Result</h3>
-          <p>Results published here immediately reflect on the main website, result generator, and leaderboard</p>
+        <div class="card-header" style="margin-bottom: 20px;">
+          <h3 style="font-size: 1.25rem; font-weight: 700; color: #0f172a; margin: 0;">Publish New Competition Result</h3>
         </div>
 
         <form id="saPublishForm" class="generator-form">
           <div class="form-row">
             <div class="form-group">
-              <label for="saCategory"><i data-lucide="filter"></i> Competition Category:</label>
+              <label for="saCategory">Category</label>
               <select id="saCategory" class="custom-select" required>
-                <option value="Sub-Junior">Sub-Junior</option>
-                <option value="Junior">Junior</option>
-                <option value="Senior" selected>Senior</option>
-                <option value="General">General</option>
+                <option value="Kids Boys">Kids Boys</option>
+                <option value="Kids Girls">Kids Girls</option>
+                <option value="LP Boys">LP Boys</option>
+                <option value="LP Girls">LP Girls</option>
+                <option value="UP Boys">UP Boys</option>
+                <option value="UP Girls">UP Girls</option>
+                <option value="HS Boys">HS Boys</option>
+                <option value="HS Girls">HS Girls</option>
+                <option value="General Boys">General Boys</option>
+                <option value="General Girls">General Girls</option>
               </select>
             </div>
             <div class="form-group">
-              <label for="saItemName"><i data-lucide="award"></i> Competition Item Name:</label>
-              <input type="text" id="saItemName" placeholder="e.g. Qirat Recitation, Mappila Pattu, Calligraphy..." required class="custom-input">
+              <label for="saItemName">Item Name</label>
+              <input type="text" id="saItemName" placeholder="e.g. Qirat Recitation" required class="custom-input">
             </div>
           </div>
 
           <div class="winners-entry-section">
-            <h4><i data-lucide="trophy"></i> Enter Winners & Ranks</h4>
-            
             <!-- 1st Place -->
             <div class="winner-row winner-first">
-              <span class="place-badge gold">🥇 1st Place (10 Points)</span>
+              <span class="place-badge gold">1st</span>
               <div class="winner-inputs">
-                <input type="text" id="saW1Name" placeholder="1st Winner Student Name" required class="custom-input">
-                <input type="text" id="saW1Chest" placeholder="Chest No (e.g. 104)" required class="custom-input">
+                <input type="text" id="saW1Name" placeholder="Student Full Name" required class="custom-input">
                 <select id="saW1Team" class="custom-select" required>
-                  <option value="Badr">Team Badr</option>
-                  <option value="Uhud">Team Uhud</option>
-                  <option value="Thabuk">Team Thabuk</option>
-                  <option value="Hudaibiyya">Team Hudaibiyya</option>
+                  <option value="Samarkhand">Samarkhand</option>
+                  <option value="Granada">Granada</option>
+                  <option value="Kairo">Kairo</option>
                 </select>
                 <select id="saW1Grade" class="custom-select" required>
-                  <option value="A+">Grade A+</option>
-                  <option value="A">Grade A</option>
-                  <option value="B">Grade B</option>
+                  <option value="A+">A+</option>
+                  <option value="A">A</option>
+                  <option value="B">B</option>
                 </select>
               </div>
             </div>
 
             <!-- 2nd Place -->
             <div class="winner-row winner-second">
-              <span class="place-badge silver">🥈 2nd Place (7 Points)</span>
+              <span class="place-badge silver">2nd</span>
               <div class="winner-inputs">
-                <input type="text" id="saW2Name" placeholder="2nd Winner Student Name" required class="custom-input">
-                <input type="text" id="saW2Chest" placeholder="Chest No" required class="custom-input">
+                <input type="text" id="saW2Name" placeholder="Student Full Name" required class="custom-input">
                 <select id="saW2Team" class="custom-select" required>
-                  <option value="Uhud">Team Uhud</option>
-                  <option value="Badr">Team Badr</option>
-                  <option value="Thabuk">Team Thabuk</option>
-                  <option value="Hudaibiyya">Team Hudaibiyya</option>
+                  <option value="Granada">Granada</option>
+                  <option value="Samarkhand">Samarkhand</option>
+                  <option value="Kairo">Kairo</option>
                 </select>
                 <select id="saW2Grade" class="custom-select" required>
-                  <option value="A+">Grade A+</option>
-                  <option value="A" selected>Grade A</option>
-                  <option value="B">Grade B</option>
+                  <option value="A+">A+</option>
+                  <option value="A" selected>A</option>
+                  <option value="B">B</option>
                 </select>
               </div>
             </div>
 
             <!-- 3rd Place -->
             <div class="winner-row winner-third">
-              <span class="place-badge bronze">🥉 3rd Place (5 Points)</span>
+              <span class="place-badge bronze">3rd</span>
               <div class="winner-inputs">
-                <input type="text" id="saW3Name" placeholder="3rd Winner Student Name" required class="custom-input">
-                <input type="text" id="saW3Chest" placeholder="Chest No" required class="custom-input">
+                <input type="text" id="saW3Name" placeholder="Student Full Name" required class="custom-input">
                 <select id="saW3Team" class="custom-select" required>
-                  <option value="Thabuk">Team Thabuk</option>
-                  <option value="Badr">Team Badr</option>
-                  <option value="Uhud">Team Uhud</option>
-                  <option value="Hudaibiyya">Team Hudaibiyya</option>
+                  <option value="Kairo">Kairo</option>
+                  <option value="Samarkhand">Samarkhand</option>
+                  <option value="Granada">Granada</option>
                 </select>
                 <select id="saW3Grade" class="custom-select" required>
-                  <option value="A+">Grade A+</option>
-                  <option value="A" selected>Grade A</option>
-                  <option value="B">Grade B</option>
+                  <option value="A+">A+</option>
+                  <option value="A" selected>A</option>
+                  <option value="B">B</option>
                 </select>
               </div>
             </div>
           </div>
 
-          <div class="form-actions">
-            <button type="submit" class="btn btn-primary"><i data-lucide="check-circle-2"></i> Publish Result Now</button>
+          <div class="form-actions" style="margin-top: 16px;">
+            <button type="submit" class="btn btn-primary btn-block">Publish Result Now</button>
           </div>
         </form>
       </div>
 
       <!-- Published Results List -->
       <div class="admin-manage-section glass-card" style="margin-top: 28px;">
-        <div class="card-header">
-          <h3><i data-lucide="layers"></i> Manage Published Results</h3>
-          <p>Review or remove published competition items from the portal</p>
+        <div class="card-header" style="margin-bottom: 16px;">
+          <h3 style="font-size: 1.25rem; font-weight: 700; color: #0f172a; margin: 0;">Manage Published Results</h3>
         </div>
         <div class="admin-results-list" id="saResultsList">
           <!-- Dynamically populated -->

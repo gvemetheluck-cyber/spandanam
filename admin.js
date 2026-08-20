@@ -9,42 +9,42 @@ let isAdminLoggedIn = localStorage.getItem('hasaniya_admin_logged_in') === 'true
 let meeladResults = [
   {
     id: 'res_1',
-    category: 'Senior',
-    item: 'Qirat Recitation (Tajweed)',
+    category: 'Kids Boys',
+    item: 'Balloon pottikal',
     winners: [
-      { place: 1, name: 'Muhammed Sinan', chestNo: '104', team: 'Badr', grade: 'A+', points: 10 },
-      { place: 2, name: 'Abdul Basith', chestNo: '211', team: 'Uhud', grade: 'A', points: 7 },
-      { place: 3, name: 'Ahammed Safwan', chestNo: '305', team: 'Thabuk', grade: 'A', points: 5 }
+      { place: 1, name: 'Ifras', chestNo: '301', team: 'Kairo', grade: 'A+', points: 10 },
+      { place: 2, name: 'Faizan', chestNo: '201', team: 'Granada', grade: 'A', points: 7 },
+      { place: 3, name: 'Mirzan', chestNo: '101', team: 'Samarkhand', grade: 'A', points: 5 }
     ]
   },
   {
     id: 'res_2',
-    category: 'Junior',
-    item: 'Arabic Calligraphy & Sketch',
+    category: 'Kids Girls',
+    item: 'Manjadi perukal',
     winners: [
-      { place: 1, name: 'Lutfia P.A.', chestNo: '202', team: 'Uhud', grade: 'A+', points: 10 },
-      { place: 2, name: 'Fathima K.P.', chestNo: '115', team: 'Badr', grade: 'A+', points: 7 },
-      { place: 3, name: 'Diya Sherin', chestNo: '408', team: 'Hudaibiyya', grade: 'A', points: 5 }
+      { place: 1, name: 'Thanha fathiam', chestNo: '320', team: 'Kairo', grade: 'A+', points: 10 },
+      { place: 2, name: 'Inaaya binth Ali', chestNo: '220', team: 'Granada', grade: 'A+', points: 7 },
+      { place: 3, name: 'Barza khaleel', chestNo: '120', team: 'Samarkhand', grade: 'A', points: 5 }
     ]
   },
   {
     id: 'res_3',
-    category: 'Sub-Junior',
-    item: 'Islamic Song (Mappila Pattu)',
+    category: 'LP Boys',
+    item: 'Story telling',
     winners: [
-      { place: 1, name: 'Nafih Hasani', chestNo: '312', team: 'Thabuk', grade: 'A+', points: 10 },
-      { place: 2, name: 'Riza Abdul Shukoor', chestNo: '109', team: 'Badr', grade: 'A', points: 7 },
-      { place: 3, name: 'Muhammed Rayan', chestNo: '414', team: 'Hudaibiyya', grade: 'B', points: 5 }
+      { place: 1, name: 'Adeeb', chestNo: '202', team: 'Granada', grade: 'A+', points: 10 },
+      { place: 2, name: 'Aydin', chestNo: '302', team: 'Kairo', grade: 'A', points: 7 },
+      { place: 3, name: 'Amen', chestNo: '102', team: 'Samarkhand', grade: 'B', points: 5 }
     ]
   },
   {
     id: 'res_4',
-    category: 'General',
-    item: 'Duff Muttu Performance',
+    category: 'LP Girls',
+    item: 'Pencil drawing',
     winners: [
-      { place: 1, name: 'Team Badr Group', chestNo: '100', team: 'Badr', grade: 'A+', points: 10 },
-      { place: 2, name: 'Team Uhud Group', chestNo: '200', team: 'Uhud', grade: 'A+', points: 7 },
-      { place: 3, name: 'Team Thabuk Group', chestNo: '300', team: 'Thabuk', grade: 'A', points: 5 }
+      { place: 1, name: 'Dua', chestNo: '121', team: 'Samarkhand', grade: 'A+', points: 10 },
+      { place: 2, name: 'Ayzal', chestNo: '321', team: 'Kairo', grade: 'A+', points: 7 },
+      { place: 3, name: 'Inaaya Fathima', chestNo: '221', team: 'Granada', grade: 'A', points: 5 }
     ]
   }
 ];
@@ -135,17 +135,14 @@ function setupEventHandlers() {
       const item = document.getElementById('saItemName').value.trim();
 
       const w1Name = document.getElementById('saW1Name').value.trim();
-      const w1Chest = document.getElementById('saW1Chest').value.trim();
       const w1Team = document.getElementById('saW1Team').value;
       const w1Grade = document.getElementById('saW1Grade').value;
 
       const w2Name = document.getElementById('saW2Name').value.trim();
-      const w2Chest = document.getElementById('saW2Chest').value.trim();
       const w2Team = document.getElementById('saW2Team').value;
       const w2Grade = document.getElementById('saW2Grade').value;
 
       const w3Name = document.getElementById('saW3Name').value.trim();
-      const w3Chest = document.getElementById('saW3Chest').value.trim();
       const w3Team = document.getElementById('saW3Team').value;
       const w3Grade = document.getElementById('saW3Grade').value;
 
@@ -154,9 +151,9 @@ function setupEventHandlers() {
         category: category,
         item: item,
         winners: [
-          { place: 1, name: w1Name, chestNo: w1Chest, team: w1Team, grade: w1Grade, points: 10 },
-          { place: 2, name: w2Name, chestNo: w2Chest, team: w2Team, grade: w2Grade, points: 7 },
-          { place: 3, name: w3Name, chestNo: w3Chest, team: w3Team, grade: w3Grade, points: 5 }
+          { place: 1, name: w1Name, team: w1Team, grade: w1Grade, points: 10 },
+          { place: 2, name: w2Name, team: w2Team, grade: w2Grade, points: 7 },
+          { place: 3, name: w3Name, team: w3Team, grade: w3Grade, points: 5 }
         ]
       };
 
@@ -229,9 +226,9 @@ function renderResultsList() {
     itemDiv.innerHTML = `
       <div class="admin-result-info">
         <h4>${res.item}</h4>
-        <p>Category: <strong>${res.category}</strong> | Winners: ${res.winners.map(w => w.name + ' (#' + w.chestNo + ')').join(', ')}</p>
+        <p>Category: <strong>${res.category}</strong> | Winners: ${res.winners.map(w => w.name).join(', ')}</p>
       </div>
-      <button class="btn-delete" data-id="${res.id}"><i data-lucide="trash-2"></i> Delete</button>
+      <button class="btn-delete" data-id="${res.id}">Delete</button>
     `;
 
     itemDiv.querySelector('.btn-delete').addEventListener('click', () => {

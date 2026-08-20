@@ -25,56 +25,6 @@ const STATIC_MAGAZINES = [
     ]
   },
   {
-    id: 'spandanam_2026',
-    title: 'Spandanam - Student Handwritten Magazine',
-    description: 'Special student handwritten publication from Madarasathul Hasaniya (Adikkumpara)',
-    writers: ['Unais Sa-adi Al Malhari (Coordinator)', 'Riza Abdul Shukoor (Chief Editor)', 'Afeefa (Sub-editor)', 'Fathima K.P. (Sub-editor)', 'Rimsha K. (Writer)', 'Diya Sherin (Writer)', 'Nashwa (Cover & Art)', 'Lutfia P.A. (Cover & Art)'],
-    pages: [
-      'assets/default_magazine/spandanam_1.jpg',
-      'assets/default_magazine/WhatsApp Image 2026-07-21 at 11.09.40 AM (1).jpeg',
-      'assets/default_magazine/WhatsApp Image 2026-07-21 at 11.09.40 AM (2).jpeg',
-      'assets/default_magazine/WhatsApp Image 2026-07-21 at 11.09.40 AM.jpeg',
-      'assets/default_magazine/WhatsApp Image 2026-07-21 at 11.09.41 AM.jpeg',
-      'assets/default_magazine/WhatsApp Image 2026-07-21 at 11.09.42 AM (1).jpeg',
-      'assets/default_magazine/WhatsApp Image 2026-07-21 at 11.09.42 AM (2).jpeg',
-      'assets/default_magazine/WhatsApp Image 2026-07-21 at 11.09.42 AM.jpeg',
-      'assets/default_magazine/WhatsApp Image 2026-07-21 at 11.09.45 AM (1).jpeg',
-      'assets/default_magazine/WhatsApp Image 2026-07-21 at 11.09.45 AM.jpeg',
-      'assets/default_magazine/WhatsApp Image 2026-07-21 at 11.09.52 AM (1).jpeg',
-      'assets/default_magazine/WhatsApp Image 2026-07-21 at 11.09.52 AM (2).jpeg',
-      'assets/default_magazine/WhatsApp Image 2026-07-21 at 11.09.52 AM.jpeg',
-      'assets/default_magazine/WhatsApp Image 2026-07-21 at 11.09.53 AM (1).jpeg',
-      'assets/default_magazine/WhatsApp Image 2026-07-21 at 11.09.53 AM (2).jpeg',
-      'assets/default_magazine/WhatsApp Image 2026-07-21 at 11.09.53 AM.jpeg',
-      'assets/default_magazine/WhatsApp Image 2026-07-21 at 11.09.54 AM (1).jpeg',
-      'assets/default_magazine/WhatsApp Image 2026-07-21 at 11.09.54 AM.jpeg',
-      'assets/default_magazine/WhatsApp Image 2026-07-21 at 11.09.55 AM.jpeg',
-      'assets/default_magazine/WhatsApp Image 2026-07-21 at 11.10.03 AM.jpeg',
-      'assets/default_magazine/WhatsApp Image 2026-07-21 at 11.10.08 AM.jpeg',
-      'assets/default_magazine/WhatsApp Image 2026-07-21 at 11.10.12 AM.jpeg',
-      'assets/default_magazine/WhatsApp Image 2026-07-21 at 11.10.13 AM (1).jpeg',
-      'assets/default_magazine/WhatsApp Image 2026-07-21 at 11.10.13 AM (2).jpeg',
-      'assets/default_magazine/WhatsApp Image 2026-07-21 at 11.10.13 AM.jpeg',
-      'assets/default_magazine/WhatsApp Image 2026-07-21 at 11.10.14 AM.jpeg',
-      'assets/default_magazine/WhatsApp Image 2026-07-21 at 11.10.15 AM.jpeg',
-      'assets/default_magazine/WhatsApp Image 2026-07-21 at 11.10.16 AM.jpeg',
-      'assets/default_magazine/WhatsApp Image 2026-07-21 at 11.10.17 AM (1).jpeg',
-      'assets/default_magazine/WhatsApp Image 2026-07-21 at 11.10.17 AM.jpeg',
-      'assets/default_magazine/WhatsApp Image 2026-07-21 at 11.10.18 AM (1).jpeg',
-      'assets/default_magazine/WhatsApp Image 2026-07-21 at 11.10.18 AM.jpeg',
-      'assets/default_magazine/WhatsApp Image 2026-07-21 at 11.10.19 AM.jpeg',
-      'assets/default_magazine/WhatsApp Image 2026-07-21 at 11.10.20 AM (1).jpeg',
-      'assets/default_magazine/WhatsApp Image 2026-07-21 at 11.10.20 AM.jpeg',
-      'assets/default_magazine/WhatsApp Image 2026-07-21 at 11.10.21 AM.jpeg',
-      'assets/default_magazine/WhatsApp Image 2026-07-21 at 11.10.22 AM (1).jpeg',
-      'assets/default_magazine/WhatsApp Image 2026-07-21 at 11.10.22 AM.jpeg',
-      'assets/default_magazine/WhatsApp Image 2026-07-21 at 11.10.23 AM.jpeg',
-      'assets/default_magazine/WhatsApp Image 2026-07-21 at 11.10.24 AM.jpeg',
-      'assets/default_magazine/WhatsApp Image 2026-07-21 at 11.10.25 AM.jpeg',
-      'assets/default_magazine/spandanam_2.jpg'
-    ]
-  },
-  {
     id: 'al_hasaniya_v1',
     title: 'Al-Hasaniya Voice - Vol 1 (Sample)',
     description: 'Annual Student Special Edition 2026',
@@ -291,6 +241,7 @@ function saveMagazineToDB(magazine) {
 // ----------------------------------------------------
 function populateMagazineDropdown() {
   const select = document.getElementById('magazineSelect');
+  if (!select) return;
   select.innerHTML = '';
   
   loadedMagazines.forEach(mag => {
@@ -308,11 +259,6 @@ function selectMagazine(id) {
   currentMagazine = magazine;
   currentSheetIndex = 0;
   currentMobilePageIndex = 0;
-  
-  // Set preview cover on hero section if it's the static one or has pages
-  if (magazine.pages.length > 0) {
-    document.getElementById('heroPreviewImg').src = magazine.pages[0];
-  }
 
   renderBook();
   updateViewerUI();
@@ -322,6 +268,7 @@ function selectMagazine(id) {
 // Build Book structure dynamically
 function renderBook() {
   const book = document.getElementById('magazineBook');
+  if (!book) return;
   book.innerHTML = '';
 
   const isMobile = window.innerWidth < 768;
@@ -470,10 +417,11 @@ function updateBookLayout() {
 // Update indicator labels and navigation button states
 function updateViewerUI() {
   const isMobile = window.innerWidth < 768;
-  const pages = currentMagazine.pages;
+  const pages = currentMagazine ? currentMagazine.pages : [];
   const pageIndicator = document.getElementById('pageIndicator');
   const prevBtn = document.getElementById('prevBtn');
   const nextBtn = document.getElementById('nextBtn');
+  if (!pageIndicator || !prevBtn || !nextBtn) return;
 
   if (isMobile) {
     // Mobile index limits
@@ -551,12 +499,13 @@ function flipPrev() {
 // Event Listeners Configuration
 // ----------------------------------------------------
 function setupEventListeners() {
-  // Click Featured Issue to scroll to reader
+  // Click Featured Issue to scroll to meelad section
   const heroCard = document.querySelector('.hero-preview-card');
   if (heroCard) {
     heroCard.style.cursor = 'pointer';
     heroCard.addEventListener('click', () => {
-      document.getElementById('viewer').scrollIntoView({ behavior: 'smooth' });
+      const sweetSection = document.getElementById('sweet-mahabba');
+      if (sweetSection) sweetSection.scrollIntoView({ behavior: 'smooth' });
     });
   }
 
@@ -581,18 +530,23 @@ function setupEventListeners() {
 
   // Dropdown selector
   const select = document.getElementById('magazineSelect');
-  select.addEventListener('change', (e) => {
-    selectMagazine(e.target.value);
-  });
+  if (select) {
+    select.addEventListener('change', (e) => {
+      selectMagazine(e.target.value);
+    });
+  }
 
   // Navigation buttons
-  document.getElementById('nextBtn').addEventListener('click', flipNext);
-  document.getElementById('prevBtn').addEventListener('click', flipPrev);
+  const nextBtn = document.getElementById('nextBtn');
+  if (nextBtn) nextBtn.addEventListener('click', flipNext);
+
+  const prevBtn = document.getElementById('prevBtn');
+  if (prevBtn) prevBtn.addEventListener('click', flipPrev);
 
   // Keypress support
   document.addEventListener('keydown', (e) => {
-    // Only flip when reader is in viewport
     const viewerSection = document.getElementById('viewer');
+    if (!viewerSection) return;
     const rect = viewerSection.getBoundingClientRect();
     const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
     
@@ -610,14 +564,16 @@ function setupEventListeners() {
   let touchEndX = 0;
   const bookViewport = document.getElementById('bookViewport');
 
-  bookViewport.addEventListener('touchstart', (e) => {
-    touchStartX = e.changedTouches[0].screenX;
-  }, { passive: true });
+  if (bookViewport) {
+    bookViewport.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
 
-  bookViewport.addEventListener('touchend', (e) => {
-    touchEndX = e.changedTouches[0].screenX;
-    handleSwipe();
-  }, { passive: true });
+    bookViewport.addEventListener('touchend', (e) => {
+      touchEndX = e.changedTouches[0].screenX;
+      handleSwipe();
+    }, { passive: true });
+  }
 
   function handleSwipe() {
     const swipeThreshold = 50;
@@ -629,42 +585,50 @@ function setupEventListeners() {
   }
 
   // Click side-zones of book viewport to flip
-  document.getElementById('leftNavZone').addEventListener('click', flipPrev);
-  document.getElementById('rightNavZone').addEventListener('click', flipNext);
+  const leftZone = document.getElementById('leftNavZone');
+  if (leftZone) leftZone.addEventListener('click', flipPrev);
+
+  const rightZone = document.getElementById('rightNavZone');
+  if (rightZone) rightZone.addEventListener('click', flipNext);
 
   // Zoom / Fullscreen action
   const zoomBtn = document.getElementById('zoomBtn');
-  zoomBtn.addEventListener('click', () => {
-    bookViewport.classList.toggle('zoomed');
-    const isZoomed = bookViewport.classList.contains('zoomed');
-    const icon = zoomBtn.querySelector('i');
+  if (zoomBtn && bookViewport) {
+    zoomBtn.addEventListener('click', () => {
+      bookViewport.classList.toggle('zoomed');
+      const isZoomed = bookViewport.classList.contains('zoomed');
+      const icon = zoomBtn.querySelector('i');
 
-    if (isZoomed) {
-      icon.setAttribute('data-lucide', 'minimize-2');
-      showToast("View Expanded. Press Esc or click again to close.", "success");
-    } else {
-      icon.setAttribute('data-lucide', 'maximize-2');
-    }
-    initIcons();
-  });
-
-  // Escape key closes zoom
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && bookViewport.classList.contains('zoomed')) {
-      bookViewport.classList.remove('zoomed');
-      zoomBtn.querySelector('i').setAttribute('data-lucide', 'maximize-2');
+      if (isZoomed) {
+        icon.setAttribute('data-lucide', 'minimize-2');
+        showToast("View Expanded. Press Esc or click again to close.", "success");
+      } else {
+        icon.setAttribute('data-lucide', 'maximize-2');
+      }
       initIcons();
-    }
-  });
+    });
+
+    // Escape key closes zoom
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && bookViewport.classList.contains('zoomed')) {
+        bookViewport.classList.remove('zoomed');
+        zoomBtn.querySelector('i').setAttribute('data-lucide', 'maximize-2');
+        initIcons();
+      }
+    });
+  }
 
   // Reset book state button
-  document.getElementById('resetBtn').addEventListener('click', () => {
-    currentSheetIndex = 0;
-    currentMobilePageIndex = 0;
-    updateBookLayout();
-    updateViewerUI();
-    showToast("Book reset to Cover Page.", "success");
-  });
+  const resetBtn = document.getElementById('resetBtn');
+  if (resetBtn) {
+    resetBtn.addEventListener('click', () => {
+      currentSheetIndex = 0;
+      currentMobilePageIndex = 0;
+      updateBookLayout();
+      updateViewerUI();
+      showToast("Book reset to Cover Page.", "success");
+    });
+  }
 
   // Resize event - switch between 3D sheet layout and mobile layout
   let resizeTimer;
@@ -754,78 +718,113 @@ function showToast(message, type = 'success') {
 // Sweet Of Mahabba - Meelad Fest Result Generator & Admin Managing Portal
 // ----------------------------------------------------
 
-let meeladResults = [
+const DEFAULT_NEW_MEELAD_RESULTS = [
   {
     id: 'res_1',
-    category: 'Senior',
-    item: 'Qirat Recitation (Tajweed)',
+    category: 'Kids Boys',
+    item: 'Balloon pottikal',
     winners: [
-      { place: 1, name: 'Muhammed Sinan', chestNo: '104', team: 'Badr', grade: 'A+', points: 10 },
-      { place: 2, name: 'Abdul Basith', chestNo: '211', team: 'Uhud', grade: 'A', points: 7 },
-      { place: 3, name: 'Ahammed Safwan', chestNo: '305', team: 'Thabuk', grade: 'A', points: 5 }
+      { place: 1, name: 'Ifras', chestNo: '301', team: 'Kairo', grade: 'A+', points: 10 },
+      { place: 2, name: 'Faizan', chestNo: '201', team: 'Granada', grade: 'A', points: 7 },
+      { place: 3, name: 'Mirzan', chestNo: '101', team: 'Samarkhand', grade: 'A', points: 5 }
     ]
   },
   {
     id: 'res_2',
-    category: 'Junior',
-    item: 'Arabic Calligraphy & Sketch',
+    category: 'Kids Girls',
+    item: 'Manjadi perukal',
     winners: [
-      { place: 1, name: 'Lutfia P.A.', chestNo: '202', team: 'Uhud', grade: 'A+', points: 10 },
-      { place: 2, name: 'Fathima K.P.', chestNo: '115', team: 'Badr', grade: 'A+', points: 7 },
-      { place: 3, name: 'Diya Sherin', chestNo: '408', team: 'Hudaibiyya', grade: 'A', points: 5 }
+      { place: 1, name: 'Thanha fathiam', chestNo: '320', team: 'Kairo', grade: 'A+', points: 10 },
+      { place: 2, name: 'Inaaya binth Ali', chestNo: '220', team: 'Granada', grade: 'A+', points: 7 },
+      { place: 3, name: 'Barza khaleel', chestNo: '120', team: 'Samarkhand', grade: 'A', points: 5 }
     ]
   },
   {
     id: 'res_3',
-    category: 'Sub-Junior',
-    item: 'Islamic Song (Mappila Pattu)',
+    category: 'LP Boys',
+    item: 'Story telling',
     winners: [
-      { place: 1, name: 'Nafih Hasani', chestNo: '312', team: 'Thabuk', grade: 'A+', points: 10 },
-      { place: 2, name: 'Riza Abdul Shukoor', chestNo: '109', team: 'Badr', grade: 'A', points: 7 },
-      { place: 3, name: 'Muhammed Rayan', chestNo: '414', team: 'Hudaibiyya', grade: 'B', points: 5 }
+      { place: 1, name: 'Adeeb', chestNo: '202', team: 'Granada', grade: 'A+', points: 10 },
+      { place: 2, name: 'Aydin', chestNo: '302', team: 'Kairo', grade: 'A', points: 7 },
+      { place: 3, name: 'Amen', chestNo: '102', team: 'Samarkhand', grade: 'B', points: 5 }
     ]
   },
   {
     id: 'res_4',
-    category: 'General',
-    item: 'Duff Muttu Performance',
+    category: 'LP Girls',
+    item: 'Pencil drawing',
     winners: [
-      { place: 1, name: 'Team Badr Group', chestNo: '100', team: 'Badr', grade: 'A+', points: 10 },
-      { place: 2, name: 'Team Uhud Group', chestNo: '200', team: 'Uhud', grade: 'A+', points: 7 },
-      { place: 3, name: 'Team Thabuk Group', chestNo: '300', team: 'Thabuk', grade: 'A', points: 5 }
+      { place: 1, name: 'Dua', chestNo: '121', team: 'Samarkhand', grade: 'A+', points: 10 },
+      { place: 2, name: 'Ayzal', chestNo: '321', team: 'Kairo', grade: 'A+', points: 7 },
+      { place: 3, name: 'Inaaya Fathima', chestNo: '221', team: 'Granada', grade: 'A', points: 5 }
     ]
   },
   {
     id: 'res_5',
-    category: 'Senior',
-    item: 'Arabic Elocution & Speech',
+    category: 'UP Boys',
+    item: 'Madh song',
     winners: [
-      { place: 1, name: 'Zubair Al-Hasani', chestNo: '105', team: 'Badr', grade: 'A+', points: 10 },
-      { place: 2, name: 'Bilal Ahammed', chestNo: '208', team: 'Uhud', grade: 'A', points: 7 },
-      { place: 3, name: 'Rashid K.T.', chestNo: '410', team: 'Hudaibiyya', grade: 'A', points: 5 }
+      { place: 1, name: 'Hamdan', chestNo: '303', team: 'Kairo', grade: 'A+', points: 10 },
+      { place: 2, name: 'Ramzan', chestNo: '103', team: 'Samarkhand', grade: 'A', points: 7 },
+      { place: 3, name: 'Muhammed Kk', chestNo: '203', team: 'Granada', grade: 'A', points: 5 }
     ]
   },
   {
     id: 'res_6',
-    category: 'Junior',
-    item: 'Quran Memorization (Hifz)',
+    category: 'UP Girls',
+    item: 'Painting watercolor',
     winners: [
-      { place: 1, name: 'Aisha Raihana', chestNo: '310', team: 'Thabuk', grade: 'A+', points: 10 },
-      { place: 2, name: 'Fathima Riza', chestNo: '112', team: 'Badr', grade: 'A+', points: 7 },
-      { place: 3, name: 'Mariyam Bilal', chestNo: '215', team: 'Uhud', grade: 'A', points: 5 }
+      { place: 1, name: 'Kenza', chestNo: '222', team: 'Granada', grade: 'A+', points: 10 },
+      { place: 2, name: 'Shaziyq shaheer', chestNo: '122', team: 'Samarkhand', grade: 'A', points: 7 },
+      { place: 3, name: 'Fathima tp', chestNo: '322', team: 'Kairo', grade: 'A', points: 5 }
+    ]
+  },
+  {
+    id: 'res_7',
+    category: 'HS Boys',
+    item: 'Speech mall',
+    winners: [
+      { place: 1, name: 'Faizy', chestNo: '104', team: 'Samarkhand', grade: 'A+', points: 10 },
+      { place: 2, name: 'Zayan', chestNo: '304', team: 'Kairo', grade: 'A+', points: 7 },
+      { place: 3, name: 'Razin', chestNo: '204', team: 'Granada', grade: 'A', points: 5 }
+    ]
+  },
+  {
+    id: 'res_8',
+    category: 'HS Girls',
+    item: 'Origami',
+    winners: [
+      { place: 1, name: 'rasmiya', chestNo: '323', team: 'Kairo', grade: 'A+', points: 10 },
+      { place: 2, name: 'Nafeesath', chestNo: '223', team: 'Granada', grade: 'A', points: 7 },
+      { place: 3, name: 'Raya Rasheed', chestNo: '123', team: 'Samarkhand', grade: 'B', points: 5 }
+    ]
+  },
+  {
+    id: 'res_9',
+    category: 'General Boys',
+    item: 'Spot magazine',
+    winners: [
+      { place: 1, name: 'Faizan noufal', chestNo: '205', team: 'Granada', grade: 'A+', points: 10 },
+      { place: 2, name: 'Noor Muhammed', chestNo: '305', team: 'Kairo', grade: 'A+', points: 7 },
+      { place: 3, name: 'Faizan', chestNo: '105', team: 'Samarkhand', grade: 'A', points: 5 }
+    ]
+  },
+  {
+    id: 'res_10',
+    category: 'General Girls',
+    item: 'Food fest',
+    winners: [
+      { place: 1, name: 'Layya Mariyam', chestNo: '124', team: 'Samarkhand', grade: 'A+', points: 10 },
+      { place: 2, name: 'Rifa', chestNo: '324', team: 'Kairo', grade: 'A+', points: 7 },
+      { place: 3, name: 'Ridha', chestNo: '224', team: 'Granada', grade: 'A', points: 5 }
     ]
   }
 ];
 
-// Persistent storage load for published results
-let savedResults = localStorage.getItem('hasaniya_published_results');
-if (savedResults) {
-  try {
-    meeladResults = JSON.parse(savedResults);
-  } catch (e) {
-    console.error("Failed to load saved published results:", e);
-  }
-}
+let meeladResults = [...DEFAULT_NEW_MEELAD_RESULTS];
+
+// Overwrite local storage to update to new dataset
+localStorage.setItem('hasaniya_published_results', JSON.stringify(meeladResults));
 
 function saveMeeladResults() {
   localStorage.setItem('hasaniya_published_results', JSON.stringify(meeladResults));
@@ -835,6 +834,7 @@ let isAdminLoggedIn = localStorage.getItem('hasaniya_admin_logged_in') === 'true
 
 function initMeeladFestSystem() {
   populateItemSelectOptions();
+  populateGeneratorPlayerOptions();
   renderMeeladResults();
   renderMeeladLeaderboard();
   setupMeeladFilters();
@@ -856,41 +856,102 @@ function populateItemSelectOptions() {
   });
 }
 
+function populateGeneratorPlayerOptions() {
+  const playerSelect = document.getElementById('genPlayerSelect');
+  if (!playerSelect) return;
+
+  const teamVal = (document.getElementById('genTeamSelect')?.value || 'all').toLowerCase();
+  const itemVal = document.getElementById('itemSelect')?.value || 'all';
+
+  playerSelect.innerHTML = '<option value="all">All Participants</option>';
+
+  const players = [];
+  meeladResults.forEach(res => {
+    if (itemVal !== 'all' && res.id !== itemVal) return;
+
+    res.winners.forEach(w => {
+      if (teamVal !== 'all' && w.team.toLowerCase() !== teamVal) return;
+
+      players.push({
+        chestNo: w.chestNo,
+        name: w.name,
+        team: w.team,
+        itemId: res.id,
+        itemTitle: res.item,
+        winnerObj: w,
+        resultObj: res
+      });
+    });
+  });
+
+  if (players.length === 0) {
+    const opt = document.createElement('option');
+    opt.value = '';
+    opt.disabled = true;
+    opt.textContent = 'No players found for selected team';
+    playerSelect.appendChild(opt);
+    return;
+  }
+
+  players.forEach(p => {
+    const opt = document.createElement('option');
+    opt.value = `${p.name}_${p.itemId}`;
+    opt.textContent = `${p.name} - Team ${p.team}`;
+    playerSelect.appendChild(opt);
+  });
+}
+
 function setupResultGenerator() {
   const genBtn = document.getElementById('generateResultBtn');
+  const teamSelect = document.getElementById('genTeamSelect');
+  const itemSelect = document.getElementById('itemSelect');
+  const playerSelect = document.getElementById('genPlayerSelect');
+
+  if (teamSelect) {
+    teamSelect.addEventListener('change', () => {
+      populateGeneratorPlayerOptions();
+    });
+  }
+
+  if (itemSelect) {
+    itemSelect.addEventListener('change', () => {
+      populateGeneratorPlayerOptions();
+    });
+  }
+
   if (!genBtn) return;
 
   genBtn.addEventListener('click', () => {
-    const chestInput = (document.getElementById('chestNoInput')?.value || '').trim();
-    const itemVal = document.getElementById('itemSelect')?.value || 'all';
+    const playerVal = playerSelect?.value || 'all';
+    const teamVal = (teamSelect?.value || 'all').toLowerCase();
+    const itemVal = itemSelect?.value || 'all';
 
     let foundWinner = null;
     let foundResult = null;
 
-    if (chestInput) {
+    if (playerVal && playerVal !== 'all') {
+      const [pName, itemId] = playerVal.split('_');
+      foundResult = meeladResults.find(res => res.id === itemId);
+      if (foundResult) {
+        foundWinner = foundResult.winners.find(w => w.name.toLowerCase() === pName.toLowerCase());
+      }
+    } else {
       for (const res of meeladResults) {
-        const w = res.winners.find(win => win.chestNo.toLowerCase() === chestInput.toLowerCase());
-        if (w) {
-          foundWinner = w;
+        if (itemVal !== 'all' && res.id !== itemVal) continue;
+        const winner = res.winners.find(w => teamVal === 'all' || w.team.toLowerCase() === teamVal);
+        if (winner) {
+          foundWinner = winner;
           foundResult = res;
           break;
         }
       }
-    } else if (itemVal !== 'all') {
-      foundResult = meeladResults.find(res => res.id === itemVal);
-      if (foundResult && foundResult.winners.length > 0) {
-        foundWinner = foundResult.winners[0];
-      }
-    } else {
-      foundResult = meeladResults[0];
-      foundWinner = foundResult ? foundResult.winners[0] : null;
     }
 
     if (foundWinner && foundResult) {
       openResultModal(foundWinner, foundResult);
-      showToast(`Generated Official Result Certificate for #${foundWinner.chestNo} (${foundWinner.name})!`, 'success');
+      showToast(`Generated Official Result Certificate for ${foundWinner.name}!`, 'success');
     } else {
-      showToast(`No published result found for Chest No #${chestInput}. Please check the chest number.`, 'error');
+      showToast('No published participant result found for the current selection.', 'error');
     }
   });
 }
@@ -900,7 +961,8 @@ function openResultModal(winner, result) {
   if (!modal) return;
 
   document.getElementById('certStudentName').textContent = winner.name;
-  document.getElementById('certChestNo').textContent = `#${winner.chestNo}`;
+  const certChestNo = document.getElementById('certChestNo');
+  if (certChestNo) certChestNo.textContent = '';
   
   const teamBadge = document.getElementById('certTeamBadge');
   teamBadge.textContent = winner.team;
@@ -911,12 +973,11 @@ function openResultModal(winner, result) {
   document.getElementById('certGrade').textContent = winner.grade;
   document.getElementById('certPoints').textContent = `${winner.points} Points`;
 
-  let rankIcon = '🥇';
   let rankTitle = 'FIRST PLACE';
-  if (winner.place === 2) { rankIcon = '🥈'; rankTitle = 'SECOND PLACE'; }
-  if (winner.place === 3) { rankIcon = '🥉'; rankTitle = 'THIRD PLACE'; }
+  if (winner.place === 2) { rankTitle = 'SECOND PLACE'; }
+  if (winner.place === 3) { rankTitle = 'THIRD PLACE'; }
 
-  document.getElementById('certRankIcon').textContent = rankIcon;
+  document.getElementById('certRankIcon').textContent = '';
   document.getElementById('certRankTitle').textContent = rankTitle;
 
   modal.classList.add('active');
@@ -988,10 +1049,9 @@ function renderMeeladLeaderboard() {
   if (!grid) return;
 
   const teams = [
-    { name: 'Badr', totalPoints: 0, gold: 0, silver: 0, bronze: 0 },
-    { name: 'Uhud', totalPoints: 0, gold: 0, silver: 0, bronze: 0 },
-    { name: 'Thabuk', totalPoints: 0, gold: 0, silver: 0, bronze: 0 },
-    { name: 'Hudaibiyya', totalPoints: 0, gold: 0, silver: 0, bronze: 0 }
+    { name: 'Samarkhand', totalPoints: 0, gold: 0, silver: 0, bronze: 0 },
+    { name: 'Granada', totalPoints: 0, gold: 0, silver: 0, bronze: 0 },
+    { name: 'Kairo', totalPoints: 0, gold: 0, silver: 0, bronze: 0 }
   ];
 
   meeladResults.forEach(res => {
@@ -1018,9 +1078,9 @@ function renderMeeladLeaderboard() {
     card.className = `team-card glass-card rank-${rank}`;
 
     let rankLabel = `#${rank}`;
-    if (rank === 1) rankLabel = '🥇 1st Place';
-    else if (rank === 2) rankLabel = '🥈 2nd Place';
-    else if (rank === 3) rankLabel = '🥉 3rd Place';
+    if (rank === 1) rankLabel = '1st Place';
+    else if (rank === 2) rankLabel = '2nd Place';
+    else if (rank === 3) rankLabel = '3rd Place';
 
     card.innerHTML = `
       <div class="team-header">
@@ -1035,9 +1095,9 @@ function renderMeeladLeaderboard() {
         <div class="progress-fill" style="width: ${progressPercent}%;"></div>
       </div>
       <div class="medals-tally">
-        <span class="medal-item">🥇 ${t.gold} Gold</span>
-        <span class="medal-item">🥈 ${t.silver} Silver</span>
-        <span class="medal-item">🥉 ${t.bronze} Bronze</span>
+        <span class="medal-item">${t.gold} Gold</span>
+        <span class="medal-item">${t.silver} Silver</span>
+        <span class="medal-item">${t.bronze} Bronze</span>
       </div>
     `;
     grid.appendChild(card);
@@ -1065,7 +1125,7 @@ function renderMeeladResults() {
       const matchItem = res.item.toLowerCase().includes(searchVal);
       const matchCategory = res.category.toLowerCase().includes(searchVal);
       const matchStudent = res.winners.some(w => 
-        w.name.toLowerCase().includes(searchVal) || w.chestNo.toLowerCase().includes(searchVal)
+        w.name.toLowerCase().includes(searchVal) || w.team.toLowerCase().includes(searchVal)
       );
       if (!matchItem && !matchCategory && !matchStudent) return false;
     }
@@ -1085,23 +1145,19 @@ function renderMeeladResults() {
 
     let winnersHtml = '';
     res.winners.forEach(w => {
-      let placeIcon = '🥇';
-      if (w.place === 2) placeIcon = '🥈';
-      if (w.place === 3) placeIcon = '🥉';
+      let placeText = w.place === 1 ? '1st' : w.place === 2 ? '2nd' : '3rd';
 
       winnersHtml += `
-        <div class="winner-item-card place-${w.place}" data-chest="${w.chestNo}" data-resid="${res.id}" title="Click to view official certificate">
+        <div class="winner-item-card place-${w.place}" data-name="${w.name}" data-resid="${res.id}" title="Click to view official certificate">
           <div class="winner-student-info">
-            <span class="place-icon">${placeIcon}</span>
+            <span class="rank-badge-minimal place-${w.place}">${placeText}</span>
             <div>
               <div class="student-name-text">${w.name}</div>
-              <div class="chest-text">Chest No: #${w.chestNo}</div>
             </div>
           </div>
           <div class="winner-meta-badges">
             <span class="team-badge-pill team-${w.team}">${w.team}</span>
             <span class="grade-badge-pill">${w.grade}</span>
-            <button class="cert-quick-btn" title="View Certificate"><i data-lucide="award"></i></button>
           </div>
         </div>
       `;
@@ -1121,11 +1177,11 @@ function renderMeeladResults() {
 
     card.querySelectorAll('.winner-item-card').forEach(wCard => {
       wCard.addEventListener('click', () => {
-        const chest = wCard.getAttribute('data-chest');
+        const sName = wCard.getAttribute('data-name');
         const resid = wCard.getAttribute('data-resid');
         const r = meeladResults.find(item => item.id === resid);
         if (r) {
-          const winner = r.winners.find(win => win.chestNo === chest);
+          const winner = r.winners.find(win => win.name === sName);
           if (winner) openResultModal(winner, r);
         }
       });
@@ -1214,17 +1270,14 @@ function setupAdminPortal() {
       const item = document.getElementById('pubItemName').value.trim();
 
       const w1Name = document.getElementById('w1Name').value.trim();
-      const w1Chest = document.getElementById('w1Chest').value.trim();
       const w1Team = document.getElementById('w1Team').value;
       const w1Grade = document.getElementById('w1Grade').value;
 
       const w2Name = document.getElementById('w2Name').value.trim();
-      const w2Chest = document.getElementById('w2Chest').value.trim();
       const w2Team = document.getElementById('w2Team').value;
       const w2Grade = document.getElementById('w2Grade').value;
 
       const w3Name = document.getElementById('w3Name').value.trim();
-      const w3Chest = document.getElementById('w3Chest').value.trim();
       const w3Team = document.getElementById('w3Team').value;
       const w3Grade = document.getElementById('w3Grade').value;
 
@@ -1233,9 +1286,9 @@ function setupAdminPortal() {
         category: category,
         item: item,
         winners: [
-          { place: 1, name: w1Name, chestNo: w1Chest, team: w1Team, grade: w1Grade, points: 10 },
-          { place: 2, name: w2Name, chestNo: w2Chest, team: w2Team, grade: w2Grade, points: 7 },
-          { place: 3, name: w3Name, chestNo: w3Chest, team: w3Team, grade: w3Grade, points: 5 }
+          { place: 1, name: w1Name, team: w1Team, grade: w1Grade, points: 10 },
+          { place: 2, name: w2Name, team: w2Team, grade: w2Grade, points: 7 },
+          { place: 3, name: w3Name, team: w3Team, grade: w3Grade, points: 5 }
         ]
       };
 
@@ -1243,6 +1296,7 @@ function setupAdminPortal() {
       saveMeeladResults();
 
       populateItemSelectOptions();
+      populateGeneratorPlayerOptions();
       renderMeeladResults();
       renderMeeladLeaderboard();
       renderAdminResultsList();
@@ -1314,9 +1368,9 @@ function renderAdminResultsList() {
     itemDiv.innerHTML = `
       <div class="admin-result-info">
         <h4>${res.item}</h4>
-        <p>Category: <strong>${res.category}</strong> | Winners: ${res.winners.map(w => w.name + ' (#' + w.chestNo + ')').join(', ')}</p>
+        <p>Category: <strong>${res.category}</strong> | Winners: ${res.winners.map(w => w.name).join(', ')}</p>
       </div>
-      <button class="btn-delete" data-id="${res.id}"><i data-lucide="trash-2"></i> Delete</button>
+      <button class="btn-delete" data-id="${res.id}">Delete</button>
     `;
 
     itemDiv.querySelector('.btn-delete').addEventListener('click', () => {
@@ -1325,7 +1379,6 @@ function renderAdminResultsList() {
 
     container.appendChild(itemDiv);
   });
-  initIcons();
 }
 
 function deleteResult(resId) {
@@ -1336,6 +1389,7 @@ function deleteResult(resId) {
     saveMeeladResults();
 
     populateItemSelectOptions();
+    populateGeneratorPlayerOptions();
     renderMeeladResults();
     renderMeeladLeaderboard();
     renderAdminResultsList();

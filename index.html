@@ -34,21 +34,7 @@
     </div>
   </div>
 
-  <!-- Floating Side Navigation Dots -->
-  <div class="side-nav-dots" id="sideNavDots">
-    <a href="#home" class="dot-nav active" data-section="home" title="Home">
-      <span class="dot-label">Home</span>
-    </a>
-    <a href="#about" class="dot-nav" data-section="about" title="About">
-      <span class="dot-label">About</span>
-    </a>
-    <a href="#viewer" class="dot-nav" data-section="viewer" title="Reader">
-      <span class="dot-label">Reader</span>
-    </a>
-    <a href="#sweet-mahabba" class="dot-nav" data-section="sweet-mahabba" title="Meelad Results">
-      <span class="dot-label">Meelad Results</span>
-    </a>
-  </div>
+
 
   <!-- Premium Floating Navigation Header -->
   <header class="main-header" id="mainHeader">
@@ -57,15 +43,14 @@
         <img src="assets/logo.jpg" alt="Madarasathul Hasaniya Logo" class="logo-image">
         <div class="logo-text">
           <span class="title-primary">MADARASATHUL HASANIYA</span>
-          <span class="title-secondary">Digital Magazine & Meelad Portal</span>
+          <span class="title-secondary">Digital Meelad Portal</span>
         </div>
       </a>
       
       <nav class="nav-menu" id="navMenu">
         <a href="#home" class="nav-link active">Home</a>
         <a href="#about" class="nav-link">About</a>
-        <a href="#viewer" class="nav-link">Magazine Reader</a>
-        <a href="#sweet-mahabba" id="sweetMahabbaNavBtn" class="nav-link sweet-link"><i data-lucide="award"></i> Sweet Of Mahabba</a>
+        <a href="#sweet-mahabba" id="sweetMahabbaNavBtn" class="nav-link sweet-link">Sweet Of Mahabba</a>
         <button id="openAdminModalBtn" class="admin-nav-btn"><i data-lucide="lock"></i> Admin Portal</button>
       </nav>
       
@@ -80,24 +65,22 @@
     <div class="hero-bg-overlay"></div>
     <div class="hero-container">
       <div class="hero-content">
-        <div class="tagline"><i data-lucide="sparkles"></i> Preserving Creative Heritage</div>
         <h1>Where Handwritten Art Meets <span class="gradient-text">Digital Innovation</span></h1>
-        <p>Step into the rich archive of student literature, detailed illustrations, and beautiful Arabic calligraphy from Madarasathul Hasaniya. Experience them through our realistic 3D flipping magazine reader.</p>
+        <p>Step into the rich archive of student literature, achievements, and competition results from Madarasathul Hasaniya Meelad Fest.</p>
         <div class="hero-actions">
-          <button id="sweetMahabbaHeroBtn" class="btn btn-sweet"><i data-lucide="heart"></i> Sweet Of Mahabba</button>
-          <a href="#viewer" class="btn btn-primary"><i data-lucide="book-open"></i> Read Latest Issue</a>
+          <button id="sweetMahabbaHeroBtn" class="btn btn-sweet">Sweet Of Mahabba</button>
           <a href="#about" class="btn btn-secondary"><i data-lucide="info"></i> Learn More</a>
         </div>
       </div>
       <div class="hero-image-container">
         <div class="glass-card hero-preview-card">
-          <div class="preview-badge">Featured Issue</div>
+          <div class="preview-badge">Meelad Fest 2026</div>
           <div class="preview-img-wrapper">
-            <img src="assets/default_magazine/spandanam_1.jpg" alt="Magazine Cover Preview" id="heroPreviewImg">
+            <img src="assets/logo.jpg" alt="Madarasathul Hasaniya Logo" id="heroPreviewImg" style="object-fit: contain; padding: 20px;">
           </div>
           <div class="preview-details">
-            <h3>Spandanam</h3>
-            <p>Student Handwritten Magazine</p>
+            <h3>Sweet Of Mahabba</h3>
+            <p>Official Meelad Fest Result Portal</p>
           </div>
         </div>
       </div>
@@ -133,70 +116,7 @@
     </div>
   </section>
 
-  <!-- Magazine Viewer Section -->
-  <section class="viewer-section" id="viewer">
-    <div class="section-container">
-      <div class="section-header">
-        <span class="section-subtitle">Interactive Experience</span>
-        <h2>Digital Magazine Library</h2>
-        <div class="header-divider"></div>
-      </div>
-      
-      <!-- Selection & Controls Bar -->
-      <div class="viewer-controls-bar glass-card">
-        <div class="control-group">
-          <label for="magazineSelect"><i data-lucide="layers"></i> Choose Issue:</label>
-          <select id="magazineSelect" class="custom-select">
-            <!-- Dynamically populated options -->
-          </select>
-        </div>
-        
-        <div class="control-actions">
-          <button id="sweetMahabbaQuickBtn" class="control-btn sweet-btn" title="Read Sweet Of Mahabba Edition"><i data-lucide="heart"></i> Sweet Of Mahabba</button>
-          <button id="prevBtn" class="control-btn" title="Previous Page"><i data-lucide="chevron-left"></i> Prev</button>
-          <span id="pageIndicator" class="page-indicator">Page 1 / 4</span>
-          <button id="nextBtn" class="control-btn" title="Next Page">Next <i data-lucide="chevron-right"></i></button>
-          
-          <div class="divider"></div>
-          
-          <button id="zoomBtn" class="icon-btn" title="Zoom/Fullscreen"><i data-lucide="maximize-2"></i></button>
-          <button id="resetBtn" class="icon-btn" title="Reset View"><i data-lucide="refresh-cw"></i></button>
-        </div>
-      </div>
-      
-      <!-- Interactive Book Container -->
-      <div class="book-viewport" id="bookViewport">
-        <div class="book-container" id="bookContainer">
-          <div class="book" id="magazineBook">
-            <!-- Dynamic pages populated by JavaScript -->
-          </div>
-        </div>
-        
-        <!-- Navigation Areas for clicking margins -->
-        <div class="nav-zone left-nav-zone" id="leftNavZone" title="Click to flip back"></div>
-        <div class="nav-zone right-nav-zone" id="rightNavZone" title="Click to flip forward"></div>
-      </div>
-      
-      <!-- Mobile Swipe/Tap Indicator -->
-      <div class="mobile-tip">
-        <i data-lucide="hand"></i> Swipe or tap the edges to turn pages
-      </div>
 
-      <!-- Magazine Details & Writers Box -->
-      <div class="magazine-info-card glass-card" id="magazineInfoCard">
-        <div class="info-meta">
-          <h3 id="infoTitle">Spandanam</h3>
-          <p id="infoDesc">Student Handwritten Magazine</p>
-        </div>
-        <div class="info-writers">
-          <h4><i data-lucide="feather"></i> Magazine Writers</h4>
-          <div class="writers-list" id="writersList">
-            <!-- Populated dynamically by JavaScript -->
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- Sweet Of Mahabba - Meelad Fest Published Results & Generator Section -->
   <section class="meelad-section" id="sweet-mahabba">
@@ -208,39 +128,46 @@
         <div class="header-divider"></div>
       </div>
 
-      <!-- Quick Chest No Result Generator Card -->
+      <!-- Quick Result Generator Card -->
       <div class="generator-box glass-card">
         <div class="generator-header">
           <div class="gen-title">
-            <i data-lucide="sparkles" class="gen-icon"></i>
             <h3>Sweet Of Mahabba Result Generator</h3>
           </div>
-          <p class="gen-subtitle">Enter student chest number or select an item to generate an official published result certificate</p>
+          <p class="gen-subtitle">Select team, item, and participant to generate an official published result certificate</p>
         </div>
         <div class="generator-inputs">
           <div class="gen-input-group">
-            <label for="chestNoInput"><i data-lucide="hash"></i> Chest No:</label>
-            <input type="text" id="chestNoInput" placeholder="e.g. 104, 202, 312..." class="custom-input">
+            <label for="genTeamSelect">Team Name:</label>
+            <select id="genTeamSelect" class="custom-select">
+              <option value="all">All Teams</option>
+              <option value="Samarkhand">Samarkhand</option>
+              <option value="Granada">Granada</option>
+              <option value="Kairo">Kairo</option>
+            </select>
           </div>
           <div class="gen-input-group">
-            <label for="itemSelect"><i data-lucide="award"></i> Select Item (Optional):</label>
+            <label for="itemSelect">Item:</label>
             <select id="itemSelect" class="custom-select">
               <option value="all">All Published Items</option>
             </select>
           </div>
+          <div class="gen-input-group">
+            <label for="genPlayerSelect">Player:</label>
+            <select id="genPlayerSelect" class="custom-select">
+              <option value="all">All Participants</option>
+            </select>
+          </div>
           <button id="generateResultBtn" class="btn btn-sweet btn-gen">
-            <i data-lucide="sparkles"></i> Generate Result Card
+            Generate Result Card
           </button>
         </div>
       </div>
 
-      <!-- Navigation Tabs: Published Results vs Team Leaderboard vs Admin Manager -->
+      <!-- Navigation Tabs: Published Results vs Admin Manager -->
       <div class="meelad-tabs-bar">
         <button class="meelad-tab active" data-tab="tab-results">
           <i data-lucide="award"></i> Published Results
-        </button>
-        <button class="meelad-tab" data-tab="tab-leaderboard">
-          <i data-lucide="trophy"></i> Team Leaderboard
         </button>
         <button class="meelad-tab admin-tab-btn" data-tab="tab-admin" id="adminTabBtn">
           <i data-lucide="shield-check"></i> Admin Portal
@@ -255,10 +182,16 @@
             <label for="categoryFilter"><i data-lucide="filter"></i> Category:</label>
             <select id="categoryFilter" class="custom-select">
               <option value="all">All Categories</option>
-              <option value="Sub-Junior">Sub-Junior</option>
-              <option value="Junior">Junior</option>
-              <option value="Senior">Senior</option>
-              <option value="General">General</option>
+              <option value="Kids Boys">Kids Boys</option>
+              <option value="Kids Girls">Kids Girls</option>
+              <option value="LP Boys">LP Boys</option>
+              <option value="LP Girls">LP Girls</option>
+              <option value="UP Boys">UP Boys</option>
+              <option value="UP Girls">UP Girls</option>
+              <option value="HS Boys">HS Boys</option>
+              <option value="HS Girls">HS Girls</option>
+              <option value="General Boys">General Boys</option>
+              <option value="General Girls">General Girls</option>
             </select>
           </div>
 
@@ -266,15 +199,14 @@
             <label for="teamFilter"><i data-lucide="shield"></i> Team:</label>
             <select id="teamFilter" class="custom-select">
               <option value="all">All Teams</option>
-              <option value="Badr">Team Badr</option>
-              <option value="Uhud">Team Uhud</option>
-              <option value="Thabuk">Team Thabuk</option>
-              <option value="Hudaibiyya">Team Hudaibiyya</option>
+              <option value="Samarkhand">Team Samarkhand</option>
+              <option value="Granada">Team Granada</option>
+              <option value="Kairo">Team Kairo</option>
             </select>
           </div>
 
           <div class="filter-group search-group">
-            <input type="text" id="resultSearchInput" placeholder="Search student name, chest no, or item..." class="search-input">
+            <input type="text" id="resultSearchInput" placeholder="Search student name, team, or item..." class="search-input">
             <i data-lucide="search" class="search-icon"></i>
           </div>
         </div>
@@ -313,103 +245,99 @@
 
           <!-- Result Publishing Form -->
           <div class="generator-card glass-card">
-            <div class="card-header">
-              <h3><i data-lucide="plus-circle" class="text-accent"></i> Publish New Competition Result</h3>
-              <p>Fill in competition item and winner details to publish instantly to the official result portal</p>
+            <div class="card-header" style="margin-bottom: 20px;">
+              <h3 style="font-size: 1.25rem; font-weight: 700; color: #0f172a; margin: 0;">Publish New Competition Result</h3>
             </div>
 
             <form id="publishResultForm" class="generator-form">
               <div class="form-row">
                 <div class="form-group">
-                  <label for="pubCategory"><i data-lucide="filter"></i> Category:</label>
+                  <label for="pubCategory">Category</label>
                   <select id="pubCategory" class="custom-select" required>
-                    <option value="Sub-Junior">Sub-Junior</option>
-                    <option value="Junior">Junior</option>
-                    <option value="Senior" selected>Senior</option>
-                    <option value="General">General</option>
+                    <option value="Kids Boys">Kids Boys</option>
+                    <option value="Kids Girls">Kids Girls</option>
+                    <option value="LP Boys">LP Boys</option>
+                    <option value="LP Girls">LP Girls</option>
+                    <option value="UP Boys">UP Boys</option>
+                    <option value="UP Girls">UP Girls</option>
+                    <option value="HS Boys">HS Boys</option>
+                    <option value="HS Girls">HS Girls</option>
+                    <option value="General Boys">General Boys</option>
+                    <option value="General Girls">General Girls</option>
                   </select>
                 </div>
                 <div class="form-group">
-                  <label for="pubItemName"><i data-lucide="award"></i> Competition Item Name:</label>
-                  <input type="text" id="pubItemName" placeholder="e.g. Qirat Recitation, Arabic Speech..." required class="custom-input">
+                  <label for="pubItemName">Item Name</label>
+                  <input type="text" id="pubItemName" placeholder="e.g. Qirat Recitation" required class="custom-input">
                 </div>
               </div>
 
               <div class="winners-entry-section">
-                <h4><i data-lucide="trophy"></i> Competition Winners & Ranks</h4>
-                
                 <!-- 1st Place -->
                 <div class="winner-row winner-first">
-                  <span class="place-badge gold">🥇 1st Place (10 Pts)</span>
+                  <span class="place-badge gold">1st</span>
                   <div class="winner-inputs">
                     <input type="text" id="w1Name" placeholder="Student Full Name" required class="custom-input">
-                    <input type="text" id="w1Chest" placeholder="Chest No" required class="custom-input">
                     <select id="w1Team" class="custom-select" required>
-                      <option value="Badr">Team Badr</option>
-                      <option value="Uhud">Team Uhud</option>
-                      <option value="Thabuk">Team Thabuk</option>
-                      <option value="Hudaibiyya">Team Hudaibiyya</option>
+                      <option value="Samarkhand">Samarkhand</option>
+                      <option value="Granada">Granada</option>
+                      <option value="Kairo">Kairo</option>
                     </select>
                     <select id="w1Grade" class="custom-select" required>
-                      <option value="A+">Grade A+</option>
-                      <option value="A">Grade A</option>
-                      <option value="B">Grade B</option>
+                      <option value="A+">A+</option>
+                      <option value="A">A</option>
+                      <option value="B">B</option>
                     </select>
                   </div>
                 </div>
 
                 <!-- 2nd Place -->
                 <div class="winner-row winner-second">
-                  <span class="place-badge silver">🥈 2nd Place (7 Pts)</span>
+                  <span class="place-badge silver">2nd</span>
                   <div class="winner-inputs">
                     <input type="text" id="w2Name" placeholder="Student Full Name" required class="custom-input">
-                    <input type="text" id="w2Chest" placeholder="Chest No" required class="custom-input">
                     <select id="w2Team" class="custom-select" required>
-                      <option value="Uhud">Team Uhud</option>
-                      <option value="Badr">Team Badr</option>
-                      <option value="Thabuk">Team Thabuk</option>
-                      <option value="Hudaibiyya">Team Hudaibiyya</option>
+                      <option value="Granada">Granada</option>
+                      <option value="Samarkhand">Samarkhand</option>
+                      <option value="Kairo">Kairo</option>
                     </select>
                     <select id="w2Grade" class="custom-select" required>
-                      <option value="A+">Grade A+</option>
-                      <option value="A" selected>Grade A</option>
-                      <option value="B">Grade B</option>
+                      <option value="A+">A+</option>
+                      <option value="A" selected>A</option>
+                      <option value="B">B</option>
                     </select>
                   </div>
                 </div>
 
                 <!-- 3rd Place -->
                 <div class="winner-row winner-third">
-                  <span class="place-badge bronze">🥉 3rd Place (5 Pts)</span>
+                  <span class="place-badge bronze">3rd</span>
                   <div class="winner-inputs">
                     <input type="text" id="w3Name" placeholder="Student Full Name" required class="custom-input">
-                    <input type="text" id="w3Chest" placeholder="Chest No" required class="custom-input">
                     <select id="w3Team" class="custom-select" required>
-                      <option value="Thabuk">Team Thabuk</option>
-                      <option value="Badr">Team Badr</option>
-                      <option value="Uhud">Team Uhud</option>
-                      <option value="Hudaibiyya">Team Hudaibiyya</option>
+                      <option value="Kairo">Kairo</option>
+                      <option value="Samarkhand">Samarkhand</option>
+                      <option value="Granada">Granada</option>
                     </select>
                     <select id="w3Grade" class="custom-select" required>
-                      <option value="A+">Grade A+</option>
-                      <option value="A" selected>Grade A</option>
-                      <option value="B">Grade B</option>
+                      <option value="A+">A+</option>
+                      <option value="A" selected>A</option>
+                      <option value="B">B</option>
                     </select>
                   </div>
                 </div>
               </div>
 
-              <div class="form-actions">
-                <button type="submit" class="btn btn-primary"><i data-lucide="check-circle-2"></i> Publish Result Now</button>
+              <div class="form-actions" style="margin-top: 16px;">
+                <button type="submit" class="btn btn-primary btn-block">Publish Result Now</button>
               </div>
             </form>
           </div>
 
           <!-- Existing Published Results Management -->
           <div class="admin-manage-section glass-card" style="margin-top: 28px;">
-            <div class="card-header">
-              <h3><i data-lucide="layers"></i> Manage Published Results</h3>
-              <p>View and delete published results from the system</p>
+            <div class="card-header" style="margin-bottom: 16px;">
+              <h3 style="font-size: 1.25rem; font-weight: 700; color: #0f172a; margin: 0;">Manage Published Results</h3>
             </div>
             <div class="admin-results-list" id="adminResultsList">
               <!-- Dynamically populated admin list -->
@@ -438,7 +366,7 @@
 
         <div class="cert-body">
           <div class="cert-rank-display" id="certRankDisplay">
-            <span class="cert-icon" id="certRankIcon">🥇</span>
+            <span class="cert-icon" id="certRankIcon"></span>
             <div class="cert-rank-title" id="certRankTitle">FIRST PLACE</div>
           </div>
 
@@ -446,7 +374,6 @@
             <span class="cert-label">PROUDLY PRESENTED TO</span>
             <h2 class="cert-student-name" id="certStudentName">Student Name</h2>
             <div class="cert-meta-row">
-              <span class="cert-meta-item"><strong>Chest No:</strong> <span id="certChestNo">#104</span></span>
               <span class="cert-meta-item"><strong>Team:</strong> <span id="certTeamBadge" class="team-badge-pill team-Badr">Badr</span></span>
             </div>
           </div>
@@ -531,7 +458,7 @@
         <h4>Navigation</h4>
         <a href="#home">Home</a>
         <a href="#about">About</a>
-        <a href="#viewer">Reader</a>
+        <a href="#sweet-mahabba">Meelad Results</a>
       </div>
       <div class="footer-contact">
         <h4>Contact Info</h4>

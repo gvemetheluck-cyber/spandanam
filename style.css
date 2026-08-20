@@ -1846,9 +1846,28 @@ button, input, select, textarea {
   gap: 10px;
 }
 
-.place-icon {
-  font-size: 1.1rem;
+.rank-badge-minimal {
+  font-size: 0.75rem;
   font-weight: 800;
+  padding: 4px 8px;
+  border-radius: 6px;
+  min-width: 32px;
+  text-align: center;
+}
+
+.rank-badge-minimal.place-1 {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.rank-badge-minimal.place-2 {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+.rank-badge-minimal.place-3 {
+  background: #ffedd5;
+  color: #c2410c;
 }
 
 .student-name-text {
@@ -1881,6 +1900,9 @@ button, input, select, textarea {
 .team-badge-pill.team-Uhud { background: #fee2e2; color: #991b1b; }
 .team-badge-pill.team-Thabuk { background: #dcfce7; color: #166534; }
 .team-badge-pill.team-Hudaibiyya { background: #f3e8ff; color: #6b21a8; }
+.team-badge-pill.team-Samarkhand { background: #dbeafe; color: #1e40af; }
+.team-badge-pill.team-Granada { background: #fee2e2; color: #991b1b; }
+.team-badge-pill.team-Kairo { background: #dcfce7; color: #166534; }
 
 .grade-badge-pill {
   padding: 2px 6px;
@@ -1935,8 +1957,8 @@ button, input, select, textarea {
 
 .generator-inputs {
   display: grid;
-  grid-template-columns: 1fr 1.5fr auto;
-  gap: 16px;
+  grid-template-columns: 1fr 1.2fr 1.2fr auto;
+  gap: 14px;
   align-items: end;
 }
 
@@ -2327,26 +2349,40 @@ button, input, select, textarea {
   margin-bottom: 4px;
 }
 
+.admin-manage-section {
+  background: #ffffff;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
 .admin-results-list {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
 
 .admin-result-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 14px 18px;
+  padding: 12px 16px;
   background: #f8fafc;
   border: 1px solid var(--color-border);
-  border-radius: 12px;
+  border-radius: 10px;
+  transition: border-color 0.2s ease;
+}
+
+.admin-result-item:hover {
+  border-color: #cbd5e1;
 }
 
 .admin-result-info h4 {
-  font-size: 1rem;
+  font-size: 0.95rem;
   color: #0f172a;
-  font-weight: 800;
+  font-weight: 700;
+  margin-bottom: 2px;
 }
 
 .admin-result-info p {
@@ -2355,18 +2391,15 @@ button, input, select, textarea {
 }
 
 .btn-delete {
-  background: #fef2f2;
+  background: transparent;
   color: #dc2626;
-  border: 1px solid #fecaca;
-  padding: 6px 14px;
-  border-radius: 8px;
+  border: 1px solid #fee2e2;
+  padding: 5px 14px;
+  border-radius: 6px;
   font-size: 0.8rem;
-  font-weight: 700;
+  font-weight: 600;
   cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  transition: var(--transition-fast);
+  transition: all 0.2s ease;
 }
 
 .btn-delete:hover {
@@ -2449,6 +2482,113 @@ button, input, select, textarea {
   display: flex;
   align-items: center;
   gap: 12px;
+}
+
+/* Ultra-Minimal Competition Result Publishing Form Styles */
+.generator-card {
+  background: #ffffff;
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+}
+
+.generator-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.generator-form .form-row {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 16px;
+}
+
+.generator-form .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.generator-form label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #64748b;
+}
+
+.winners-entry-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.winner-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: #f8fafc;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  transition: border-color 0.2s ease;
+}
+
+.winner-row:focus-within {
+  border-color: #059669;
+  background: #ffffff;
+}
+
+.place-badge {
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 6px 12px;
+  border-radius: 20px;
+  min-width: 44px;
+  text-align: center;
+}
+
+.place-badge.gold {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.place-badge.silver {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+.place-badge.bronze {
+  background: #ffedd5;
+  color: #c2410c;
+}
+
+.winner-inputs {
+  display: grid;
+  grid-template-columns: 2fr 1.5fr 1fr;
+  gap: 10px;
+  flex: 1;
+}
+
+.winner-inputs .custom-input,
+.winner-inputs .custom-select {
+  padding: 8px 12px;
+  font-size: 0.88rem;
+  min-width: 0;
+  border-radius: 8px;
+}
+
+.btn-block {
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .winner-inputs {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 @media (max-width: 768px) {

@@ -45,6 +45,9 @@
     <a href="#viewer" class="dot-nav" data-section="viewer" title="Reader">
       <span class="dot-label">Reader</span>
     </a>
+    <a href="#sweet-mahabba" class="dot-nav" data-section="sweet-mahabba" title="Meelad Results">
+      <span class="dot-label">Meelad Results</span>
+    </a>
   </div>
 
   <!-- Premium Floating Navigation Header -->
@@ -54,7 +57,7 @@
         <img src="assets/logo.jpg" alt="Madarasathul Hasaniya Logo" class="logo-image">
         <div class="logo-text">
           <span class="title-primary">MADARASATHUL HASANIYA</span>
-          <span class="title-secondary">Digital Magazine Portal</span>
+          <span class="title-secondary">Digital Magazine & Meelad Portal</span>
         </div>
       </a>
       
@@ -62,6 +65,7 @@
         <a href="#home" class="nav-link active">Home</a>
         <a href="#about" class="nav-link">About</a>
         <a href="#viewer" class="nav-link">Magazine Reader</a>
+        <a href="#sweet-mahabba" id="sweetMahabbaNavBtn" class="nav-link sweet-link"><i data-lucide="award"></i> Sweet Of Mahabba</a>
       </nav>
       
       <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle Navigation">
@@ -79,6 +83,7 @@
         <h1>Where Handwritten Art Meets <span class="gradient-text">Digital Innovation</span></h1>
         <p>Step into the rich archive of student literature, detailed illustrations, and beautiful Arabic calligraphy from Madarasathul Hasaniya. Experience them through our realistic 3D flipping magazine reader.</p>
         <div class="hero-actions">
+          <button id="sweetMahabbaHeroBtn" class="btn btn-sweet"><i data-lucide="heart"></i> Sweet Of Mahabba</button>
           <a href="#viewer" class="btn btn-primary"><i data-lucide="book-open"></i> Read Latest Issue</a>
           <a href="#about" class="btn btn-secondary"><i data-lucide="info"></i> Learn More</a>
         </div>
@@ -146,6 +151,7 @@
         </div>
         
         <div class="control-actions">
+          <button id="sweetMahabbaQuickBtn" class="control-btn sweet-btn" title="Read Sweet Of Mahabba Edition"><i data-lucide="heart"></i> Sweet Of Mahabba</button>
           <button id="prevBtn" class="control-btn" title="Previous Page"><i data-lucide="chevron-left"></i> Prev</button>
           <span id="pageIndicator" class="page-indicator">Page 1 / 4</span>
           <button id="nextBtn" class="control-btn" title="Next Page">Next <i data-lucide="chevron-right"></i></button>
@@ -187,6 +193,52 @@
             <!-- Populated dynamically by JavaScript -->
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sweet Of Mahabba - Meelad Fest Published Results Section -->
+  <section class="meelad-section" id="sweet-mahabba">
+    <div class="section-container">
+      <div class="section-header">
+        <span class="section-subtitle"><i data-lucide="award"></i> Madarasathul Hasaniya Meelad Fest</span>
+        <h2>Sweet Of Mahabba</h2>
+        <p class="section-desc">Published Competition Results</p>
+        <div class="header-divider"></div>
+      </div>
+
+      <!-- Published Results Search & Filter -->
+      <div class="results-filter-bar glass-card">
+        <div class="filter-group">
+          <label for="categoryFilter"><i data-lucide="filter"></i> Category:</label>
+          <select id="categoryFilter" class="custom-select">
+            <option value="all">All Categories</option>
+            <option value="Sub-Junior">Sub-Junior</option>
+            <option value="Junior">Junior</option>
+            <option value="Senior">Senior</option>
+            <option value="General">General</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label for="teamFilter"><i data-lucide="shield"></i> Team:</label>
+          <select id="teamFilter" class="custom-select">
+            <option value="all">All Teams</option>
+            <option value="Badr">Team Badr</option>
+            <option value="Uhud">Team Uhud</option>
+            <option value="Thabuk">Team Thabuk</option>
+            <option value="Hudaibiyya">Team Hudaibiyya</option>
+          </select>
+        </div>
+
+        <div class="filter-group search-group">
+          <input type="text" id="resultSearchInput" placeholder="Search student name, chest no, or item..." class="search-input">
+          <i data-lucide="search" class="search-icon"></i>
+        </div>
+      </div>
+
+      <div class="results-grid" id="resultsGrid">
+        <!-- Dynamically populated published result cards -->
       </div>
     </div>
   </section>

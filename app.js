@@ -11,6 +11,20 @@ let prevMobilePageIndex = 0; // Track previous page for mobile transitions
 // Static default magazine registration
 const STATIC_MAGAZINES = [
   {
+    id: 'sweet_of_mahabba',
+    title: 'Sweet Of Mahabba - Special Edition',
+    description: 'Special Edition Student Calligraphy & Literary Collection from Madarasathul Hasaniya',
+    writers: ['Fathima Riza (Editor)', 'Aisha Raihana (Calligraphy)', 'Muhammed Sa-ad (Articles)', 'Nafih Hasani (Art)', 'Zubair Al-Hasani (Cover)'],
+    pages: [
+      'assets/default_magazine/spandanam_1.jpg',
+      'assets/default_magazine/WhatsApp Image 2026-07-21 at 11.09.40 AM.jpeg',
+      'assets/default_magazine/WhatsApp Image 2026-07-21 at 11.09.41 AM.jpeg',
+      'assets/default_magazine/WhatsApp Image 2026-07-21 at 11.09.42 AM.jpeg',
+      'assets/default_magazine/WhatsApp Image 2026-07-21 at 11.09.45 AM.jpeg',
+      'assets/default_magazine/spandanam_2.jpg'
+    ]
+  },
+  {
     id: 'spandanam_2026',
     title: 'Spandanam - Student Handwritten Magazine',
     description: 'Special student handwritten publication from Madarasathul Hasaniya (Adikkumpara)',
@@ -119,6 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   initIcons();
   initHeader();
+  initMeeladFestSystem();
   initIndexedDB()
     .then(() => loadAllMagazines())
     .then(() => {
@@ -545,6 +560,25 @@ function setupEventListeners() {
     });
   }
 
+  // Sweet Of Mahabba button handlers
+  const openSweetMahabba = (e) => {
+    if (e) e.preventDefault();
+    const sweetSection = document.getElementById('sweet-mahabba');
+    if (sweetSection) {
+      sweetSection.scrollIntoView({ behavior: 'smooth' });
+    }
+    showToast("Opened Sweet Of Mahabba Meelad Fest Result Portal!", "success");
+  };
+
+  const sweetHeroBtn = document.getElementById('sweetMahabbaHeroBtn');
+  if (sweetHeroBtn) sweetHeroBtn.addEventListener('click', openSweetMahabba);
+
+  const sweetNavBtn = document.getElementById('sweetMahabbaNavBtn');
+  if (sweetNavBtn) sweetNavBtn.addEventListener('click', openSweetMahabba);
+
+  const sweetQuickBtn = document.getElementById('sweetMahabbaQuickBtn');
+  if (sweetQuickBtn) sweetQuickBtn.addEventListener('click', openSweetMahabba);
+
   // Dropdown selector
   const select = document.getElementById('magazineSelect');
   select.addEventListener('change', (e) => {
@@ -715,3 +749,283 @@ function showToast(message, type = 'success') {
     }, 400);
   }, 4000);
 }
+
+// ----------------------------------------------------
+// Sweet Of Mahabba - Meelad Fest Program Management & Result Generator
+// ----------------------------------------------------
+
+let meeladResults = [
+  {
+    id: 'res_1',
+    category: 'Senior',
+    item: 'Qirat Recitation (Tajweed)',
+    winners: [
+      { place: 1, name: 'Muhammed Sinan', chestNo: '104', team: 'Badr', grade: 'A+', points: 10 },
+      { place: 2, name: 'Abdul Basith', chestNo: '211', team: 'Uhud', grade: 'A', points: 7 },
+      { place: 3, name: 'Ahammed Safwan', chestNo: '305', team: 'Thabuk', grade: 'A', points: 5 }
+    ]
+  },
+  {
+    id: 'res_2',
+    category: 'Junior',
+    item: 'Arabic Calligraphy & Sketch',
+    winners: [
+      { place: 1, name: 'Lutfia P.A.', chestNo: '202', team: 'Uhud', grade: 'A+', points: 10 },
+      { place: 2, name: 'Fathima K.P.', chestNo: '115', team: 'Badr', grade: 'A+', points: 7 },
+      { place: 3, name: 'Diya Sherin', chestNo: '408', team: 'Hudaibiyya', grade: 'A', points: 5 }
+    ]
+  },
+  {
+    id: 'res_3',
+    category: 'Sub-Junior',
+    item: 'Islamic Song (Mappila Pattu)',
+    winners: [
+      { place: 1, name: 'Nafih Hasani', chestNo: '312', team: 'Thabuk', grade: 'A+', points: 10 },
+      { place: 2, name: 'Riza Abdul Shukoor', chestNo: '109', team: 'Badr', grade: 'A', points: 7 },
+      { place: 3, name: 'Muhammed Rayan', chestNo: '414', team: 'Hudaibiyya', grade: 'B', points: 5 }
+    ]
+  },
+  {
+    id: 'res_4',
+    category: 'General',
+    item: 'Duff Muttu Performance',
+    winners: [
+      { place: 1, name: 'Team Badr Group', chestNo: '100', team: 'Badr', grade: 'A+', points: 10 },
+      { place: 2, name: 'Team Uhud Group', chestNo: '200', team: 'Uhud', grade: 'A+', points: 7 },
+      { place: 3, name: 'Team Thabuk Group', chestNo: '300', team: 'Thabuk', grade: 'A', points: 5 }
+    ]
+  }
+];
+
+function initMeeladFestSystem() {
+  renderMeeladResults();
+  setupMeeladFilters();
+}
+
+// Tab Switching
+function initMeeladTabs() {
+  const tabs = document.querySelectorAll('.meelad-tab');
+  const contents = document.querySelectorAll('.meelad-tab-content');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      contents.forEach(c => c.classList.remove('active'));
+
+      tab.classList.add('active');
+      const targetId = tab.getAttribute('data-tab');
+      const targetContent = document.getElementById(targetId);
+      if (targetContent) targetContent.classList.add('active');
+    });
+  });
+}
+
+// Team Standings Leaderboard Calculation
+function renderMeeladLeaderboard() {
+  const grid = document.getElementById('leaderboardGrid');
+  if (!grid) return;
+
+  const teams = [
+    { name: 'Badr', totalPoints: 0, gold: 0, silver: 0, bronze: 0 },
+    { name: 'Uhud', totalPoints: 0, gold: 0, silver: 0, bronze: 0 },
+    { name: 'Thabuk', totalPoints: 0, gold: 0, silver: 0, bronze: 0 },
+    { name: 'Hudaibiyya', totalPoints: 0, gold: 0, silver: 0, bronze: 0 }
+  ];
+
+  // Calculate points from results
+  meeladResults.forEach(res => {
+    res.winners.forEach(w => {
+      const teamObj = teams.find(t => t.name.toLowerCase() === w.team.toLowerCase());
+      if (teamObj) {
+        teamObj.totalPoints += w.points;
+        if (w.place === 1) teamObj.gold++;
+        else if (w.place === 2) teamObj.silver++;
+        else if (w.place === 3) teamObj.bronze++;
+      }
+    });
+  });
+
+  // Sort descending by totalPoints
+  teams.sort((a, b) => b.totalPoints - a.totalPoints);
+  const maxPoints = teams[0].totalPoints || 1;
+
+  grid.innerHTML = '';
+  teams.forEach((t, idx) => {
+    const rank = idx + 1;
+    const progressPercent = Math.round((t.totalPoints / maxPoints) * 100);
+
+    const card = document.createElement('div');
+    card.className = `team-card glass-card rank-${rank}`;
+
+    let rankLabel = `#${rank}`;
+    if (rank === 1) rankLabel = '🥇 1st Place';
+    else if (rank === 2) rankLabel = '🥈 2nd Place';
+    else if (rank === 3) rankLabel = '🥉 3rd Place';
+
+    card.innerHTML = `
+      <div class="team-header">
+        <span class="team-name">Team ${t.name}</span>
+        <span class="rank-badge rank-${rank}">${rankLabel}</span>
+      </div>
+      <div class="team-score-display">
+        <span class="score-number">${t.totalPoints}</span>
+        <span class="score-unit">Points</span>
+      </div>
+      <div class="progress-bar-container">
+        <div class="progress-fill" style="width: ${progressPercent}%;"></div>
+      </div>
+      <div class="medals-tally">
+        <span class="medal-item">🥇 ${t.gold} Gold</span>
+        <span class="medal-item">🥈 ${t.silver} Silver</span>
+        <span class="medal-item">🥉 ${t.bronze} Bronze</span>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+// Render Published Results List
+function renderMeeladResults() {
+  const grid = document.getElementById('resultsGrid');
+  if (!grid) return;
+
+  const categoryVal = document.getElementById('categoryFilter')?.value || 'all';
+  const teamVal = document.getElementById('teamFilter')?.value || 'all';
+  const searchVal = (document.getElementById('resultSearchInput')?.value || '').toLowerCase();
+
+  const filtered = meeladResults.filter(res => {
+    // Category match
+    if (categoryVal !== 'all' && res.category !== categoryVal) return false;
+
+    // Team match (if any winner in result matches teamVal)
+    if (teamVal !== 'all') {
+      const hasTeam = res.winners.some(w => w.team.toLowerCase() === teamVal.toLowerCase());
+      if (!hasTeam) return false;
+    }
+
+    // Search query match
+    if (searchVal) {
+      const matchItem = res.item.toLowerCase().includes(searchVal);
+      const matchCategory = res.category.toLowerCase().includes(searchVal);
+      const matchStudent = res.winners.some(w => 
+        w.name.toLowerCase().includes(searchVal) || w.chestNo.toLowerCase().includes(searchVal)
+      );
+      if (!matchItem && !matchCategory && !matchStudent) return false;
+    }
+
+    return true;
+  });
+
+  grid.innerHTML = '';
+  if (filtered.length === 0) {
+    grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; color: var(--color-muted); padding: 40px;">No competition results found matching your search.</div>`;
+    return;
+  }
+
+  filtered.forEach(res => {
+    const card = document.createElement('div');
+    card.className = 'result-card glass-card';
+
+    let winnersHtml = '';
+    res.winners.forEach(w => {
+      let placeIcon = '🥇';
+      if (w.place === 2) placeIcon = '🥈';
+      if (w.place === 3) placeIcon = '🥉';
+
+      winnersHtml += `
+        <div class="winner-item-card place-${w.place}">
+          <div class="winner-student-info">
+            <span class="place-icon">${placeIcon}</span>
+            <div>
+              <div class="student-name-text">${w.name}</div>
+              <div class="chest-text">Chest No: #${w.chestNo}</div>
+            </div>
+          </div>
+          <div class="winner-meta-badges">
+            <span class="team-badge-pill team-${w.team}">${w.team}</span>
+            <span class="grade-badge-pill">${w.grade}</span>
+          </div>
+        </div>
+      `;
+    });
+
+    card.innerHTML = `
+      <div class="result-card-header">
+        <div class="item-title-box">
+          <h3>${res.item}</h3>
+        </div>
+        <span class="category-badge">${res.category}</span>
+      </div>
+      <div class="winners-list-display">
+        ${winnersHtml}
+      </div>
+    `;
+
+    grid.appendChild(card);
+  });
+}
+
+// Setup Filters
+function setupMeeladFilters() {
+  const catFilter = document.getElementById('categoryFilter');
+  const teamFilter = document.getElementById('teamFilter');
+  const searchInput = document.getElementById('resultSearchInput');
+
+  if (catFilter) catFilter.addEventListener('change', renderMeeladResults);
+  if (teamFilter) teamFilter.addEventListener('change', renderMeeladResults);
+  if (searchInput) searchInput.addEventListener('input', renderMeeladResults);
+}
+
+// Result Generator Form Submission
+function setupResultGeneratorForm() {
+  const form = document.getElementById('resultGeneratorForm');
+  if (!form) return;
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const category = document.getElementById('itemCategory').value;
+    const item = document.getElementById('itemName').value.trim();
+
+    const w1Name = document.getElementById('w1Name').value.trim();
+    const w1Chest = document.getElementById('w1Chest').value.trim();
+    const w1Team = document.getElementById('w1Team').value;
+    const w1Grade = document.getElementById('w1Grade').value;
+
+    const w2Name = document.getElementById('w2Name').value.trim();
+    const w2Chest = document.getElementById('w2Chest').value.trim();
+    const w2Team = document.getElementById('w2Team').value;
+    const w2Grade = document.getElementById('w2Grade').value;
+
+    const w3Name = document.getElementById('w3Name').value.trim();
+    const w3Chest = document.getElementById('w3Chest').value.trim();
+    const w3Team = document.getElementById('w3Team').value;
+    const w3Grade = document.getElementById('w3Grade').value;
+
+    const newResult = {
+      id: 'res_' + Date.now(),
+      category: category,
+      item: item,
+      winners: [
+        { place: 1, name: w1Name, chestNo: w1Chest, team: w1Team, grade: w1Grade, points: 10 },
+        { place: 2, name: w2Name, chestNo: w2Chest, team: w2Team, grade: w2Grade, points: 7 },
+        { place: 3, name: w3Name, chestNo: w3Chest, team: w3Team, grade: w3Grade, points: 5 }
+      ]
+    };
+
+    meeladResults.unshift(newResult);
+
+    // Re-render
+    renderMeeladLeaderboard();
+    renderMeeladResults();
+
+    form.reset();
+
+    // Switch to results tab to show new result
+    const resultsTab = document.querySelector('.meelad-tab[data-tab="tab-results"]');
+    if (resultsTab) resultsTab.click();
+
+    showToast(`Result Published Successfully for "${item}"!`, 'success');
+  });
+}
+

@@ -2239,6 +2239,192 @@ button, input, select, textarea {
   font-size: 0.85rem;
 }
 
+/* Admin Nav & Tab Button */
+.admin-nav-btn {
+  background: #f1f5f9;
+  border: 1px solid var(--color-border);
+  color: #334155;
+  padding: 8px 16px;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: var(--transition-fast);
+}
+
+.admin-nav-btn:hover, .admin-nav-btn.active {
+  background: #0f172a;
+  color: #ffffff;
+  border-color: #0f172a;
+}
+
+.admin-tab-btn {
+  border-color: #cbd5e1 !important;
+}
+
+.admin-prompt-card {
+  text-align: center;
+  padding: 60px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  max-width: 540px;
+  margin: 0 auto;
+}
+
+.prompt-icon-box {
+  width: 64px;
+  height: 64px;
+  background: #f1f5f9;
+  color: #0f172a;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  margin-bottom: 8px;
+}
+
+.admin-prompt-card h3 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.admin-prompt-card p {
+  color: var(--color-muted);
+  font-size: 0.95rem;
+}
+
+.admin-dashboard-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.admin-dashboard-header {
+  padding: 20px 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.status-badge-online {
+  background: #ecfdf5;
+  color: #047857;
+  border: 1px solid #a7f3d0;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 4px;
+}
+
+.admin-results-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.admin-result-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 18px;
+  background: #f8fafc;
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+}
+
+.admin-result-info h4 {
+  font-size: 1rem;
+  color: #0f172a;
+  font-weight: 800;
+}
+
+.admin-result-info p {
+  font-size: 0.8rem;
+  color: var(--color-muted);
+}
+
+.btn-delete {
+  background: #fef2f2;
+  color: #dc2626;
+  border: 1px solid #fecaca;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: var(--transition-fast);
+}
+
+.btn-delete:hover {
+  background: #dc2626;
+  color: #ffffff;
+  border-color: #dc2626;
+}
+
+/* Login Modal */
+.login-modal-card {
+  max-width: 440px;
+}
+
+.login-modal-header {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.login-icon-circle {
+  width: 54px;
+  height: 54px;
+  background: #ecfdf5;
+  color: #059669;
+  border: 1px solid #a7f3d0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+
+.admin-login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.login-hint-box {
+  background: #f8fafc;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  padding: 12px 14px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.8rem;
+  color: #475569;
+}
+
+.login-hint-box i {
+  color: #059669;
+  margin-top: 2px;
+}
+
 @media (max-width: 768px) {
   .generator-inputs {
     grid-template-columns: 1fr;

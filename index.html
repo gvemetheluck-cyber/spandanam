@@ -66,6 +66,7 @@
         <a href="#about" class="nav-link">About</a>
         <a href="#viewer" class="nav-link">Magazine Reader</a>
         <a href="#sweet-mahabba" id="sweetMahabbaNavBtn" class="nav-link sweet-link"><i data-lucide="award"></i> Sweet Of Mahabba</a>
+        <button id="openAdminModalBtn" class="admin-nav-btn"><i data-lucide="lock"></i> Admin Portal</button>
       </nav>
       
       <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle Navigation">
@@ -233,13 +234,16 @@
         </div>
       </div>
 
-      <!-- Navigation Tabs: Published Results vs Team Leaderboard -->
+      <!-- Navigation Tabs: Published Results vs Team Leaderboard vs Admin Manager -->
       <div class="meelad-tabs-bar">
         <button class="meelad-tab active" data-tab="tab-results">
           <i data-lucide="award"></i> Published Results
         </button>
         <button class="meelad-tab" data-tab="tab-leaderboard">
           <i data-lucide="trophy"></i> Team Leaderboard
+        </button>
+        <button class="meelad-tab admin-tab-btn" data-tab="tab-admin" id="adminTabBtn">
+          <i data-lucide="shield-check"></i> Admin Portal
         </button>
       </div>
 
@@ -284,6 +288,133 @@
       <div class="meelad-tab-content" id="tab-leaderboard">
         <div class="leaderboard-grid" id="leaderboardGrid">
           <!-- Dynamically populated team leaderboard cards -->
+        </div>
+      </div>
+
+      <!-- Tab Content 3: Admin Managing Portal -->
+      <div class="meelad-tab-content" id="tab-admin">
+        <!-- Logged Out Prompt State -->
+        <div id="adminLoggedOutState" class="admin-prompt-card glass-card">
+          <div class="prompt-icon-box"><i data-lucide="lock"></i></div>
+          <h3>Admin Managing Portal Locked</h3>
+          <p>Sign in with your username and password to publish, update, or remove competition results.</p>
+          <button id="promptLoginBtn" class="btn btn-primary"><i data-lucide="log-in"></i> Sign In to Admin Portal</button>
+        </div>
+
+        <!-- Logged In Admin Dashboard State -->
+        <div id="adminLoggedInState" class="admin-dashboard-container" style="display: none;">
+          <div class="admin-dashboard-header glass-card">
+            <div class="admin-user-info">
+              <span class="status-badge-online"><i data-lucide="check-circle-2"></i> Authenticated Admin</span>
+              <h3>Result Publishing & Management Portal</h3>
+            </div>
+            <button id="adminLogoutBtn" class="btn btn-secondary btn-sm"><i data-lucide="log-out"></i> Logout</button>
+          </div>
+
+          <!-- Result Publishing Form -->
+          <div class="generator-card glass-card">
+            <div class="card-header">
+              <h3><i data-lucide="plus-circle" class="text-accent"></i> Publish New Competition Result</h3>
+              <p>Fill in competition item and winner details to publish instantly to the official result portal</p>
+            </div>
+
+            <form id="publishResultForm" class="generator-form">
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="pubCategory"><i data-lucide="filter"></i> Category:</label>
+                  <select id="pubCategory" class="custom-select" required>
+                    <option value="Sub-Junior">Sub-Junior</option>
+                    <option value="Junior">Junior</option>
+                    <option value="Senior" selected>Senior</option>
+                    <option value="General">General</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="pubItemName"><i data-lucide="award"></i> Competition Item Name:</label>
+                  <input type="text" id="pubItemName" placeholder="e.g. Qirat Recitation, Arabic Speech..." required class="custom-input">
+                </div>
+              </div>
+
+              <div class="winners-entry-section">
+                <h4><i data-lucide="trophy"></i> Competition Winners & Ranks</h4>
+                
+                <!-- 1st Place -->
+                <div class="winner-row winner-first">
+                  <span class="place-badge gold">🥇 1st Place (10 Pts)</span>
+                  <div class="winner-inputs">
+                    <input type="text" id="w1Name" placeholder="Student Full Name" required class="custom-input">
+                    <input type="text" id="w1Chest" placeholder="Chest No" required class="custom-input">
+                    <select id="w1Team" class="custom-select" required>
+                      <option value="Badr">Team Badr</option>
+                      <option value="Uhud">Team Uhud</option>
+                      <option value="Thabuk">Team Thabuk</option>
+                      <option value="Hudaibiyya">Team Hudaibiyya</option>
+                    </select>
+                    <select id="w1Grade" class="custom-select" required>
+                      <option value="A+">Grade A+</option>
+                      <option value="A">Grade A</option>
+                      <option value="B">Grade B</option>
+                    </select>
+                  </div>
+                </div>
+
+                <!-- 2nd Place -->
+                <div class="winner-row winner-second">
+                  <span class="place-badge silver">🥈 2nd Place (7 Pts)</span>
+                  <div class="winner-inputs">
+                    <input type="text" id="w2Name" placeholder="Student Full Name" required class="custom-input">
+                    <input type="text" id="w2Chest" placeholder="Chest No" required class="custom-input">
+                    <select id="w2Team" class="custom-select" required>
+                      <option value="Uhud">Team Uhud</option>
+                      <option value="Badr">Team Badr</option>
+                      <option value="Thabuk">Team Thabuk</option>
+                      <option value="Hudaibiyya">Team Hudaibiyya</option>
+                    </select>
+                    <select id="w2Grade" class="custom-select" required>
+                      <option value="A+">Grade A+</option>
+                      <option value="A" selected>Grade A</option>
+                      <option value="B">Grade B</option>
+                    </select>
+                  </div>
+                </div>
+
+                <!-- 3rd Place -->
+                <div class="winner-row winner-third">
+                  <span class="place-badge bronze">🥉 3rd Place (5 Pts)</span>
+                  <div class="winner-inputs">
+                    <input type="text" id="w3Name" placeholder="Student Full Name" required class="custom-input">
+                    <input type="text" id="w3Chest" placeholder="Chest No" required class="custom-input">
+                    <select id="w3Team" class="custom-select" required>
+                      <option value="Thabuk">Team Thabuk</option>
+                      <option value="Badr">Team Badr</option>
+                      <option value="Uhud">Team Uhud</option>
+                      <option value="Hudaibiyya">Team Hudaibiyya</option>
+                    </select>
+                    <select id="w3Grade" class="custom-select" required>
+                      <option value="A+">Grade A+</option>
+                      <option value="A" selected>Grade A</option>
+                      <option value="B">Grade B</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-actions">
+                <button type="submit" class="btn btn-primary"><i data-lucide="check-circle-2"></i> Publish Result Now</button>
+              </div>
+            </form>
+          </div>
+
+          <!-- Existing Published Results Management -->
+          <div class="admin-manage-section glass-card" style="margin-top: 28px;">
+            <div class="card-header">
+              <h3><i data-lucide="layers"></i> Manage Published Results</h3>
+              <p>View and delete published results from the system</p>
+            </div>
+            <div class="admin-results-list" id="adminResultsList">
+              <!-- Dynamically populated admin list -->
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -349,6 +480,37 @@
           </button>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- Admin Authentication Login Modal -->
+  <div class="modal-overlay" id="adminLoginModal">
+    <div class="modal-card glass-card login-modal-card">
+      <button class="modal-close-btn" id="closeAdminLoginModal" aria-label="Close modal"><i data-lucide="x"></i></button>
+      <div class="login-modal-header">
+        <div class="login-icon-circle"><i data-lucide="shield-check"></i></div>
+        <h3>Admin Portal Sign In</h3>
+        <p>Enter your managing credentials to publish competition results</p>
+      </div>
+
+      <form id="adminLoginForm" class="admin-login-form">
+        <div class="form-group">
+          <label for="adminUsername"><i data-lucide="user"></i> Username:</label>
+          <input type="text" id="adminUsername" placeholder="Enter username" required class="custom-input" autocomplete="username">
+        </div>
+
+        <div class="form-group">
+          <label for="adminPassword"><i data-lucide="key"></i> Password:</label>
+          <input type="password" id="adminPassword" placeholder="Enter password" required class="custom-input" autocomplete="current-password">
+        </div>
+
+        <div class="login-hint-box">
+          <i data-lucide="info"></i>
+          <span>Default Credentials:<br><strong>Username:</strong> admin &nbsp;|&nbsp; <strong>Password:</strong> hasaniya2026</span>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block"><i data-lucide="log-in"></i> Sign In & Access Portal</button>
+      </form>
     </div>
   </div>
 

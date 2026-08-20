@@ -751,7 +751,7 @@ function showToast(message, type = 'success') {
 }
 
 // ----------------------------------------------------
-// Sweet Of Mahabba - Meelad Fest Result Generator & Published Portal
+// Sweet Of Mahabba - Meelad Fest Result Generator & Admin Managing Portal
 // ----------------------------------------------------
 
 let meeladResults = [
@@ -817,6 +817,22 @@ let meeladResults = [
   }
 ];
 
+// Persistent storage load for published results
+let savedResults = localStorage.getItem('hasaniya_published_results');
+if (savedResults) {
+  try {
+    meeladResults = JSON.parse(savedResults);
+  } catch (e) {
+    console.error("Failed to load saved published results:", e);
+  }
+}
+
+function saveMeeladResults() {
+  localStorage.setItem('hasaniya_published_results', JSON.stringify(meeladResults));
+}
+
+let isAdminLoggedIn = localStorage.getItem('hasaniya_admin_logged_in') === 'true';
+
 function initMeeladFestSystem() {
   populateItemSelectOptions();
   renderMeeladResults();
@@ -825,6 +841,7 @@ function initMeeladFestSystem() {
   initMeeladTabs();
   setupResultGenerator();
   setupModalEvents();
+  setupAdminPortal();
 }
 
 function populateItemSelectOptions() {
@@ -866,7 +883,7 @@ function setupResultGenerator() {
       }
     } else {
       foundResult = meeladResults[0];
-      foundWinner = foundResult.winners[0];
+      foundWinner = foundResult ? foundResult.winners[0] : null;
     }
 
     if (foundWinner && foundResult) {
@@ -921,13 +938,24 @@ function setupModalEvents() {
         modal.classList.remove('active');
       }
     });
+  }
 
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && modal.classList.contains('active')) {
-        modal.classList.remove('active');
-      }
+  // Admin login modal close events
+  const closeLoginBtn = document.getElementById('closeAdminLoginModal');
+  const loginModal = document.getElementById('adminLoginModal');
+  if (closeLoginBtn && loginModal) {
+    closeLoginBtn.addEventListener('click', closeAdminLoginModal);
+    loginModal.addEventListener('click', (e) => {
+      if (e.target === loginModal) closeAdminLoginModal();
     });
   }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      if (modal && modal.classList.contains('active')) modal.classList.remove('active');
+      if (loginModal && loginModal.classList.contains('active')) closeAdminLoginModal();
+    }
+  });
 
   if (printBtn) {
     printBtn.addEventListener('click', () => {
@@ -966,7 +994,6 @@ function renderMeeladLeaderboard() {
     { name: 'Hudaibiyya', totalPoints: 0, gold: 0, silver: 0, bronze: 0 }
   ];
 
-  // Calculate points from results
   meeladResults.forEach(res => {
     res.winners.forEach(w => {
       const teamObj = teams.find(t => t.name.toLowerCase() === w.team.toLowerCase());
@@ -979,7 +1006,6 @@ function renderMeeladLeaderboard() {
     });
   });
 
-  // Sort descending by totalPoints
   teams.sort((a, b) => b.totalPoints - a.totalPoints);
   const maxPoints = teams[0].totalPoints || 1;
 
@@ -1120,5 +1146,203 @@ function setupMeeladFilters() {
   if (teamFilter) teamFilter.addEventListener('change', renderMeeladResults);
   if (searchInput) searchInput.addEventListener('input', renderMeeladResults);
 }
+
+// ----------------------------------------------------
+// Admin Portal & Authentication System
+// ----------------------------------------------------
+function setupAdminPortal() {
+  updateAdminUI();
+
+  const navAdminBtn = document.getElementById('openAdminModalBtn');
+  if (navAdminBtn) {
+    navAdminBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (isAdminLoggedIn) {
+        const adminTab = document.getElementById('adminTabBtn');
+        if (adminTab) adminTab.click();
+        const sweetSection = document.getElementById('sweet-mahabba');
+        if (sweetSection) sweetSection.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        openAdminLoginModal();
+      }
+    });
+  }
+
+  const promptBtn = document.getElementById('promptLoginBtn');
+  if (promptBtn) {
+    promptBtn.addEventListener('click', openAdminLoginModal);
+  }
+
+  const loginForm = document.getElementById('adminLoginForm');
+  if (loginForm) {
+    loginForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const user = document.getElementById('adminUsername')?.value.trim();
+      const pass = document.getElementById('adminPassword')?.value.trim();
+
+      if (user === 'admin' && pass === 'hasaniya2026') {
+        isAdminLoggedIn = true;
+        localStorage.setItem('hasaniya_admin_logged_in', 'true');
+        updateAdminUI();
+        closeAdminLoginModal();
+        showToast("Welcome Admin! Signed in successfully.", "success");
+
+        const adminTab = document.getElementById('adminTabBtn');
+        if (adminTab) adminTab.click();
+      } else {
+        showToast("Invalid Username or Password! (Default: admin / hasaniya2026)", "error");
+      }
+    });
+  }
+
+  const logoutBtn = document.getElementById('adminLogoutBtn');
+  if (logoutBtn) {
+    logoutBtn.addEventListener('click', () => {
+      isAdminLoggedIn = false;
+      localStorage.setItem('hasaniya_admin_logged_in', 'false');
+      updateAdminUI();
+      showToast("Signed out of Admin Portal.", "success");
+    });
+  }
+
+  const pubForm = document.getElementById('publishResultForm');
+  if (pubForm) {
+    pubForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const category = document.getElementById('pubCategory').value;
+      const item = document.getElementById('pubItemName').value.trim();
+
+      const w1Name = document.getElementById('w1Name').value.trim();
+      const w1Chest = document.getElementById('w1Chest').value.trim();
+      const w1Team = document.getElementById('w1Team').value;
+      const w1Grade = document.getElementById('w1Grade').value;
+
+      const w2Name = document.getElementById('w2Name').value.trim();
+      const w2Chest = document.getElementById('w2Chest').value.trim();
+      const w2Team = document.getElementById('w2Team').value;
+      const w2Grade = document.getElementById('w2Grade').value;
+
+      const w3Name = document.getElementById('w3Name').value.trim();
+      const w3Chest = document.getElementById('w3Chest').value.trim();
+      const w3Team = document.getElementById('w3Team').value;
+      const w3Grade = document.getElementById('w3Grade').value;
+
+      const newResult = {
+        id: 'res_' + Date.now(),
+        category: category,
+        item: item,
+        winners: [
+          { place: 1, name: w1Name, chestNo: w1Chest, team: w1Team, grade: w1Grade, points: 10 },
+          { place: 2, name: w2Name, chestNo: w2Chest, team: w2Team, grade: w2Grade, points: 7 },
+          { place: 3, name: w3Name, chestNo: w3Chest, team: w3Team, grade: w3Grade, points: 5 }
+        ]
+      };
+
+      meeladResults.unshift(newResult);
+      saveMeeladResults();
+
+      populateItemSelectOptions();
+      renderMeeladResults();
+      renderMeeladLeaderboard();
+      renderAdminResultsList();
+
+      pubForm.reset();
+
+      showToast(`Result Published Successfully for "${item}"!`, "success");
+
+      const resultsTab = document.querySelector('.meelad-tab[data-tab="tab-results"]');
+      if (resultsTab) resultsTab.click();
+    });
+  }
+}
+
+function updateAdminUI() {
+  const loggedOutState = document.getElementById('adminLoggedOutState');
+  const loggedInState = document.getElementById('adminLoggedInState');
+  const navAdminBtn = document.getElementById('openAdminModalBtn');
+
+  if (isAdminLoggedIn) {
+    if (loggedOutState) loggedOutState.style.display = 'none';
+    if (loggedInState) loggedInState.style.display = 'block';
+    if (navAdminBtn) {
+      navAdminBtn.innerHTML = '<i data-lucide="shield-check"></i> Admin Dashboard';
+      navAdminBtn.classList.add('active');
+    }
+    renderAdminResultsList();
+  } else {
+    if (loggedOutState) loggedOutState.style.display = 'block';
+    if (loggedInState) loggedInState.style.display = 'none';
+    if (navAdminBtn) {
+      navAdminBtn.innerHTML = '<i data-lucide="lock"></i> Admin Portal';
+      navAdminBtn.classList.remove('active');
+    }
+  }
+  initIcons();
+}
+
+function openAdminLoginModal() {
+  const modal = document.getElementById('adminLoginModal');
+  if (modal) {
+    modal.classList.add('active');
+    initIcons();
+  }
+}
+
+function closeAdminLoginModal() {
+  const modal = document.getElementById('adminLoginModal');
+  if (modal) {
+    modal.classList.remove('active');
+  }
+}
+
+function renderAdminResultsList() {
+  const container = document.getElementById('adminResultsList');
+  if (!container) return;
+
+  container.innerHTML = '';
+
+  if (meeladResults.length === 0) {
+    container.innerHTML = `<p style="text-align: center; color: var(--color-muted); padding: 20px;">No published results in database.</p>`;
+    return;
+  }
+
+  meeladResults.forEach(res => {
+    const itemDiv = document.createElement('div');
+    itemDiv.className = 'admin-result-item';
+
+    itemDiv.innerHTML = `
+      <div class="admin-result-info">
+        <h4>${res.item}</h4>
+        <p>Category: <strong>${res.category}</strong> | Winners: ${res.winners.map(w => w.name + ' (#' + w.chestNo + ')').join(', ')}</p>
+      </div>
+      <button class="btn-delete" data-id="${res.id}"><i data-lucide="trash-2"></i> Delete</button>
+    `;
+
+    itemDiv.querySelector('.btn-delete').addEventListener('click', () => {
+      deleteResult(res.id);
+    });
+
+    container.appendChild(itemDiv);
+  });
+  initIcons();
+}
+
+function deleteResult(resId) {
+  const idx = meeladResults.findIndex(r => r.id === resId);
+  if (idx !== -1) {
+    const itemTitle = meeladResults[idx].item;
+    meeladResults.splice(idx, 1);
+    saveMeeladResults();
+
+    populateItemSelectOptions();
+    renderMeeladResults();
+    renderMeeladLeaderboard();
+    renderAdminResultsList();
+
+    showToast(`Deleted published result for "${itemTitle}".`, "success");
+  }
+}
+
 
 

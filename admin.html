@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Portal - Madarasathul Hasaniya Result Publishing</title>
+  <link rel="icon" type="image/png" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛡️</text></svg>">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="admin-page-body">
+
+  <!-- Header -->
+  <header class="main-header">
+    <div class="header-container">
+      <a href="index.html" class="logo-area">
+        <img src="assets/logo.jpg" alt="Madarasathul Hasaniya Logo" class="logo-image">
+        <div class="logo-text">
+          <span class="title-primary">MADARASATHUL HASANIYA</span>
+          <span class="title-secondary">Result Publishing Admin Portal</span>
+        </div>
+      </a>
+      
+      <nav class="nav-menu">
+        <a href="index.html" class="nav-link"><i data-lucide="globe"></i> Main Portal</a>
+        <a href="index.html#sweet-mahabba" class="nav-link"><i data-lucide="award"></i> Published Results</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="admin-main-container">
+    <!-- Logged Out Login Screen -->
+    <div id="adminLoginSection" class="admin-login-wrapper">
+      <div class="glass-card login-standalone-card">
+        <div class="login-modal-header">
+          <div class="login-icon-circle"><i data-lucide="shield-check"></i></div>
+          <h2>Admin Managing Portal</h2>
+          <p>Sign in to publish, update, and manage competition results</p>
+        </div>
+
+        <form id="standaloneLoginForm" class="admin-login-form">
+          <div class="form-group">
+            <label for="saUsername"><i data-lucide="user"></i> Username:</label>
+            <input type="text" id="saUsername" placeholder="Enter admin username" required class="custom-input" autocomplete="username">
+          </div>
+
+          <div class="form-group">
+            <label for="saPassword"><i data-lucide="key"></i> Password:</label>
+            <input type="password" id="saPassword" placeholder="Enter admin password" required class="custom-input" autocomplete="current-password">
+          </div>
+
+          <div class="login-hint-box">
+            <i data-lucide="info"></i>
+            <span>Default Credentials:<br><strong>Username:</strong> <code id="dispUser">admin</code> &nbsp;|&nbsp; <strong>Password:</strong> <code id="dispPass">hasaniya2026</code></span>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block"><i data-lucide="log-in"></i> Sign In to Admin Portal</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Logged In Dashboard -->
+    <div id="adminDashboardSection" class="admin-dashboard-wrapper" style="display: none;">
+      <div class="admin-dashboard-header glass-card">
+        <div class="admin-user-info">
+          <span class="status-badge-online"><i data-lucide="check-circle-2"></i> Logged In as Admin</span>
+          <h2>Meelad Fest Result Publishing Portal</h2>
+        </div>
+        <div class="header-actions">
+          <button id="changeCredsBtn" class="btn btn-outline btn-sm"><i data-lucide="key"></i> Change Credentials</button>
+          <button id="saLogoutBtn" class="btn btn-secondary btn-sm"><i data-lucide="log-out"></i> Logout</button>
+        </div>
+      </div>
+
+      <!-- Result Publishing Form Card -->
+      <div class="generator-card glass-card">
+        <div class="card-header">
+          <h3><i data-lucide="plus-circle" class="gradient-text"></i> Publish New Competition Result</h3>
+          <p>Results published here immediately reflect on the main website, result generator, and leaderboard</p>
+        </div>
+
+        <form id="saPublishForm" class="generator-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="saCategory"><i data-lucide="filter"></i> Competition Category:</label>
+              <select id="saCategory" class="custom-select" required>
+                <option value="Sub-Junior">Sub-Junior</option>
+                <option value="Junior">Junior</option>
+                <option value="Senior" selected>Senior</option>
+                <option value="General">General</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="saItemName"><i data-lucide="award"></i> Competition Item Name:</label>
+              <input type="text" id="saItemName" placeholder="e.g. Qirat Recitation, Mappila Pattu, Calligraphy..." required class="custom-input">
+            </div>
+          </div>
+
+          <div class="winners-entry-section">
+            <h4><i data-lucide="trophy"></i> Enter Winners & Ranks</h4>
+            
+            <!-- 1st Place -->
+            <div class="winner-row winner-first">
+              <span class="place-badge gold">🥇 1st Place (10 Points)</span>
+              <div class="winner-inputs">
+                <input type="text" id="saW1Name" placeholder="1st Winner Student Name" required class="custom-input">
+                <input type="text" id="saW1Chest" placeholder="Chest No (e.g. 104)" required class="custom-input">
+                <select id="saW1Team" class="custom-select" required>
+                  <option value="Badr">Team Badr</option>
+                  <option value="Uhud">Team Uhud</option>
+                  <option value="Thabuk">Team Thabuk</option>
+                  <option value="Hudaibiyya">Team Hudaibiyya</option>
+                </select>
+                <select id="saW1Grade" class="custom-select" required>
+                  <option value="A+">Grade A+</option>
+                  <option value="A">Grade A</option>
+                  <option value="B">Grade B</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- 2nd Place -->
+            <div class="winner-row winner-second">
+              <span class="place-badge silver">🥈 2nd Place (7 Points)</span>
+              <div class="winner-inputs">
+                <input type="text" id="saW2Name" placeholder="2nd Winner Student Name" required class="custom-input">
+                <input type="text" id="saW2Chest" placeholder="Chest No" required class="custom-input">
+                <select id="saW2Team" class="custom-select" required>
+                  <option value="Uhud">Team Uhud</option>
+                  <option value="Badr">Team Badr</option>
+                  <option value="Thabuk">Team Thabuk</option>
+                  <option value="Hudaibiyya">Team Hudaibiyya</option>
+                </select>
+                <select id="saW2Grade" class="custom-select" required>
+                  <option value="A+">Grade A+</option>
+                  <option value="A" selected>Grade A</option>
+                  <option value="B">Grade B</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- 3rd Place -->
+            <div class="winner-row winner-third">
+              <span class="place-badge bronze">🥉 3rd Place (5 Points)</span>
+              <div class="winner-inputs">
+                <input type="text" id="saW3Name" placeholder="3rd Winner Student Name" required class="custom-input">
+                <input type="text" id="saW3Chest" placeholder="Chest No" required class="custom-input">
+                <select id="saW3Team" class="custom-select" required>
+                  <option value="Thabuk">Team Thabuk</option>
+                  <option value="Badr">Team Badr</option>
+                  <option value="Uhud">Team Uhud</option>
+                  <option value="Hudaibiyya">Team Hudaibiyya</option>
+                </select>
+                <select id="saW3Grade" class="custom-select" required>
+                  <option value="A+">Grade A+</option>
+                  <option value="A" selected>Grade A</option>
+                  <option value="B">Grade B</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary"><i data-lucide="check-circle-2"></i> Publish Result Now</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Published Results List -->
+      <div class="admin-manage-section glass-card" style="margin-top: 28px;">
+        <div class="card-header">
+          <h3><i data-lucide="layers"></i> Manage Published Results</h3>
+          <p>Review or remove published competition items from the portal</p>
+        </div>
+        <div class="admin-results-list" id="saResultsList">
+          <!-- Dynamically populated -->
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Credential Change Modal -->
+  <div class="modal-overlay" id="credsModal">
+    <div class="modal-card glass-card login-modal-card">
+      <button class="modal-close-btn" id="closeCredsModal"><i data-lucide="x"></i></button>
+      <div class="login-modal-header">
+        <div class="login-icon-circle"><i data-lucide="key"></i></div>
+        <h3>Update Admin Credentials</h3>
+        <p>Set a new username and password for your managing portal</p>
+      </div>
+
+      <form id="updateCredsForm" class="admin-login-form">
+        <div class="form-group">
+          <label for="newUsername"><i data-lucide="user"></i> New Username:</label>
+          <input type="text" id="newUsername" placeholder="Enter new username" required class="custom-input">
+        </div>
+        <div class="form-group">
+          <label for="newPassword"><i data-lucide="key"></i> New Password:</label>
+          <input type="password" id="newPassword" placeholder="Enter new password" required class="custom-input">
+        </div>
+        <button type="submit" class="btn btn-primary btn-block"><i data-lucide="save"></i> Save New Credentials</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Admin Script -->
+  <script src="admin.js"></script>
+</body>
+</html>

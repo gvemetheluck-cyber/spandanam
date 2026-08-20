@@ -2425,6 +2425,32 @@ button, input, select, textarea {
   margin-top: 2px;
 }
 
+/* Standalone Admin Page Styles */
+.admin-page-body {
+  background-color: #f8fafc;
+}
+
+.admin-main-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: calc(var(--header-height) + 40px) 24px 60px;
+}
+
+.admin-login-wrapper {
+  max-width: 440px;
+  margin: 60px auto;
+}
+
+.login-standalone-card {
+  padding: 36px;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
 @media (max-width: 768px) {
   .generator-inputs {
     grid-template-columns: 1fr;

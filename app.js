@@ -148,7 +148,6 @@ function initLivePortal() {
       btnProgramme.classList.remove('active');
       viewCategory.classList.add('active');
       viewProgramme.classList.remove('active');
-      triggerConfettiAnimation();
       renderCategoryStandings();
     });
   }
@@ -161,31 +160,6 @@ function initLivePortal() {
 
   renderLiveProgrammeCards();
   renderCategoryStandings();
-}
-
-function triggerConfettiAnimation() {
-  const container = document.getElementById('confettiContainer');
-  if (!container) return;
-  container.innerHTML = '';
-  container.classList.add('active');
-
-  const colors = ['#059669', '#10b981', '#f59e0b', '#ec4899', '#3b82f6', '#8b5cf6'];
-  for (let i = 0; i < 60; i++) {
-    const particle = document.createElement('div');
-    particle.className = 'confetti-particle';
-    particle.style.left = Math.random() * 100 + 'vw';
-    particle.style.animationDelay = (Math.random() * 2.5) + 's';
-    particle.style.animationDuration = (2.5 + Math.random() * 2) + 's';
-    particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-    particle.style.width = (6 + Math.random() * 6) + 'px';
-    particle.style.height = (10 + Math.random() * 10) + 'px';
-    container.appendChild(particle);
-  }
-
-  setTimeout(() => {
-    container.classList.remove('active');
-    container.innerHTML = '';
-  }, 5000);
 }
 
 // Live Programme Cards Data List (Exact list provided by user)

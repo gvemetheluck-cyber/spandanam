@@ -4413,6 +4413,359 @@ button, input, select, textarea {
   color: #b45309;
 }
 
+/* ---------------------------------------------------- */
+/* Star of the Fest & Individual Honors Styling         */
+/* ---------------------------------------------------- */
+.star-portal-main {
+  min-height: 100vh;
+  padding-top: 100px;
+  background: #f8fafc;
+}
+
+.star-hero-header {
+  padding: 40px 0 60px 0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.9) 0%, rgba(248,250,252,0) 100%);
+}
+
+.star-main-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-top: 12px;
+}
+
+.star-subtitle-text {
+  font-size: 1rem;
+  color: #64748b;
+  max-width: 620px;
+  margin: 8px auto 0 auto;
+}
+
+/* Champions Spotlight Grid (Kalaprathibha & Kalathilakam) */
+.champions-spotlight-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 28px;
+}
+
+.champion-title-card {
+  background: #ffffff;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 8px 30px rgba(15, 23, 42, 0.06);
+  border: 1px solid #e2e8f0;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.champion-title-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.12);
+}
+
+.champion-title-card.kalaprathibha-card {
+  border: 2px solid #f59e0b;
+  background: linear-gradient(180deg, #ffffff 0%, rgba(254, 243, 199, 0.25) 100%);
+}
+
+.champion-title-card.kalathilakam-card {
+  border: 2px solid #ec4899;
+  background: linear-gradient(180deg, #ffffff 0%, rgba(252, 231, 243, 0.25) 100%);
+}
+
+.champion-card-ribbon {
+  padding: 14px 24px;
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  letter-spacing: 0.5px;
+}
+
+.champion-card-ribbon.gold {
+  background: linear-gradient(90deg, #f59e0b 0%, #d97706 100%);
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.25);
+}
+
+.champion-card-ribbon.rose {
+  background: linear-gradient(90deg, #ec4899 0%, #db2777 100%);
+  box-shadow: 0 4px 12px rgba(236, 72, 153, 0.25);
+}
+
+.champion-card-content {
+  padding: 28px;
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.champion-avatar-glow {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  color: #ffffff;
+  font-size: 1.8rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+.champion-avatar-glow.gold {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+}
+
+.champion-avatar-glow.rose {
+  background: linear-gradient(135deg, #ec4899 0%, #be185d 100%);
+}
+
+.champion-info-box {
+  flex: 1;
+}
+
+.champion-name {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 6px 0 2px 0;
+}
+
+.champion-title-tag {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #64748b;
+  margin: 0 0 16px 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.champion-stats-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.stat-pill {
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  color: #334155;
+}
+
+.champion-items-box {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 12px 14px;
+  font-size: 0.82rem;
+  color: #475569;
+}
+
+.champion-items-box strong {
+  color: #0f172a;
+  display: block;
+  margin-bottom: 4px;
+}
+
+/* Category Champions Grid */
+.cat-champions-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.cat-champion-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 16px;
+  transition: all 0.2s ease;
+}
+
+.cat-champion-card:hover {
+  background: #ffffff;
+  border-color: #059669;
+  box-shadow: 0 4px 14px rgba(5, 150, 105, 0.1);
+}
+
+.cat-champion-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.cat-champion-tag {
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+.cat-champion-name {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 2px 0;
+}
+
+.cat-champion-item {
+  font-size: 0.78rem;
+  color: #64748b;
+  margin: 0 0 10px 0;
+}
+
+.cat-champion-pts {
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: #059669;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Full Individual Leaderboard Grid */
+.star-filter-controls {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.star-tab-btn {
+  border: none;
+  background: transparent;
+  padding: 8px 16px;
+  border-radius: 9999px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.star-tab-btn.active {
+  background: #ffffff;
+  color: #0f172a;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.star-rankings-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.star-ranking-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: all 0.2s ease;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.star-ranking-card:hover {
+  border-color: #059669;
+  box-shadow: 0 4px 16px rgba(5, 150, 105, 0.08);
+}
+
+.star-ranking-card.top-rank.rank-1 {
+  border: 1.5px solid #f59e0b;
+  background: rgba(254, 243, 199, 0.2);
+}
+
+.star-ranking-card.top-rank.rank-2 {
+  border: 1.5px solid #94a3b8;
+}
+
+.star-ranking-card.top-rank.rank-3 {
+  border: 1.5px solid #d97706;
+}
+
+.star-rank-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 1;
+}
+
+.star-rank-number {
+  font-size: 0.9rem;
+  font-weight: 800;
+  padding: 6px 12px;
+  border-radius: 9999px;
+  background: #f1f5f9;
+  color: #475569;
+  min-width: 54px;
+  text-align: center;
+}
+
+.star-rank-number.rank-1 {
+  background: rgba(245, 158, 11, 0.18);
+  color: #d97706;
+}
+
+.star-rank-number.rank-2 {
+  background: rgba(148, 163, 184, 0.2);
+  color: #475569;
+}
+
+.star-rank-number.rank-3 {
+  background: rgba(217, 119, 6, 0.15);
+  color: #b45309;
+}
+
+.star-participant-info h4 {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 2px 0;
+}
+
+.star-team-text {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #64748b;
+}
+
+.star-items-summary {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  margin: 4px 0 0 0;
+}
+
+.star-rank-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.star-total-points-badge {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #059669;
+  background: rgba(5, 150, 105, 0.08);
+  padding: 6px 14px;
+  border-radius: 9999px;
+}
+
+
 
 
 

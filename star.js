@@ -145,7 +145,7 @@ function renderStarSpotlights() {
 
           <div class="champion-stats-row">
             <div class="stat-pill"><strong style="font-size:1.3rem; color:#0f172a;">${topBoy.totalPoints}</strong> Points</div>
-            <div class="stat-pill">🥇 ${topBoy.gold} Gold &nbsp;|&nbsp; 🥈 ${topBoy.silver} Silver</div>
+            <div class="stat-pill">${topBoy.gold} 1st Place &nbsp;|&nbsp; ${topBoy.silver} 2nd Place</div>
           </div>
 
           <div class="champion-items-box">
@@ -183,7 +183,7 @@ function renderStarSpotlights() {
 
           <div class="champion-stats-row">
             <div class="stat-pill"><strong style="font-size:1.3rem; color:#0f172a;">${topGirl.totalPoints}</strong> Points</div>
-            <div class="stat-pill">🥇 ${topGirl.gold} Gold &nbsp;|&nbsp; 🥈 ${topGirl.silver} Silver</div>
+            <div class="stat-pill">${topGirl.gold} 1st Place &nbsp;|&nbsp; ${topGirl.silver} 2nd Place</div>
           </div>
 
           <div class="champion-items-box">
@@ -297,9 +297,9 @@ function renderIndividualRankings() {
     card.className = `star-ranking-card ${rank <= 3 ? `top-rank rank-${rank}` : ''}`;
 
     let rankBadgeText = `#${rank}`;
-    if (rank === 1) rankBadgeText = '🥇 1st';
-    if (rank === 2) rankBadgeText = '🥈 2nd';
-    if (rank === 3) rankBadgeText = '🥉 3rd';
+    if (rank === 1) rankBadgeText = '1st';
+    if (rank === 2) rankBadgeText = '2nd';
+    if (rank === 3) rankBadgeText = '3rd';
 
     const itemsSummary = p.placements.map(pl => pl.result.item).join(', ');
 

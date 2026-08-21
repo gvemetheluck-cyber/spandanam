@@ -421,14 +421,9 @@ function renderCategoryStandings() {
     card.className = 'category-card-box';
 
     card.innerHTML = `
-      <div class="cat-header-row">
-        <span class="cat-title-text">${c.name}</span>
-        <span class="cat-points-badge">${c.totalPoints} PTS</span>
-      </div>
-      <div class="cat-details-row">
-        <div class="cat-medals">
-          1st: ${c.gold} &nbsp;|&nbsp; 2nd: ${c.silver} &nbsp;|&nbsp; 3rd: ${c.bronze}
-        </div>
+      <span class="cat-title-text">${c.name}</span>
+      <div class="cat-right-info">
+        <span class="cat-points-badge">${c.totalPoints} Points</span>
         <span class="cat-items-count">${c.itemsCount} Items</span>
       </div>
     `;

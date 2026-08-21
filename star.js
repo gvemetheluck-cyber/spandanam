@@ -141,7 +141,7 @@ function renderStarSpotlights() {
         <div class="champion-info-box">
           <span class="team-badge-pill team-${topBoy.team}">${topBoy.team}</span>
           <h2 class="champion-name">${topBoy.name}</h2>
-          <p class="champion-title-tag"><i data-lucide="award"></i> Best Overall Male Participant</p>
+          <p class="champion-title-tag">Kalaprathibha | Best Overall Male Participant</p>
 
           <div class="champion-stats-row">
             <div class="stat-pill"><strong style="font-size:1.3rem; color:#0f172a;">${topBoy.totalPoints}</strong> Points</div>
@@ -179,7 +179,7 @@ function renderStarSpotlights() {
         <div class="champion-info-box">
           <span class="team-badge-pill team-${topGirl.team}">${topGirl.team}</span>
           <h2 class="champion-name">${topGirl.name}</h2>
-          <p class="champion-title-tag"><i data-lucide="award"></i> Best Overall Female Participant</p>
+          <p class="champion-title-tag">Kalathilakam | Best Overall Female Participant</p>
 
           <div class="champion-stats-row">
             <div class="stat-pill"><strong style="font-size:1.3rem; color:#0f172a;">${topGirl.totalPoints}</strong> Points</div>

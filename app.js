@@ -764,19 +764,6 @@ function openResultModal(winner, result) {
   document.getElementById('certGrade').textContent = winner.grade;
   document.getElementById('certPoints').textContent = `${winner.points} Points`;
 
-  // Photo Visibility Check
-  const photoContainer = document.getElementById('certPhotoContainer');
-  const photoImg = document.getElementById('certStudentPhoto');
-  if (photoContainer && photoImg) {
-    if (result && result.showPhotosPublicly && winner && winner.photoUrl) {
-      photoImg.src = winner.photoUrl;
-      photoContainer.style.display = 'flex';
-    } else {
-      photoImg.src = '';
-      photoContainer.style.display = 'none';
-    }
-  }
-
   let rankTitle = 'FIRST PLACE';
   if (winner.place === 2) { rankTitle = 'SECOND PLACE'; }
   if (winner.place === 3) { rankTitle = 'THIRD PLACE'; }
@@ -951,16 +938,11 @@ function renderMeeladResults() {
     let winnersHtml = '';
     res.winners.forEach(w => {
       let placeTagText = w.place === 1 ? '1st' : w.place === 2 ? '2nd' : '3rd';
-      let avatarHtml = '';
-      if (res.showPhotosPublicly && w.photoUrl) {
-        avatarHtml = `<img src="${w.photoUrl}" alt="${w.name}" class="minimal-student-avatar">`;
-      }
 
       winnersHtml += `
         <div class="minimal-winner-row place-${w.place}" data-name="${w.name}" data-resid="${res.id}" title="Click to view & download certificate">
           <div class="minimal-rank-student">
             <span class="minimal-rank-tag place-${w.place}">${placeTagText}</span>
-            ${avatarHtml}
             <span class="minimal-student-name">${w.name}</span>
           </div>
           <div class="minimal-meta">
@@ -1318,9 +1300,6 @@ function renderAdminResultsList() {
     const itemDiv = document.createElement('div');
     itemDiv.className = 'admin-result-item';
 
-    const isPublicPhotos = !!res.showPhotosPublicly;
-    const hasPhotos = res.winners.some(w => !!w.photoUrl);
-
     itemDiv.innerHTML = `
       <div class="admin-result-info">
         <div class="admin-result-header-line">
@@ -1328,39 +1307,11 @@ function renderAdminResultsList() {
           <span class="admin-cat-pill">${res.category}</span>
         </div>
         <p class="admin-winners-line">Winners: ${res.winners.map(w => `${w.name} (${w.team})`).join(', ')}</p>
-        <div class="admin-photo-toggle-bar">
-          <label class="toggle-switch-container compact">
-            <input type="checkbox" class="admin-photo-toggle" data-id="${res.id}" ${isPublicPhotos ? 'checked' : ''}>
-            <span class="toggle-slider"></span>
-            <span class="toggle-label-text">
-              ${isPublicPhotos ? '<i data-lucide="eye"></i> Winner Photos Publicly Visible' : '<i data-lucide="eye-off"></i> Winner Photos Hidden (Admin Only)'}
-            </span>
-          </label>
-          ${hasPhotos ? '<span class="photos-count-badge"><i data-lucide="image"></i> Photos Saved</span>' : '<span class="photos-count-badge no-photos">No Photos Uploaded</span>'}
-        </div>
       </div>
       <div class="admin-item-actions">
         <button class="btn-delete" data-id="${res.id}"><i data-lucide="trash-2"></i> Delete</button>
       </div>
     `;
-
-    // Handle Public Photo Visibility Checkbox Toggle
-    const toggleInput = itemDiv.querySelector('.admin-photo-toggle');
-    if (toggleInput) {
-      toggleInput.addEventListener('change', (e) => {
-        const targetRes = meeladResults.find(r => r.id === res.id);
-        if (targetRes) {
-          targetRes.showPhotosPublicly = e.target.checked;
-          saveMeeladResults();
-          renderMeeladResults();
-          renderAdminResultsList();
-          showToast(
-            targetRes.showPhotosPublicly ? `Winner photos for "${res.item}" are now PUBLIC!` : `Winner photos for "${res.item}" are now HIDDEN from public.`,
-            "success"
-          );
-        }
-      });
-    }
 
     itemDiv.querySelector('.btn-delete').addEventListener('click', () => {
       deleteResult(res.id);

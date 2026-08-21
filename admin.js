@@ -554,28 +554,15 @@ function setupEventHandlers() {
         id: 'res_' + Date.now(),
         category: category,
         item: item,
-        showPhotosPublicly: showPhotosPublicly,
         winners: [
-          { place: 1, name: w1Name, team: w1Team, grade: w1Grade, points: 10, photoUrl: saPendingPhotos.w1 || null },
-          { place: 2, name: w2Name, team: w2Team, grade: w2Grade, points: 7, photoUrl: saPendingPhotos.w2 || null },
-          { place: 3, name: w3Name, team: w3Team, grade: w3Grade, points: 5, photoUrl: saPendingPhotos.w3 || null }
+          { place: 1, name: w1Name, team: w1Team, grade: w1Grade, points: 10 },
+          { place: 2, name: w2Name, team: w2Team, grade: w2Grade, points: 7 },
+          { place: 3, name: w3Name, team: w3Team, grade: w3Grade, points: 5 }
         ]
       };
 
       meeladResults.unshift(newResult);
       saveResults();
-
-      // Reset pending photos
-      saPendingPhotos = { w1: null, w2: null, w3: null };
-      ['saW1', 'saW2', 'saW3'].forEach(prefix => {
-        const thumbEl = document.getElementById(`${prefix}PhotoThumb`);
-        const labelEl = document.getElementById(`${prefix}PhotoLabel`);
-        if (thumbEl) thumbEl.style.display = 'none';
-        if (labelEl) {
-          labelEl.innerHTML = `<i data-lucide="camera"></i> <span>Photo</span>`;
-          labelEl.classList.remove('has-photo');
-        }
-      });
 
       renderResultsList();
       pubForm.reset();
@@ -641,9 +628,6 @@ function renderResultsList() {
     const itemDiv = document.createElement('div');
     itemDiv.className = 'admin-result-item';
 
-    const isPublicPhotos = !!res.showPhotosPublicly;
-    const hasPhotos = res.winners.some(w => !!w.photoUrl);
-
     itemDiv.innerHTML = `
       <div class="admin-result-info">
         <div class="admin-result-header-line">
@@ -651,37 +635,11 @@ function renderResultsList() {
           <span class="admin-cat-pill">${res.category}</span>
         </div>
         <p class="admin-winners-line">Winners: ${res.winners.map(w => `${w.name} (${w.team})`).join(', ')}</p>
-        <div class="admin-photo-toggle-bar">
-          <label class="toggle-switch-container compact">
-            <input type="checkbox" class="admin-photo-toggle" data-id="${res.id}" ${isPublicPhotos ? 'checked' : ''}>
-            <span class="toggle-slider"></span>
-            <span class="toggle-label-text">
-              ${isPublicPhotos ? '<i data-lucide="eye"></i> Winner Photos Publicly Visible' : '<i data-lucide="eye-off"></i> Winner Photos Hidden (Admin Only)'}
-            </span>
-          </label>
-          ${hasPhotos ? '<span class="photos-count-badge"><i data-lucide="image"></i> Photos Saved</span>' : '<span class="photos-count-badge no-photos">No Photos Uploaded</span>'}
-        </div>
       </div>
       <div class="admin-item-actions">
         <button class="btn-delete" data-id="${res.id}"><i data-lucide="trash-2"></i> Delete</button>
       </div>
     `;
-
-    const toggleInput = itemDiv.querySelector('.admin-photo-toggle');
-    if (toggleInput) {
-      toggleInput.addEventListener('change', (e) => {
-        const targetRes = meeladResults.find(r => r.id === res.id);
-        if (targetRes) {
-          targetRes.showPhotosPublicly = e.target.checked;
-          saveResults();
-          renderResultsList();
-          showToast(
-            targetRes.showPhotosPublicly ? `Winner photos for "${res.item}" are now PUBLIC!` : `Winner photos for "${res.item}" are now HIDDEN from public.`,
-            "success"
-          );
-        }
-      });
-    }
 
     itemDiv.querySelector('.btn-delete').addEventListener('click', () => {
       deleteResult(res.id);

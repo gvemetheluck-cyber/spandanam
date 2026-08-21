@@ -54,7 +54,6 @@
       <nav class="nav-menu" id="navMenu">
         <a href="#home" class="nav-link active">Home</a>
         <a href="star.html" class="nav-link">Star of the Fest</a>
-        <a href="team_standings.html" class="nav-link">Team Standings</a>
         <a href="students.html" class="nav-link"><i data-lucide="users"></i> Students Portal</a>
         <a href="admin.html" class="admin-nav-btn" style="text-decoration:none;"><i data-lucide="shield-check"></i> Admin Dashboard</a>
       </nav>
@@ -111,11 +110,21 @@
         </div>
       </div>
 
-      <!-- VIEW 2: CATEGORY VIEW (Replaces Team View) -->
+      <!-- VIEW 2: CATEGORY VIEW -->
       <div id="viewCategorySection" class="live-view-panel">
         <!-- Standings Header Badge -->
         <div class="count-badge-wrapper">
           <span id="categoryStandingsBadge" class="published-count-pill">AFTER 173 RESULTS</span>
+        </div>
+
+        <!-- Graph-Style Team Standings Visualization -->
+        <div class="category-graph-container" id="categoryTeamGraphCard">
+          <!-- Dynamically rendered graph visualization -->
+        </div>
+
+        <div class="subcat-header-wrapper">
+          <h3><i data-lucide="layers"></i> Category Breakdown (Click to View Results)</h3>
+          <p>Select any category below to view published competition results</p>
         </div>
 
         <!-- Category Standings Grid -->
@@ -139,6 +148,25 @@
 
       <!-- Tab Content 1: Published Results -->
       <div class="meelad-tab-content active" id="tab-results">
+        <div class="results-filter-bar">
+          <h3 id="resultsFilterHeading"><i data-lucide="award"></i> Published Competition Results</h3>
+          <div class="filter-controls">
+            <select id="resultsCategorySelect" class="custom-select results-cat-dropdown">
+              <option value="all">All Categories</option>
+              <option value="Kids Boys">Kids Boys</option>
+              <option value="Kids Girls">Kids Girls</option>
+              <option value="LP Boys">LP Boys</option>
+              <option value="LP Girls">LP Girls</option>
+              <option value="UP Boys">UP Boys</option>
+              <option value="UP Girls">UP Girls</option>
+              <option value="HS Boys">HS Boys</option>
+              <option value="HS Girls">HS Girls</option>
+              <option value="General Boys">General Boys</option>
+              <option value="General Girls">General Girls</option>
+            </select>
+          </div>
+        </div>
+
         <div class="results-grid" id="resultsGrid">
           <!-- Dynamically populated published result cards -->
         </div>

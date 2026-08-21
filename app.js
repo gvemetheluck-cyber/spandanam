@@ -346,6 +346,7 @@ function renderLiveProgrammeCards() {
 
 function renderCategoryStandings() {
   const container = document.getElementById('categoryStandingsGrid');
+  const graphContainer = document.getElementById('categoryTeamGraphCard');
   const standingsBadge = document.getElementById('categoryStandingsBadge');
   if (!container) return;
 
@@ -353,9 +354,89 @@ function renderCategoryStandings() {
     standingsBadge.textContent = `AFTER ${LIVE_PROGRAMME_LIST.length} RESULTS`;
   }
 
-  const categoriesMap = {};
+  // 1. Calculate Team Score Graph Standings
+  const teams = [
+    { name: 'Samarkhand', classKey: 'Samarkhand', totalPoints: 0, gold: 0, silver: 0, bronze: 0 },
+    { name: 'Granada', classKey: 'Granada', totalPoints: 0, gold: 0, silver: 0, bronze: 0 },
+    { name: 'Kairo', classKey: 'Kairo', totalPoints: 0, gold: 0, silver: 0, bronze: 0 }
+  ];
 
-  // Count items from LIVE_PROGRAMME_LIST
+  meeladResults.forEach(res => {
+    res.winners.forEach(w => {
+      const teamObj = teams.find(t => t.name.toLowerCase() === w.team.toLowerCase());
+      if (teamObj) {
+        teamObj.totalPoints += w.points;
+        if (w.place === 1) teamObj.gold++;
+        else if (w.place === 2) teamObj.silver++;
+        else if (w.place === 3) teamObj.bronze++;
+      }
+    });
+  });
+
+  teams.sort((a, b) => b.totalPoints - a.totalPoints);
+  const maxPoints = Math.max(1, ...teams.map(t => t.totalPoints));
+
+  // Render Graph-Style Team Standings Visualization
+  if (graphContainer) {
+    let graphCardsHtml = '';
+    let graphBarsHtml = '';
+
+    teams.forEach((t, idx) => {
+      const rank = idx + 1;
+      const pct = Math.round((t.totalPoints / maxPoints) * 100);
+      const rankBadge = rank === 1 ? '🥇 1st Rank' : rank === 2 ? '🥈 2nd Rank' : '🥉 3rd Rank';
+
+      graphCardsHtml += `
+        <div class="team-graph-stat-card team-${t.classKey} rank-${rank}">
+          <div class="graph-card-header">
+            <span class="graph-team-title">Team ${t.name}</span>
+            <span class="graph-rank-pill rank-${rank}">${rankBadge}</span>
+          </div>
+          <div class="graph-card-score">
+            <span class="score-num">${t.totalPoints}</span>
+            <span class="score-lbl">Points</span>
+          </div>
+          <div class="graph-card-medals">
+            <span>🥇 ${t.gold}</span>
+            <span>🥈 ${t.silver}</span>
+            <span>🥉 ${t.bronze}</span>
+          </div>
+        </div>
+      `;
+
+      graphBarsHtml += `
+        <div class="graph-bar-row">
+          <div class="graph-bar-label">
+            <span class="bar-team-name">Team ${t.name}</span>
+            <span class="bar-pts-num">${t.totalPoints} Pts</span>
+          </div>
+          <div class="graph-bar-track">
+            <div class="graph-bar-fill team-${t.classKey}" style="width: ${pct}%;"></div>
+          </div>
+        </div>
+      `;
+    });
+
+    graphContainer.innerHTML = `
+      <div class="team-graph-box glass-card">
+        <div class="team-graph-title-row">
+          <div>
+            <h3 class="graph-main-title"><i data-lucide="bar-chart-3"></i> Live Team Score Standings</h3>
+            <p class="graph-sub-title">Engaging graph visualization of overall team points & medal standings</p>
+          </div>
+        </div>
+        <div class="team-graph-cards-grid">
+          ${graphCardsHtml}
+        </div>
+        <div class="team-graph-bars-wrapper">
+          ${graphBarsHtml}
+        </div>
+      </div>
+    `;
+  }
+
+  // 2. Sub-Category Cards Breakdown & Click Filter
+  const categoriesMap = {};
   LIVE_PROGRAMME_LIST.forEach(prog => {
     const cat = prog.category;
     if (!categoriesMap[cat]) {
@@ -371,7 +452,6 @@ function renderCategoryStandings() {
     categoriesMap[cat].itemsCount++;
   });
 
-  // Calculate published points & medal tally
   meeladResults.forEach(res => {
     const catUpper = (res.category || 'GENERAL').toUpperCase();
     const catKey = Object.keys(categoriesMap).find(k => k.toUpperCase() === catUpper);
@@ -388,21 +468,56 @@ function renderCategoryStandings() {
   const categoriesList = Object.values(categoriesMap);
 
   container.innerHTML = '';
-
   categoriesList.forEach((c) => {
     const card = document.createElement('div');
-    card.className = 'category-card-box';
+    card.className = 'category-card-box interactive-cat-card';
+    card.setAttribute('title', `Click to view results for ${c.name}`);
 
     card.innerHTML = `
       <span class="cat-title-text">${c.name}</span>
       <div class="cat-right-info">
         <span class="cat-points-badge">${c.totalPoints} Points</span>
         <span class="cat-items-count">${c.itemsCount} Items</span>
+        <span class="cat-view-btn"><i data-lucide="arrow-right"></i> View Results</span>
       </div>
     `;
 
+    card.addEventListener('click', () => {
+      filterResultsByCategory(c.name);
+    });
+
     container.appendChild(card);
   });
+
+  initIcons();
+}
+
+function filterResultsByCategory(catName) {
+  const dropdown = document.getElementById('resultsCategorySelect') || document.getElementById('categoryFilter');
+  if (dropdown) {
+    const options = Array.from(dropdown.options);
+    const matchOpt = options.find(opt => 
+      opt.value.toLowerCase().includes(catName.toLowerCase()) || 
+      catName.toLowerCase().includes(opt.value.toLowerCase())
+    );
+    if (matchOpt) {
+      dropdown.value = matchOpt.value;
+    }
+  }
+
+  const heading = document.getElementById('resultsFilterHeading');
+  if (heading) {
+    heading.innerHTML = `<i data-lucide="award"></i> Published Results: <span style="color: #059669; font-weight: 800;">${catName}</span>`;
+  }
+
+  renderMeeladResults(catName);
+
+  const sweetSection = document.getElementById('sweet-mahabba');
+  if (sweetSection) {
+    sweetSection.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  showToast(`Showing competition results for "${catName}"`, "success");
 }
 
 // ----------------------------------------------------
@@ -888,27 +1003,39 @@ function renderMeeladLeaderboard() {
   });
 }
 
-// Render Published Results List (Minimal Clean Layout)
-function renderMeeladResults() {
+// Render Published Results List (Minimal Clean Layout & Download JPG Option)
+function renderMeeladResults(filterCategoryName = null) {
   const grid = document.getElementById('resultsGrid');
   if (!grid) return;
 
+  const catDropdown = document.getElementById('resultsCategorySelect') || document.getElementById('categoryFilter');
+  const selectedCat = filterCategoryName || (catDropdown ? catDropdown.value : 'all');
+
+  let filtered = meeladResults;
+  if (selectedCat && selectedCat !== 'all') {
+    filtered = meeladResults.filter(res => 
+      res.category.toLowerCase().includes(selectedCat.toLowerCase()) || 
+      selectedCat.toLowerCase().includes(res.category.toLowerCase())
+    );
+  }
+
   grid.innerHTML = '';
-  if (meeladResults.length === 0) {
-    grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; color: var(--color-muted); padding: 40px;">No published competition results found.</div>`;
+  if (filtered.length === 0) {
+    grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; color: var(--color-muted); padding: 40px; font-weight: 600;">No published competition results found for "${selectedCat !== 'all' ? selectedCat : 'All Categories'}".</div>`;
     return;
   }
 
-  meeladResults.forEach(res => {
+  filtered.forEach(res => {
     const card = document.createElement('div');
-    card.className = 'result-card minimal-result-card';
+    card.className = 'result-card minimal-result-card glass-card';
+    card.id = `resultCard_${res.id}`;
 
     let winnersHtml = '';
     res.winners.forEach(w => {
       let placeTagText = w.place === 1 ? '1st' : w.place === 2 ? '2nd' : '3rd';
 
       winnersHtml += `
-        <div class="minimal-winner-row place-${w.place}" data-name="${w.name}" data-resid="${res.id}" title="Click to view & download certificate">
+        <div class="minimal-winner-row place-${w.place}" data-name="${w.name}" data-resid="${res.id}" title="Click to view full certificate">
           <div class="minimal-rank-student">
             <span class="minimal-rank-tag place-${w.place}">${placeTagText}</span>
             <span class="minimal-student-name">${w.name}</span>
@@ -923,14 +1050,20 @@ function renderMeeladResults() {
 
     card.innerHTML = `
       <div class="minimal-card-header">
-        <h3 class="minimal-item-title">${res.item}</h3>
-        <span class="minimal-cat-badge">${res.category}</span>
+        <div class="minimal-header-info">
+          <h3 class="minimal-item-title">${res.item}</h3>
+          <span class="minimal-cat-badge">${res.category}</span>
+        </div>
+        <button class="btn-download-jpg" title="Download Result Card as JPG">
+          <i data-lucide="download"></i> Download JPG
+        </button>
       </div>
       <div class="minimal-winners-grid">
         ${winnersHtml}
       </div>
     `;
 
+    // Winner row certificate click handler
     card.querySelectorAll('.minimal-winner-row').forEach(wCard => {
       wCard.addEventListener('click', () => {
         const sName = wCard.getAttribute('data-name');
@@ -943,20 +1076,67 @@ function renderMeeladResults() {
       });
     });
 
+    // Download JPG button handler
+    const dlBtn = card.querySelector('.btn-download-jpg');
+    if (dlBtn) {
+      dlBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        downloadResultCardAsJPG(card, res.item, res.category);
+      });
+    }
+
     grid.appendChild(card);
   });
+
   initIcons();
+}
+
+function downloadResultCardAsJPG(cardElement, itemName, categoryName) {
+  if (typeof html2canvas === 'undefined') {
+    showToast("HTML2Canvas library loading, please try again...", "error");
+    return;
+  }
+
+  showToast("Generating high-resolution JPG image...", "info");
+
+  html2canvas(cardElement, {
+    scale: 3,
+    backgroundColor: '#ffffff',
+    useCORS: true,
+    logging: false,
+    ignoreElements: (element) => element.classList.contains('btn-download-jpg')
+  }).then(canvas => {
+    const link = document.createElement('a');
+    const filenameTitle = `${itemName}_${categoryName}`.replace(/[^a-zA-Z0-9]/g, '_');
+    link.download = `Result_${filenameTitle}.jpg`;
+    link.href = canvas.toDataURL('image/jpeg', 0.95);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    showToast("Downloaded result card as JPG!", "success");
+  }).catch(err => {
+    console.error("HTML2Canvas Result Image Error:", err);
+    showToast("Failed to render JPG image.", "error");
+  });
 }
 
 // Setup Filters
 function setupMeeladFilters() {
-  const catFilter = document.getElementById('categoryFilter');
+  const catFilter = document.getElementById('resultsCategorySelect') || document.getElementById('categoryFilter');
   const teamFilter = document.getElementById('teamFilter');
   const searchInput = document.getElementById('resultSearchInput');
 
-  if (catFilter) catFilter.addEventListener('change', renderMeeladResults);
-  if (teamFilter) teamFilter.addEventListener('change', renderMeeladResults);
-  if (searchInput) searchInput.addEventListener('input', renderMeeladResults);
+  if (catFilter) {
+    catFilter.addEventListener('change', () => {
+      const heading = document.getElementById('resultsFilterHeading');
+      if (heading) {
+        heading.innerHTML = `<i data-lucide="award"></i> Published Competition Results: <span style="color: #059669; font-weight: 800;">${catFilter.value === 'all' ? 'All Categories' : catFilter.value}</span>`;
+      }
+      renderMeeladResults();
+    });
+  }
+  if (teamFilter) teamFilter.addEventListener('change', () => renderMeeladResults());
+  if (searchInput) searchInput.addEventListener('input', () => renderMeeladResults());
 }
 
 // Team Student Rosters Data

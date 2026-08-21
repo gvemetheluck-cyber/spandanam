@@ -4987,6 +4987,103 @@ button, input, select, textarea {
   box-shadow: 0 4px 12px rgba(5, 150, 105, 0.35);
 }
 
+/* Certificate Full Winners Summary Box */
+.cert-winners-section {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px dashed #e2e8f0;
+}
+
+.cert-winners-heading {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 12px 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.cert-winners-rows-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.cert-winner-item-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 10px 14px;
+  gap: 12px;
+}
+
+.cert-winner-item-row.place-1 {
+  border-left: 4px solid #f59e0b;
+}
+
+.cert-winner-item-row.place-2 {
+  border-left: 4px solid #94a3b8;
+}
+
+.cert-winner-item-row.place-3 {
+  border-left: 4px solid #d97706;
+}
+
+.cwin-left, .cwin-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cwin-place-tag {
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: #e2e8f0;
+  color: #334155;
+}
+
+.cwin-place-tag.place-1 {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.cwin-place-tag.place-2 {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+.cwin-place-tag.place-3 {
+  background: #ffedd5;
+  color: #c2410c;
+}
+
+.cwin-student-name {
+  font-size: 0.92rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.cwin-grade-badge {
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 6px;
+  background: rgba(5, 150, 105, 0.1);
+  color: #059669;
+}
+
+.cwin-pts-badge {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: #475569;
+}
+
 
 
 

@@ -835,12 +835,12 @@ function openResultModal(winner, result) {
   if (!modal) return;
 
   document.getElementById('certStudentName').textContent = winner.name;
-  const certChestNo = document.getElementById('certChestNo');
-  if (certChestNo) certChestNo.textContent = '';
   
   const teamBadge = document.getElementById('certTeamBadge');
-  teamBadge.textContent = winner.team;
-  teamBadge.className = `team-badge-pill team-${winner.team}`;
+  if (teamBadge) {
+    teamBadge.textContent = winner.team;
+    teamBadge.className = `team-badge-pill team-${winner.team}`;
+  }
 
   document.getElementById('certItemName').textContent = result.item;
   document.getElementById('certCategory').textContent = result.category;
@@ -851,8 +851,38 @@ function openResultModal(winner, result) {
   if (winner.place === 2) { rankTitle = 'SECOND PLACE'; }
   if (winner.place === 3) { rankTitle = 'THIRD PLACE'; }
 
-  document.getElementById('certRankIcon').textContent = '';
-  document.getElementById('certRankTitle').textContent = rankTitle;
+  const certRankTitle = document.getElementById('certRankTitle');
+  if (certRankTitle) certRankTitle.textContent = rankTitle;
+
+  // Render Full Detailed Winners Standings inside Modal
+  const winnersBox = document.getElementById('certAllWinnersBox');
+  if (winnersBox && result && result.winners) {
+    let winnersListHtml = `
+      <div class="cert-winners-section">
+        <h4 class="cert-winners-heading"><i data-lucide="trophy"></i> Full Programme Standings & Results</h4>
+        <div class="cert-winners-rows-container">
+    `;
+
+    result.winners.forEach(w => {
+      const placeTag = w.place === 1 ? '1st Place' : w.place === 2 ? '2nd Place' : '3rd Place';
+      winnersListHtml += `
+        <div class="cert-winner-item-row place-${w.place}">
+          <div class="cwin-left">
+            <span class="cwin-place-tag place-${w.place}">${placeTag}</span>
+            <span class="cwin-student-name">${w.name}</span>
+          </div>
+          <div class="cwin-right">
+            <span class="team-badge-pill team-${w.team}">${w.team}</span>
+            <span class="cwin-grade-badge">${w.grade}</span>
+            <span class="cwin-pts-badge">${w.points} Pts</span>
+          </div>
+        </div>
+      `;
+    });
+
+    winnersListHtml += `</div></div>`;
+    winnersBox.innerHTML = winnersListHtml;
+  }
 
   modal.classList.add('active');
   initIcons();

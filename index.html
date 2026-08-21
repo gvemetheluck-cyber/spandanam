@@ -87,7 +87,7 @@
           PROGRAMME
         </button>
         <button id="toggleCategoryBtn" class="main-toggle-pill">
-          <i data-lucide="trophy"></i> CATEGORY
+          <i data-lucide="trophy"></i> TEAM STANDINGS
         </button>
       </div>
 
@@ -104,32 +104,22 @@
           <span id="publishedCountBadge" class="published-count-pill">173 RESULTS PUBLISHED</span>
         </div>
 
-        <!-- Programme Cards List (Vertical List matching Video) -->
+        <!-- Programme Cards List (Click to View Detailed Results & Download JPG) -->
         <div class="programme-cards-stack" id="programmeCardsStack">
           <!-- Dynamically populated cards -->
         </div>
       </div>
 
-      <!-- VIEW 2: CATEGORY VIEW -->
+      <!-- VIEW 2: OVERALL TEAM STANDINGS VIEW -->
       <div id="viewCategorySection" class="live-view-panel">
         <!-- Standings Header Badge -->
         <div class="count-badge-wrapper">
-          <span id="categoryStandingsBadge" class="published-count-pill">AFTER 173 RESULTS</span>
+          <span id="categoryStandingsBadge" class="published-count-pill">OVERALL TEAM STANDINGS</span>
         </div>
 
-        <!-- Graph-Style Team Standings Visualization -->
+        <!-- Graph-Style Overall Team Standings Visualization -->
         <div class="category-graph-container" id="categoryTeamGraphCard">
-          <!-- Dynamically rendered graph visualization -->
-        </div>
-
-        <div class="subcat-header-wrapper">
-          <h3><i data-lucide="layers"></i> Category Breakdown (Click to View Results)</h3>
-          <p>Select any category below to view published competition results</p>
-        </div>
-
-        <!-- Category Standings Grid -->
-        <div class="category-standings-grid" id="categoryStandingsGrid">
-          <!-- Dynamically populated category standings cards -->
+          <!-- Dynamically rendered overall team standings graph -->
         </div>
       </div>
 
@@ -392,6 +382,9 @@
               <span class="detail-value points-val" id="certPoints">10 Points</span>
             </div>
           </div>
+
+          <!-- All Winners Summary Block -->
+          <div class="cert-all-winners-box" id="certAllWinnersBox"></div>
         </div>
 
         <div class="cert-footer">

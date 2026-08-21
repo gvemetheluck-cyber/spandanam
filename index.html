@@ -57,7 +57,6 @@
         <a href="star.html" class="nav-link">Star of the Fest</a>
         <a href="team_standings.html" class="nav-link">Team Standings</a>
         <a href="students.html" class="nav-link"><i data-lucide="users"></i> Students Portal</a>
-        <a href="#gallery" class="nav-link">Gallery</a>
         <a href="admin.html" class="admin-nav-btn" style="text-decoration:none;"><i data-lucide="shield-check"></i> Admin Dashboard</a>
       </nav>
       
@@ -316,86 +315,7 @@
             </div>
           </div>
 
-          <!-- Program Media Gallery Management (Photos & Videos) -->
-          <div class="admin-manage-section glass-card" style="margin-top: 28px;">
-            <div class="card-header" style="margin-bottom: 16px;">
-              <h3 style="font-size: 1.25rem; font-weight: 700; color: #0f172a; margin: 0;"><i data-lucide="image"></i> Manage Program Media Gallery (Photos & Videos)</h3>
-              <p style="font-size: 0.85rem; color: #64748b; margin-top: 4px;">Upload new photos or videos for programs, or remove existing media content from the public gallery.</p>
-            </div>
 
-            <!-- Simplified Media Upload Form -->
-            <form id="adminAddMediaForm" class="generator-form">
-              <div class="form-row">
-                <div class="form-group" style="flex: 1;">
-                  <label for="mediaType">Media Type</label>
-                  <select id="mediaType" class="custom-select" required>
-                    <option value="photo">Photo</option>
-                    <option value="video">Video</option>
-                  </select>
-                </div>
-                <div class="form-group" style="flex: 2;">
-                  <label for="mediaFileInput">Select File or Paste URL</label>
-                  <div style="display: flex; gap: 10px; align-items: center;">
-                    <input type="file" id="mediaFileInput" accept="image/*,video/*" class="photo-file-input">
-                    <label for="mediaFileInput" class="btn btn-outline" id="mediaFileBtn" style="white-space: nowrap;">
-                      <i data-lucide="upload-cloud"></i> Choose File
-                    </label>
-                    <input type="text" id="mediaUrlInput" placeholder="or paste Image / Video URL..." class="custom-input">
-                  </div>
-                </div>
-              </div>
-
-              <div class="form-actions" style="margin-top: 16px;">
-                <button type="submit" id="adminPublishMediaBtn" class="btn btn-primary btn-block"><i data-lucide="plus-circle"></i> Upload & Publish Media to Gallery</button>
-              </div>
-            </form>
-
-            <div style="margin: 24px 0 16px; border-bottom: 1px dashed #cbd5e1;"></div>
-
-            <!-- Existing Gallery Media Items List -->
-            <h4 style="font-size: 1.05rem; font-weight: 700; color: #0f172a; margin-bottom: 14px;">Published Gallery Photos & Videos</h4>
-            <div class="admin-media-grid" id="adminMediaList">
-              <!-- Dynamically populated list of gallery media with Delete buttons -->
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Media Gallery Section -->
-  <section class="gallery-section" id="gallery">
-    <div class="section-container">
-      <div class="section-header">
-        <span class="section-subtitle"><i data-lucide="camera"></i> Meelad Fest Highlights</span>
-        <h2>Program Photo & Video Gallery</h2>
-        <p class="section-desc">Experience stage performances, calligraphy exhibitions, and award ceremonies through photos and videos</p>
-        <div class="header-divider"></div>
-      </div>
-
-      <!-- Gallery Filters -->
-      <div class="gallery-tabs-bar">
-        <button class="gallery-tab active" data-filter="all"><i data-lucide="layout-grid"></i> All Media</button>
-        <button class="gallery-tab" data-filter="photo"><i data-lucide="image"></i> Photos</button>
-        <button class="gallery-tab" data-filter="video"><i data-lucide="video"></i> Videos</button>
-      </div>
-
-      <!-- Gallery Grid -->
-      <div class="gallery-grid" id="galleryGrid">
-        <!-- Dynamically populated gallery media cards -->
-      </div>
-    </div>
-  </section>
-
-  <!-- Gallery Lightbox Modal -->
-  <div class="modal-overlay" id="galleryLightboxModal">
-    <div class="modal-card glass-card gallery-modal-card">
-      <button class="modal-close-btn" id="closeGalleryModal" aria-label="Close modal"><i data-lucide="x"></i></button>
-      <div class="gallery-modal-body" id="galleryModalContent">
-        <!-- Media content dynamically injected (Img or Video) -->
-      </div>
-    </div>
-  </div>
 
   <!-- Result Certificate Modal -->
   <div class="modal-overlay" id="resultModal">
@@ -506,7 +426,6 @@
       <div class="footer-links">
         <h4>Navigation</h4>
         <a href="#home">Home</a>
-        <a href="#gallery">Gallery</a>
       </div>
       <div class="footer-contact">
         <h4>Contact Info</h4>

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Team Standings & Leaderboard - Madarasathul Hasaniya Meelad Fest</title>
+  <!-- SEO Meta Tags -->
+  <meta name="description"
+    content="Official Team Leaderboard & Standings for Madarasathul Hasaniya Meelad Fest 2026. Track live team points, medal tallies, and category standings for Samarkhand, Granada, and Cairo.">
+  <meta name="keywords" content="Madarasathul Hasaniya, Team Standings, Leaderboard, House Scores, Samarkhand, Granada, Cairo, Meelad Fest">
+  <link rel="icon" type="image/png"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏆</text></svg>">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Outfit:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body class="hasaniya-body">
+
+  <!-- Confetti Canvas for Leaderboard Celebration -->
+  <div id="confettiContainer" class="confetti-container"></div>
+
+  <!-- Premium Navigation Header -->
+  <header class="main-header" id="mainHeader">
+    <div class="header-container">
+      <a href="index.html" class="logo-area">
+        <img src="assets/logo.jpg" alt="Madarasathul Hasaniya Logo" class="logo-image">
+        <div class="logo-text">
+          <span class="title-primary">MADARASATHUL HASANIYA</span>
+          <span class="title-secondary">Digital Meelad Portal</span>
+        </div>
+      </a>
+
+      <nav class="nav-menu" id="navMenu">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="teams.html" class="nav-link active"><i data-lucide="trophy"></i> Team Standings</a>
+        <a href="students.html" class="nav-link"><i data-lucide="users"></i> Students Portal</a>
+        <a href="index.html#gallery" class="nav-link">Gallery</a>
+        <a href="admin.html" class="admin-nav-btn" style="text-decoration:none;"><i data-lucide="shield-check"></i> Admin Dashboard</a>
+      </nav>
+
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle Navigation">
+        <i data-lucide="menu"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Team Standings Main Layout -->
+  <main class="teams-standings-main">
+    <div class="teams-hero-header">
+      <div class="section-container" style="text-align: center;">
+        <span class="live-tag-badge"><i data-lucide="award"></i> CHAMPIONSHIP LEADERBOARD</span>
+        <h1 class="teams-main-title">Team Leaderboard & <span class="accent-text-italic">Standings.</span></h1>
+        <p class="teams-subtitle-text">Real-time house points, medal tallies, and category standings for Meelad Fest 2026</p>
+      </div>
+    </div>
+
+    <div class="section-container" style="max-width: 1140px; margin-top: -20px; padding-bottom: 80px;">
+
+      <!-- Top Podium / Leaderboard Cards Grid -->
+      <div class="teams-podium-grid" id="teamsPodiumGrid">
+        <!-- Dynamically populated team cards -->
+      </div>
+
+      <!-- Category-wise Score Analytics Comparison -->
+      <div class="teams-analytics-section glass-card" style="margin-top: 40px; padding: 32px;">
+        <div class="analytics-header">
+          <div>
+            <h3 style="font-size: 1.4rem; font-weight: 800; color: #0f172a; margin: 0 0 4px 0;"><i data-lucide="bar-chart-2"></i> Category Breakdown & Points Distribution</h3>
+            <p style="font-size: 0.9rem; color: #64748b; margin: 0;">Performance analysis across all competition categories</p>
+          </div>
+          <div class="category-filter-select-wrapper">
+            <select id="teamCatFilterSelect" class="custom-select" style="min-width: 180px;">
+              <option value="all">All Categories</option>
+              <option value="Kids Boys">Kids Boys</option>
+              <option value="Kids Girls">Kids Girls</option>
+              <option value="LP Boys">LP Boys</option>
+              <option value="LP Girls">LP Girls</option>
+              <option value="UP Boys">UP Boys</option>
+              <option value="UP Girls">UP Girls</option>
+              <option value="HS Boys">HS Boys</option>
+              <option value="HS Girls">HS Girls</option>
+              <option value="General Boys">General Boys</option>
+              <option value="General Girls">General Girls</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="category-points-comparison-grid" id="categoryComparisonGrid">
+          <!-- Dynamically populated category breakdown bars -->
+        </div>
+      </div>
+
+      <!-- Recent Point Contributions Log -->
+      <div class="teams-recent-contributions glass-card" style="margin-top: 32px; padding: 32px;">
+        <div class="analytics-header" style="margin-bottom: 20px;">
+          <div>
+            <h3 style="font-size: 1.3rem; font-weight: 800; color: #0f172a; margin: 0 0 4px 0;"><i data-lucide="zap"></i> Published Results Contribution Feed</h3>
+            <p style="font-size: 0.88rem; color: #64748b; margin: 0;">Latest published results contributing points to team tallies</p>
+          </div>
+        </div>
+
+        <div class="recent-contributions-list" id="recentContributionsList">
+          <!-- Dynamically populated list -->
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="footer-container">
+      <div class="footer-info">
+        <img src="assets/logo.jpg" alt="Madarasathul Hasaniya Logo" class="logo-image-footer">
+        <h3>Madarasathul Hasaniya</h3>
+        <p>A leading light in holistic religious and modern education, nurturing literary and creative skills in our students.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Navigation</h4>
+        <a href="index.html">Home</a>
+        <a href="teams.html">Team Standings</a>
+        <a href="students.html">Students Portal</a>
+        <a href="admin.html">Admin Dashboard</a>
+      </div>
+      <div class="footer-contact">
+        <h4>Contact Info</h4>
+        <p><i data-lucide="map-pin"></i> Hasaniya Campus, Kerala, India</p>
+        <p><i data-lucide="mail"></i> info@hasaniyya.edu.in</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Madarasathul Hasaniya. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Script for Team Standings -->
+  <script src="teams.js"></script>
+</body>
+
+</html>

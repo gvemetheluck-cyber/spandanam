@@ -130,7 +130,7 @@ function renderStarSpotlights() {
 
     prathibhaCard.innerHTML = `
       <div class="champion-card-ribbon gold">
-        <i data-lucide="crown"></i> KALAPRATHIBHA 2026
+        KALAPRATHIBHA 2026
       </div>
       <div class="champion-card-content">
         <div class="champion-avatar-box">
@@ -168,7 +168,7 @@ function renderStarSpotlights() {
 
     thilakamCard.innerHTML = `
       <div class="champion-card-ribbon rose">
-        <i data-lucide="sparkles"></i> KALATHILAKAM 2026
+        KALATHILAKAM 2026
       </div>
       <div class="champion-card-content">
         <div class="champion-avatar-box">

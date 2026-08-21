@@ -1702,21 +1702,15 @@ function setupAdminMediaManagement() {
     }
 
     if (pendingMediaFile) {
-      if (pendingMediaFile.type.startsWith('video/')) {
-        // Fast ObjectURL creation for video streaming without memory/localStorage quota crashes
+      const reader = new FileReader();
+      reader.onload = (evt) => {
+        processAndSave(evt.target.result, pendingMediaFile.name);
+      };
+      reader.onerror = () => {
         const objectUrl = URL.createObjectURL(pendingMediaFile);
         processAndSave(objectUrl, pendingMediaFile.name);
-      } else {
-        const reader = new FileReader();
-        reader.onload = (evt) => {
-          processAndSave(evt.target.result, pendingMediaFile.name);
-        };
-        reader.onerror = () => {
-          showToast("Error reading selected file.", "error");
-          isSubmitting = false;
-        };
-        reader.readAsDataURL(pendingMediaFile);
-      }
+      };
+      reader.readAsDataURL(pendingMediaFile);
     } else {
       processAndSave(urlInput, null);
     }
@@ -1754,7 +1748,7 @@ function renderAdminMediaList() {
     const isVideoSrc = isVideo && (item.src.startsWith('data:video/') || item.src.startsWith('blob:') || item.src.endsWith('.mp4') || item.src.endsWith('.webm'));
 
     const thumbMedia = isVideoSrc
-      ? `<video src="${item.src}" preload="metadata" style="width:100%;height:100%;object-fit:cover;background:#000;"></video>`
+      ? `<video src="${item.src}" playsinline webkit-playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;background:#000;"></video>`
       : `<img src="${item.src}" alt="${item.title}" onerror="this.src='assets/logo.jpg'">`;
 
     card.innerHTML = `
@@ -1813,7 +1807,7 @@ function renderGalleryGrid() {
     const isVideoSrc = isVideo && (item.src.startsWith('data:video/') || item.src.startsWith('blob:') || item.src.endsWith('.mp4') || item.src.endsWith('.webm'));
 
     const thumbElement = isVideoSrc
-      ? `<video src="${item.src}" preload="metadata" class="gallery-thumb" style="width:100%;height:100%;object-fit:cover;background:#000;"></video>`
+      ? `<video src="${item.src}" playsinline webkit-playsinline preload="metadata" class="gallery-thumb" style="width:100%;height:100%;object-fit:cover;background:#000;"></video>`
       : `<img src="${item.src}" alt="${item.title}" class="gallery-thumb" loading="lazy" onerror="this.src='assets/logo.jpg'">`;
 
     card.innerHTML = `
@@ -1869,7 +1863,7 @@ function openGalleryModal(item) {
       videoMarkup = `<iframe src="${embedUrl}?autoplay=1" class="lightbox-video-element" style="width:100%; height:450px; border-radius:12px;" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>`;
     } else {
       videoMarkup = `
-        <video controls autoplay playsinline class="lightbox-video-element" style="width:100%; max-height:75vh; border-radius:12px; background:#000;">
+        <video controls autoplay playsinline webkit-playsinline class="lightbox-video-element" style="width:100%; max-height:75vh; border-radius:12px; background:#000;">
           <source src="${item.src}">
           Your browser does not support HTML5 video playback.
         </video>

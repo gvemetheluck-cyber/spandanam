@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Students Portal - Madarasathul Hasaniya Meelad Fest</title>
+  <!-- SEO Meta Tags -->
+  <meta name="description"
+    content="Students Portal for Madarasathul Hasaniya Meelad Fest 2026. Select team and student to view individual competition results and verified certificates.">
+  <meta name="keywords" content="Madarasathul Hasaniya, Students Portal, Competition Results, Team Roster, Certificates">
+  <link rel="icon" type="image/png"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📖</text></svg>">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Outfit:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- html2canvas for Download JPG -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+
+<body class="hasaniya-body">
+
+  <!-- Premium Navigation Header -->
+  <header class="main-header" id="mainHeader">
+    <div class="header-container">
+      <a href="index.html" class="logo-area">
+        <img src="assets/logo.jpg" alt="Madarasathul Hasaniya Logo" class="logo-image">
+        <div class="logo-text">
+          <span class="title-primary">MADARASATHUL HASANIYA</span>
+          <span class="title-secondary">Digital Meelad Portal</span>
+        </div>
+      </a>
+
+      <nav class="nav-menu" id="navMenu">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="index.html#gallery" class="nav-link">Gallery</a>
+        <a href="students.html" class="nav-link active"><i data-lucide="users"></i> Students Portal</a>
+        <a href="admin.html" class="admin-nav-btn" style="text-decoration:none;"><i data-lucide="shield-check"></i> Admin Dashboard</a>
+      </nav>
+
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle Navigation">
+        <i data-lucide="menu"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Portal Section -->
+  <main class="students-portal-main">
+    <div class="portal-hero-header">
+      <div class="section-container" style="text-align: center;">
+        <span class="live-tag-badge"><i data-lucide="users"></i> STUDENTS PORTAL</span>
+        <h1 class="portal-main-title">Student Competition <span class="accent-text-italic">Results.</span></h1>
+        <p class="portal-subtitle-text">Select your team and student name to view personalized results and download verified certificates</p>
+      </div>
+    </div>
+
+    <div class="section-container" style="max-width: 1100px; margin-top: -20px; padding-bottom: 60px;">
+      
+      <!-- Multi-step Stepper Progress Bar -->
+      <div class="stepper-bar-container">
+        <div class="stepper-step active" id="stepIndicator1">
+          <span class="step-num">1</span>
+          <span class="step-text">Select Team</span>
+        </div>
+        <div class="stepper-line" id="stepLine1"></div>
+        <div class="stepper-step" id="stepIndicator2">
+          <span class="step-num">2</span>
+          <span class="step-text">Choose Student</span>
+        </div>
+        <div class="stepper-line" id="stepLine2"></div>
+        <div class="stepper-step" id="stepIndicator3">
+          <span class="step-num">3</span>
+          <span class="step-text">Results Dashboard</span>
+        </div>
+      </div>
+
+      <!-- STEP 1: TEAM SELECTION VIEW -->
+      <div class="portal-step-view active" id="step1View">
+        <div class="step-heading-box">
+          <h2>Choose Your Team</h2>
+          <p>Select a team to browse its registered student roster</p>
+        </div>
+
+        <div class="team-selection-grid">
+          <!-- Samarkhand -->
+          <div class="team-select-card team-Samarkhand" data-team="Samarkhand">
+            <div class="team-card-banner">
+              <span class="team-badge-pill team-Samarkhand">SAMARKHAND</span>
+              <span class="team-count-pill"><i data-lucide="user-check"></i> 43 Students</span>
+            </div>
+            <div class="team-card-content">
+              <h3>Team Samarkhand</h3>
+              <p>24 Boys • 19 Girls</p>
+              <button class="btn btn-sweet btn-block btn-select-team">Browse Students <i data-lucide="arrow-right"></i></button>
+            </div>
+          </div>
+
+          <!-- Granada -->
+          <div class="team-select-card team-Granada" data-team="Granada">
+            <div class="team-card-banner">
+              <span class="team-badge-pill team-Granada">GRANADA</span>
+              <span class="team-count-pill"><i data-lucide="user-check"></i> 41 Students</span>
+            </div>
+            <div class="team-card-content">
+              <h3>Team Granada</h3>
+              <p>22 Boys • 19 Girls</p>
+              <button class="btn btn-sweet btn-block btn-select-team">Browse Students <i data-lucide="arrow-right"></i></button>
+            </div>
+          </div>
+
+          <!-- Cairo / Kairo -->
+          <div class="team-select-card team-Kairo" data-team="Kairo">
+            <div class="team-card-banner">
+              <span class="team-badge-pill team-Kairo">CAIRO</span>
+              <span class="team-count-pill"><i data-lucide="user-check"></i> 40 Students</span>
+            </div>
+            <div class="team-card-content">
+              <h3>Team Cairo (Kairo)</h3>
+              <p>22 Boys • 18 Girls</p>
+              <button class="btn btn-sweet btn-block btn-select-team">Browse Students <i data-lucide="arrow-right"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 2: STUDENT SELECTION VIEW -->
+      <div class="portal-step-view" id="step2View">
+        <div class="step-nav-header">
+          <button class="back-link-btn" id="backToStep1Btn"><i data-lucide="arrow-left"></i> Change Team</button>
+          <span class="active-team-pill" id="selectedTeamPill">Team: Samarkhand</span>
+        </div>
+
+        <div class="step-heading-box">
+          <h2>Select Student Name</h2>
+          <p>Choose a student to load their competition performance dashboard</p>
+        </div>
+
+        <!-- Student Filters & Search -->
+        <div class="student-search-bar-row">
+          <div class="search-pill-container" style="flex: 2; margin: 0;">
+            <i data-lucide="search" class="search-pill-icon"></i>
+            <input type="text" id="studentSearchInput" placeholder="Search student name..." class="search-pill-input">
+          </div>
+          <div class="student-gender-tabs">
+            <button class="gender-tab-btn active" data-gender="all">All Students</button>
+            <button class="gender-tab-btn" data-gender="boys">Boys</button>
+            <button class="gender-tab-btn" data-gender="girls">Girls</button>
+          </div>
+        </div>
+
+        <!-- Students List Grid -->
+        <div class="students-list-grid" id="studentsListGrid">
+          <!-- Dynamically populated student cards -->
+        </div>
+      </div>
+
+      <!-- STEP 3: RESULTS DASHBOARD VIEW (Smooth Animated Transition) -->
+      <div class="portal-step-view" id="step3View">
+        <div class="step-nav-header">
+          <button class="back-link-btn" id="backToStep2Btn"><i data-lucide="arrow-left"></i> Select Different Student</button>
+          <button class="back-link-btn" id="restartFlowBtn"><i data-lucide="rotate-ccw"></i> Reset Team</button>
+        </div>
+
+        <!-- Student Summary Header Banner -->
+        <div class="student-profile-header-card glass-card">
+          <div class="profile-avatar-circle" id="studentAvatarInitials">M</div>
+          <div class="profile-meta-info">
+            <div class="profile-top-line">
+              <span class="team-badge-pill" id="profileTeamBadge">Samarkhand</span>
+              <span class="profile-results-count-pill" id="profileResultsCount"><i data-lucide="award"></i> 0 Awards</span>
+            </div>
+            <h2 class="profile-student-name" id="profileStudentName">Student Name</h2>
+            <p class="profile-subtext">Official Meelad Fest 2026 Student Record</p>
+          </div>
+          <div class="profile-stats-tally">
+            <div class="stat-box">
+              <span class="stat-val" id="statTotalPoints">0</span>
+              <span class="stat-lbl">Points</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-val" id="statFirstPlaces">0</span>
+              <span class="stat-lbl">1st Places</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-val" id="statTotalPlacements">0</span>
+              <span class="stat-lbl">Placements</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="results-dashboard-content" style="margin-top: 24px;">
+          <div class="dashboard-section-title">
+            <h3><i data-lucide="trophy"></i> Published Competition Results</h3>
+          </div>
+
+          <div class="student-results-cards-grid" id="studentResultsCardsGrid">
+            <!-- Dynamically populated or 'No competition result yet' message -->
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Verified Result Certificate Modal -->
+  <div class="modal-overlay" id="resultModal">
+    <div class="modal-card glass-card certificate-modal-card">
+      <button class="modal-close-btn" id="closeResultModal" aria-label="Close modal"><i data-lucide="x"></i></button>
+      <div class="certificate-container" id="certificateCard">
+        <div class="cert-header">
+          <img src="assets/logo.jpg" alt="Madarasathul Hasaniya Logo" class="cert-logo">
+          <div class="cert-institution">
+            <h3>MADARASATHUL HASANIYA</h3>
+            <p>MEELAD FEST 2026 • SWEET OF MAHABBA</p>
+          </div>
+          <span class="cert-badge"><i data-lucide="check-circle"></i> VERIFIED RESULT</span>
+        </div>
+
+        <div class="cert-divider"></div>
+
+        <div class="cert-body">
+          <div class="cert-rank-display" id="certRankDisplay">
+            <span class="cert-icon" id="certRankIcon"></span>
+            <div class="cert-rank-title" id="certRankTitle">FIRST PLACE</div>
+          </div>
+
+          <div class="cert-student-box">
+            <span class="cert-label">PROUDLY PRESENTED TO</span>
+            <h2 class="cert-student-name" id="certStudentName">Student Name</h2>
+            <div class="cert-meta-row">
+              <span class="cert-meta-item"><strong>Team:</strong> <span id="certTeamBadge" class="team-badge-pill team-Samarkhand">Samarkhand</span></span>
+            </div>
+          </div>
+
+          <div class="cert-details-grid">
+            <div class="cert-detail-card">
+              <span class="detail-label">Competition Item</span>
+              <span class="detail-value" id="certItemName">Qirat Recitation</span>
+            </div>
+            <div class="cert-detail-card">
+              <span class="detail-label">Category</span>
+              <span class="detail-value" id="certCategory">Senior</span>
+            </div>
+            <div class="cert-detail-card">
+              <span class="detail-label">Grade Awarded</span>
+              <span class="detail-value grade-val" id="certGrade">A+</span>
+            </div>
+            <div class="cert-detail-card">
+              <span class="detail-label">Points Earned</span>
+              <span class="detail-value points-val" id="certPoints">10 Points</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="cert-footer">
+          <div class="cert-seal">
+            <i data-lucide="award"></i> Official Result Sheet
+          </div>
+          <button class="btn btn-sweet download-jpg-btn" id="downloadJpgBtn">
+            <i data-lucide="download"></i> Download JPG
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notification Banner -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Footer -->
+  <footer class="main-footer">
+    <div class="footer-container">
+      <div class="footer-info">
+        <img src="assets/logo.jpg" alt="Madarasathul Hasaniya Logo" class="logo-image-footer">
+        <h3>Madarasathul Hasaniya</h3>
+        <p>A leading light in holistic religious and modern education, nurturing literary and creative skills in our students.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Navigation</h4>
+        <a href="index.html">Home</a>
+        <a href="students.html">Students Portal</a>
+        <a href="admin.html">Admin Dashboard</a>
+      </div>
+      <div class="footer-contact">
+        <h4>Contact Info</h4>
+        <p><i data-lucide="map-pin"></i> Hasaniya Campus, Kerala, India</p>
+        <p><i data-lucide="mail"></i> info@hasaniyya.edu.in</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Madarasathul Hasaniya. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Script for Students Portal -->
+  <script src="students.js"></script>
+</body>
+
+</html>

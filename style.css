@@ -3450,6 +3450,592 @@ button, input, select, textarea {
   border-color: #059669 !important;
 }
 
+/* ---------------------------------------------------- */
+/* Students Portal Layout & Multi-Step Stepper System */
+/* ---------------------------------------------------- */
+.students-portal-main {
+  min-height: 100vh;
+  padding-top: 100px;
+  background: #f8fafc;
+}
+
+.portal-hero-header {
+  padding: 40px 0 60px 0;
+  background: linear-gradient(180deg, rgba(255,255,255,0.8) 0%, rgba(248,250,252,0) 100%);
+}
+
+.portal-main-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-top: 12px;
+}
+
+.portal-subtitle-text {
+  font-size: 1rem;
+  color: #64748b;
+  max-width: 600px;
+  margin: 8px auto 0 auto;
+}
+
+/* Stepper Progress Bar */
+.stepper-bar-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 36px;
+  background: #ffffff;
+  padding: 16px 28px;
+  border-radius: 9999px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+}
+
+.stepper-step {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #94a3b8;
+  font-weight: 700;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.stepper-step .step-num {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #f1f5f9;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 800;
+  transition: all 0.3s ease;
+}
+
+.stepper-step.active {
+  color: #059669;
+}
+
+.stepper-step.active .step-num {
+  background: #059669;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(5, 150, 105, 0.3);
+}
+
+.stepper-step.completed {
+  color: #059669;
+}
+
+.stepper-step.completed .step-num {
+  background: rgba(5, 150, 105, 0.15);
+  color: #059669;
+}
+
+.stepper-line {
+  flex: 1;
+  max-width: 70px;
+  height: 2.5px;
+  background: #e2e8f0;
+  border-radius: 9999px;
+  transition: background 0.3s ease;
+}
+
+.stepper-line.active {
+  background: #059669;
+}
+
+/* Step Views & Animations */
+.portal-step-view {
+  display: none;
+}
+
+.portal-step-view.active {
+  display: block;
+}
+
+@keyframes slideUpFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.step-heading-box {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.step-heading-box h2 {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.step-heading-box p {
+  font-size: 0.9rem;
+  color: #64748b;
+  margin-top: 4px;
+}
+
+/* Step 1: Team Selection Grid */
+.team-selection-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.team-select-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+
+.team-select-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.12);
+}
+
+.team-select-card.team-Samarkhand:hover {
+  border-color: #059669;
+}
+
+.team-select-card.team-Granada:hover {
+  border-color: #10b981;
+}
+
+.team-select-card.team-Kairo:hover {
+  border-color: #0d9488;
+}
+
+.team-card-banner {
+  padding: 20px;
+  background: rgba(248, 250, 252, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.team-count-pill {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.team-card-content {
+  padding: 24px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.team-card-content h3 {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 6px 0;
+}
+
+.team-card-content p {
+  font-size: 0.88rem;
+  color: #64748b;
+  margin-bottom: 20px;
+}
+
+/* Step 2: Student Selection */
+.step-nav-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.back-link-btn {
+  background: transparent;
+  border: 1px solid #cbd5e1;
+  color: #475569;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 8px 16px;
+  border-radius: 9999px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+}
+
+.back-link-btn:hover {
+  background: #ffffff;
+  color: #059669;
+  border-color: #059669;
+}
+
+.active-team-pill {
+  font-size: 0.85rem;
+  font-weight: 800;
+  padding: 6px 16px;
+  border-radius: 9999px;
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+.student-search-bar-row {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+.student-gender-tabs {
+  display: flex;
+  background: #e2e8f0;
+  padding: 4px;
+  border-radius: 9999px;
+}
+
+.gender-tab-btn {
+  border: none;
+  background: transparent;
+  padding: 8px 18px;
+  border-radius: 9999px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.gender-tab-btn.active {
+  background: #ffffff;
+  color: #0f172a;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.students-list-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.student-item-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 16px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.03);
+}
+
+.student-item-card:hover {
+  border-color: #059669;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(5, 150, 105, 0.1);
+}
+
+.student-item-card.selected {
+  border-color: #059669;
+  background: rgba(5, 150, 105, 0.03);
+}
+
+.student-item-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.student-avatar-initial {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #059669;
+  color: #ffffff;
+  font-size: 1.1rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(5, 150, 105, 0.2);
+}
+
+.student-avatar-initial.girl {
+  background: #0d9488;
+}
+
+.student-name-box h4 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 2px 0;
+}
+
+.student-meta-tag {
+  font-size: 0.75rem;
+  color: #64748b;
+  font-weight: 600;
+}
+
+/* Step 3: Student Profile & Results Dashboard */
+.student-profile-header-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 24px;
+  padding: 28px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+  flex-wrap: wrap;
+}
+
+.profile-avatar-circle {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  color: #ffffff;
+  font-size: 2rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 18px rgba(5, 150, 105, 0.3);
+}
+
+.profile-meta-info {
+  flex: 1;
+}
+
+.profile-top-line {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.profile-results-count-pill {
+  font-size: 0.78rem;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  background: rgba(5, 150, 105, 0.1);
+  color: #059669;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.profile-student-name {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 4px 0;
+}
+
+.profile-subtext {
+  font-size: 0.85rem;
+  color: #64748b;
+  margin: 0;
+}
+
+.profile-stats-tally {
+  display: flex;
+  gap: 16px;
+}
+
+.stat-box {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 12px 20px;
+  text-align: center;
+  min-width: 90px;
+}
+
+.stat-val {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.stat-lbl {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.dashboard-section-title {
+  margin-bottom: 18px;
+}
+
+.dashboard-section-title h3 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #0f172a;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.student-results-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.student-award-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+  transition: all 0.25 ease;
+}
+
+.student-award-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(5, 150, 105, 0.12);
+  border-color: #059669;
+}
+
+.award-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.award-place-tag {
+  font-size: 0.8rem;
+  font-weight: 800;
+  padding: 4px 12px;
+  border-radius: 9999px;
+}
+
+.award-place-tag.place-1 {
+  background: rgba(245, 158, 11, 0.15);
+  color: #d97706;
+}
+
+.award-place-tag.place-2 {
+  background: rgba(148, 163, 184, 0.2);
+  color: #475569;
+}
+
+.award-place-tag.place-3 {
+  background: rgba(217, 119, 6, 0.12);
+  color: #b45309;
+}
+
+.award-grade-tag {
+  font-size: 0.8rem;
+  font-weight: 800;
+  padding: 2px 10px;
+  border-radius: 6px;
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+.award-card-body {
+  margin-bottom: 18px;
+}
+
+.award-item-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 4px 0;
+}
+
+.award-cat-name {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #64748b;
+}
+
+.award-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 14px;
+  border-top: 1px dashed #e2e8f0;
+}
+
+.award-points-text {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #059669;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Elegant No Results Found Card */
+.no-results-card {
+  grid-column: 1 / -1;
+  background: #ffffff;
+  border: 1px dashed #cbd5e1;
+  border-radius: 24px;
+  padding: 48px 24px;
+  text-align: center;
+}
+
+.no-results-icon-circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: #f1f5f9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 18px auto;
+}
+
+.no-results-card h3 {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 8px 0;
+}
+
+.no-results-card p {
+  font-size: 0.92rem;
+  color: #64748b;
+  max-width: 480px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+
 
 
 

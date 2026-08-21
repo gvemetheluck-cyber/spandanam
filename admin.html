@@ -106,7 +106,9 @@
             </div>
             <div class="form-group">
               <label for="saItemName">Item Name</label>
-              <input type="text" id="saItemName" placeholder="e.g. Qirat Recitation" required class="custom-input">
+              <select id="saItemName" class="custom-select" required>
+                <option value="">Select Item</option>
+              </select>
             </div>
           </div>
 
@@ -115,17 +117,27 @@
             <div class="winner-row winner-first">
               <span class="place-badge gold">1st</span>
               <div class="winner-inputs">
-                <input type="text" id="saW1Name" placeholder="Student Full Name" required class="custom-input">
                 <select id="saW1Team" class="custom-select" required>
+                  <option value="">Select Team</option>
                   <option value="Samarkhand">Samarkhand</option>
                   <option value="Granada">Granada</option>
                   <option value="Kairo">Kairo</option>
+                </select>
+                <select id="saW1Name" class="custom-select" required>
+                  <option value="">Select Student</option>
                 </select>
                 <select id="saW1Grade" class="custom-select" required>
                   <option value="A+">A+</option>
                   <option value="A">A</option>
                   <option value="B">B</option>
                 </select>
+                <div class="winner-photo-upload-box">
+                  <input type="file" id="saW1PhotoInput" accept="image/*" class="photo-file-input">
+                  <label for="saW1PhotoInput" class="photo-upload-btn" id="saW1PhotoLabel" title="Upload Winner Photo">
+                    <i data-lucide="camera"></i> <span>Photo</span>
+                  </label>
+                  <div class="photo-preview-thumb" id="saW1PhotoThumb" style="display:none;"></div>
+                </div>
               </div>
             </div>
 
@@ -133,17 +145,27 @@
             <div class="winner-row winner-second">
               <span class="place-badge silver">2nd</span>
               <div class="winner-inputs">
-                <input type="text" id="saW2Name" placeholder="Student Full Name" required class="custom-input">
                 <select id="saW2Team" class="custom-select" required>
+                  <option value="">Select Team</option>
                   <option value="Granada">Granada</option>
                   <option value="Samarkhand">Samarkhand</option>
                   <option value="Kairo">Kairo</option>
+                </select>
+                <select id="saW2Name" class="custom-select" required>
+                  <option value="">Select Student</option>
                 </select>
                 <select id="saW2Grade" class="custom-select" required>
                   <option value="A+">A+</option>
                   <option value="A" selected>A</option>
                   <option value="B">B</option>
                 </select>
+                <div class="winner-photo-upload-box">
+                  <input type="file" id="saW2PhotoInput" accept="image/*" class="photo-file-input">
+                  <label for="saW2PhotoInput" class="photo-upload-btn" id="saW2PhotoLabel" title="Upload Winner Photo">
+                    <i data-lucide="camera"></i> <span>Photo</span>
+                  </label>
+                  <div class="photo-preview-thumb" id="saW2PhotoThumb" style="display:none;"></div>
+                </div>
               </div>
             </div>
 
@@ -151,19 +173,39 @@
             <div class="winner-row winner-third">
               <span class="place-badge bronze">3rd</span>
               <div class="winner-inputs">
-                <input type="text" id="saW3Name" placeholder="Student Full Name" required class="custom-input">
                 <select id="saW3Team" class="custom-select" required>
+                  <option value="">Select Team</option>
                   <option value="Kairo">Kairo</option>
                   <option value="Samarkhand">Samarkhand</option>
                   <option value="Granada">Granada</option>
+                </select>
+                <select id="saW3Name" class="custom-select" required>
+                  <option value="">Select Student</option>
                 </select>
                 <select id="saW3Grade" class="custom-select" required>
                   <option value="A+">A+</option>
                   <option value="A" selected>A</option>
                   <option value="B">B</option>
                 </select>
+                <div class="winner-photo-upload-box">
+                  <input type="file" id="saW3PhotoInput" accept="image/*" class="photo-file-input">
+                  <label for="saW3PhotoInput" class="photo-upload-btn" id="saW3PhotoLabel" title="Upload Winner Photo">
+                    <i data-lucide="camera"></i> <span>Photo</span>
+                  </label>
+                  <div class="photo-preview-thumb" id="saW3PhotoThumb" style="display:none;"></div>
+                </div>
               </div>
             </div>
+          </div>
+
+          <!-- Admin Winner Photo Public Visibility Toggle -->
+          <div class="photo-publish-toggle-box">
+            <label class="toggle-switch-container">
+              <input type="checkbox" id="saShowPhotos" class="toggle-input">
+              <span class="toggle-slider"></span>
+              <span class="toggle-label-text"><i data-lucide="eye"></i> Publish Winner Photos Publicly</span>
+            </label>
+            <p class="toggle-subtext">When unchecked (off), uploaded photos remain saved in admin portal and hidden from public results.</p>
           </div>
 
           <div class="form-actions" style="margin-top: 16px;">
@@ -179,6 +221,49 @@
         </div>
         <div class="admin-results-list" id="saResultsList">
           <!-- Dynamically populated -->
+        </div>
+      </div>
+
+      <!-- Program Media Gallery Management (Photos & Videos) -->
+      <div class="admin-manage-section glass-card" style="margin-top: 28px;">
+        <div class="card-header" style="margin-bottom: 16px;">
+          <h3 style="font-size: 1.25rem; font-weight: 700; color: #0f172a; margin: 0;"><i data-lucide="image"></i> Manage Program Media Gallery (Photos & Videos)</h3>
+          <p style="font-size: 0.85rem; color: #64748b; margin-top: 4px;">Upload new photos or videos for programs, or remove existing media content from the public gallery.</p>
+        </div>
+
+        <!-- Simplified Media Upload Form -->
+        <form id="saAddMediaForm" class="generator-form">
+          <div class="form-row">
+            <div class="form-group" style="flex: 1;">
+              <label for="saMediaType">Media Type</label>
+              <select id="saMediaType" class="custom-select" required>
+                <option value="photo">Photo</option>
+                <option value="video">Video</option>
+              </select>
+            </div>
+            <div class="form-group" style="flex: 2;">
+              <label for="saMediaFileInput">Select File or Paste URL</label>
+              <div style="display: flex; gap: 10px; align-items: center;">
+                <input type="file" id="saMediaFileInput" accept="image/*,video/*" class="photo-file-input">
+                <label for="saMediaFileInput" class="btn btn-outline" id="saMediaFileBtn" style="white-space: nowrap;">
+                  <i data-lucide="upload-cloud"></i> Choose File
+                </label>
+                <input type="text" id="saMediaUrlInput" placeholder="or paste Image / Video URL..." class="custom-input">
+              </div>
+            </div>
+          </div>
+
+          <div class="form-actions" style="margin-top: 16px;">
+            <button type="submit" id="saPublishMediaBtn" class="btn btn-primary btn-block"><i data-lucide="plus-circle"></i> Upload & Publish Media to Gallery</button>
+          </div>
+        </form>
+
+        <div style="margin: 24px 0 16px; border-bottom: 1px dashed #cbd5e1;"></div>
+
+        <!-- Existing Gallery Media Items List -->
+        <h4 style="font-size: 1.05rem; font-weight: 700; color: #0f172a; margin-bottom: 14px;">Published Gallery Photos & Videos</h4>
+        <div class="admin-media-grid" id="saMediaList">
+          <!-- Dynamically populated list of gallery media with Delete buttons -->
         </div>
       </div>
     </div>
